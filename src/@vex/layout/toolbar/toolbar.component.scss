@@ -1,0 +1,44 @@
+:host {
+  background: var(--toolbar-background);
+  box-sizing: border-box;
+  color: var(--toolbar-color);
+  display: block;
+  white-space: nowrap;
+  width: 100%;
+  z-index: var(--toolbar-z-index);
+}
+
+.toolbar {
+  height: var(--toolbar-height);
+}
+.mat-icon {
+  color: var(--toolbar-icon-color);
+}
+
+a {
+  color: var(--toolbar-color);
+  text-decoration: none;
+}
+.mobile-nav-btn {
+  font-size: 28px;
+}
+.toolbar-logo {
+  display: none;
+  outline: none;
+  cursor: pointer;
+  img {
+    max-height: 35px;
+  }
+}
+.toolbar-search {
+  .mat-icon-button {
+    font-size: 20px;
+  }
+}
+.toolbar-right .profile-link {
+  cursor: pointer;
+  outline: none;
+  > div {
+    padding: 5px;
+  }
+}

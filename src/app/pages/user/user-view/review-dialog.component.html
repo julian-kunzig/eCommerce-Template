@@ -1,0 +1,57 @@
+<div class="modal-header">
+    Detail review
+    <button mat-button mat-dialog-close (click)="close()"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+</div>
+<div class="modal-content">
+    <div class="review-top">
+        <div class="avatar"></div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <div class="review-title">{{ data.review.review_title }}</div>
+            <span class="review-platform" [ngClass]="data.review.platform">{{ data.review.platform }}</span>
+        </div>
+        <span class="review-date">{{ translateDate(data.review.review_date) }}</span>
+    </div>
+    <div class="review-content">
+        <h5>Advertiser’s feedback</h5>
+        <div fxLayout="row" class="items-center"><div class="rating"><span [ngStyle]="{'width': (data.review.rating * 20) + '%'}"></span></div>
+            <span class="pl-2 w-8">{{ data.review.rating }}</span></div>
+        <p class="review-description">{{ data.review.summary }}</p>
+        <h5>Detailed rating</h5>
+        <hr>
+        <ul class="rating-details">
+            <li><span class="rating-label">Flexibility</span><span class="rating-note">“Easy to negotiation”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.rating_values[0] }}</span></li>
+            <li><span class="rating-label">Quality</span><span class="rating-note">“Good quality of work”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.rating_values[1] }}</span></li>
+            <li><span class="rating-label">Communication</span><span class="rating-note">“Hard to communicate”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.rating_values[2] }}</span></li>
+            <li><span class="rating-label">Deadline</span><span class="rating-note">“Punctual”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.rating_values[3] }}</span></li>
+        </ul>
+    </div>
+</div>
+
+<!-- <div class="modal-header">
+    Detail review
+    <button mat-button mat-dialog-close (click)="close()"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+</div>
+<div class="modal-content">
+    <div class="review-top">
+        <div class="avatar"></div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <div class="review-title">{{ data.review.rating_title }}</div>
+            <span class="review-platform" ></span>
+        </div>
+        <span class="review-date"></span>
+    </div>
+    <div class="review-content">
+        <h5>Advertiser’s feedback</h5>
+        <div fxLayout="row" class="items-center"><div class="rating"><span [ngStyle]="{'width': (data.review.rating * 20) + '%'}"></span></div>
+            <span class="pl-2 w-8">{{ data.review.avg_rating || 0 }}</span></div>
+        <p class="review-description">{{ data.review.deadline || 'Nothing' }}</p>
+        <h5>Detailed rating</h5>
+        <hr>
+        <ul class="rating-details">
+            <li><span class="rating-label">Flexibility</span><span class="rating-note">“Easy to negotiation”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.cooperation || 0 }}</span></li>
+            <li><span class="rating-label">Quality</span><span class="rating-note">“Good quality of work”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.quality || 0 }}</span></li>
+            <li><span class="rating-label">Communication</span><span class="rating-note">“Hard to communicate”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.communication || 0 }}</span></li>
+            <li><span class="rating-label">Deadline</span><span class="rating-note">“Punctual”</span><span class="dash-line"></span><span class="rating-value">{{ data.review.deadline || 0 }}</span></li>
+        </ul>
+    </div>
+</div> -->

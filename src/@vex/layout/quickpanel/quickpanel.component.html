@@ -1,0 +1,64 @@
+<div class="body-2 p-6 bg-primary text-primary-contrast">
+  <p>TODAY</p>
+  <div class="display-1">{{ dayName }}</div>
+  <div class="display-1">{{ date }}</div>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
+  <h3 matSubheader>UPCOMING EVENTS</h3>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Business Meeting</h4>
+    <p matLine>In 16 Minutes, Meeting Room</p>
+  </a>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Ask for Vacation</h4>
+    <p matLine>12:00 PM</p>
+  </a>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Dinner with Sophie</h4>
+    <p matLine>18:30 PM</p>
+  </a>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Deadline for Project X</h4>
+    <p matLine>21:00 PM</p>
+  </a>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>TODO-LIST</h3>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Invite Jack to play golf</h4>
+    <p matLine>Added: 6 hours ago</p>
+  </a>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Get to know Angular more</h4>
+    <p matLine>Added: 2 days ago</p>
+  </a>
+  <a [routerLink]="[]" mat-list-item>
+    <h4 matLine>Configure that new router</h4>
+    <p matLine>Added: 5 days ago</p>
+  </a>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>SERVER STATISTICS</h3>
+</mat-nav-list>
+
+<div class="list-item" matRipple>
+  <p>CPU Load (71% / 100%)</p>
+  <p class="progress-bar">
+    <mat-progress-bar color="primary" mode="determinate" value="71"></mat-progress-bar>
+  </p>
+</div>
+
+<div class="list-item" matRipple>
+  <p>RAM Usage (6,175 MB / 16,384 MB)</p>
+  <p class="progress-bar">
+    <mat-progress-bar color="accent" mode="determinate" value="34"></mat-progress-bar>
+  </p>
+</div>
+
+<div class="list-item" matRipple>
+  <p>CPU Temp (43° / 80°)</p>
+  <p class="progress-bar">
+    <mat-progress-bar color="warn" mode="determinate" value="54"></mat-progress-bar>
+  </p>
+</div>

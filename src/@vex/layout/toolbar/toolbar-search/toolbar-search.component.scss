@@ -1,0 +1,20 @@
+.mat-icon {
+  @apply text-primary;
+}
+
+.search {
+  margin-top: 22px;
+  opacity: 0;
+  overflow: hidden;
+  transition: var(--trans-ease-in-out);
+  visibility: hidden;
+  width: 0;
+
+  &.search-open {
+    margin-left: var(--padding-8);
+    margin-right: var(--padding-8);
+    opacity: 1;
+    visibility: visible;
+    width: 250px;
+  }
+}

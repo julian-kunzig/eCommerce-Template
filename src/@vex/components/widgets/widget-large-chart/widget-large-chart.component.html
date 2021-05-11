@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="border-b py-4 px-6" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="m-0 title" fxFlex="auto">User & Session Analytics</h2>
+
+    <button mat-icon-button type="button">
+      <mat-icon [icIcon]="icCloudDownload" class="text-secondary"></mat-icon>
+    </button>
+
+    <button mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreHoriz" class="text-secondary"></mat-icon>
+    </button>
+  </div>
+
+  <div class="pt-3 pb-1 pr-6">
+    <vex-chart [options]="options" [series]="series"></vex-chart>
+  </div>
+</div>

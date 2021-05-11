@@ -1,0 +1,116 @@
+<div *ngIf="config$ | async as setting" class="config-panel">
+  <h2 class="headline mb-4">
+    <ic-icon [icon]="icSettings" class="mr-3" inline="true"></ic-icon>
+    <span>Configuration</span>
+  </h2>
+
+  <div class="section">
+    <h5 class="subheading">THEME BASE</h5>
+
+    <div (click)="selectedStyle === Style.dark ? disableDarkMode() : enableDarkMode()"
+         *ngIf="selectedStyle$ | async as selectedStyle"
+         class="rounded-full mt-2 flex items-center cursor-pointer relative bg-contrast-black text-contrast-white"
+         matRipple>
+      <div class="m-2 h-6 w-6 rounded-full">
+        <ic-icon *ngIf="selectedStyle === Style.dark" [icon]="icCheck" size="24px"></ic-icon>
+        <ic-icon *ngIf="selectedStyle !== Style.dark" [icon]="icClose" size="24px"></ic-icon>
+      </div>
+      <p class="ml-1 font-medium text-sm">DARK MODE</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h5 class="subheading">THEME COLORS</h5>
+
+    <div (click)="selectColor(color.value)" *ngFor="let color of colorVariables | keyvalue"
+         [class.selected]="isSelectedColor(color.value)"
+         [style.backgroundColor]="color.value.light"
+         [style.color]="color.value.default"
+         class="vex-color-picker rounded-full mt-2 flex items-center cursor-pointer relative"
+         matRipple>
+      <div [style.backgroundColor]="color.value.default"
+           class="m-2 h-6 w-6 rounded-full">
+        <ic-icon *ngIf="isSelectedColor(color.value)" [icon]="icCheck" size="24px"></ic-icon>
+      </div>
+      <p class="ml-1 font-medium text-sm">{{ color.key | uppercase }}</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h5 class="subheading">THEME STYLE</h5>
+
+    <div *ngFor="let config of configs; let first = first"
+         [class.mt-6]="!first"
+         class="rounded">
+      <div class="layout-image rounded overflow-hidden relative hover:bg-hover shadow-8">
+        <img [src]="config.imgSrc" class="w-full block">
+        <div class="layout-image-overlay" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+          <button (click)="setConfig(config.id, Style.light)"
+                  class="bg-contrast-white text-contrast-black"
+                  fxFlex="none"
+                  mat-raised-button
+                  type="button">LIGHT
+          </button>
+          <button (click)="setConfig(config.id, Style.default)"
+                  color="primary"
+                  fxFlex="none"
+                  mat-raised-button
+                  type="button">DEFAULT
+          </button>
+          <button (click)="setConfig(config.id, Style.dark)"
+                  class="bg-contrast-black text-contrast-white"
+                  fxFlex="none"
+                  mat-raised-button
+                  type="button">DARK
+          </button>
+        </div>
+      </div>
+      <div class="text-center body-2 mt-2">{{ config.name }}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h5 class="subheading">LAYOUT</h5>
+
+    <div class="section-content">
+      <h5 class="subheading">ORIENTATION</h5>
+
+      <mat-slide-toggle (change)="layoutRTLChange($event)" [checked]="isRTL$ | async">RTL</mat-slide-toggle>
+    </div>
+  </div>
+
+  <div class="section">
+    <h5 class="subheading">TOOLBAR</h5>
+
+    <div class="section-content">
+      <h5 class="subheading">POSITION</h5>
+
+      <mat-radio-group (change)="toolbarPositionChange($event)"
+                       [value]="setting.toolbar.fixed ? 'fixed' : 'static'"
+                       fxLayout="column"
+                       fxLayoutGap="12px">
+        <mat-radio-button value="fixed">Fixed</mat-radio-button>
+        <mat-radio-button value="static">Static</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div class="section">
+    <h5 class="subheading">FOOTER</h5>
+
+    <div class="section-content">
+      <mat-slide-toggle (change)="footerVisibleChange($event)" [checked]="setting.footer.visible">Visible
+      </mat-slide-toggle>
+
+      <h5 class="subheading">POSITION</h5>
+
+      <mat-radio-group (change)="footerPositionChange($event)"
+                       [value]="setting.footer.fixed ? 'fixed' : 'static'"
+                       fxLayout="column"
+                       fxLayoutGap="12px">
+        <mat-radio-button value="fixed">Fixed</mat-radio-button>
+        <mat-radio-button value="static">Static</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>

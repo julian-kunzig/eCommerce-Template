@@ -1,0 +1,60 @@
+<mat-progress-bar [class.visible]="progressbar_visible"
+                  [value]="progressbar_value"
+                  class="progress-bar"
+                  mode="determinate"></mat-progress-bar>
+<!-- <ng2-slim-loading-bar></ng2-slim-loading-bar> -->
+<div class="body">
+    <div class="logo_bar">
+        <a href="https://infinovae.com/">
+            <div class="logo" style="background-image: url('../../../assets/img/logo.png');">
+                <!-- <img src="assets/img/logo.png" alt="logo"> -->
+            </div>  
+        </a>
+                     
+    </div>
+    <div class="w-3/5 h-full signin_left" >        
+        
+        <div class="sign_left_panel w-full">         
+            
+            <div [formGroup]="form" class="form_panel" fxLayout="column" >
+                <div class="sign_left_panel_title"><span>Log in to Your Account</span></div>
+                <div class="sign_left_panel_subtitle"><span>Log in to your account so you can continue build your business with Infinovae</span></div>
+                <div  class="sign_left_panel_content" fxFlex="auto" fxLayout="column">
+                    <span class="sign_left_panel_content_label">Email Address</span>
+                    <mat-form-field fxFlex="grow" appearance="outline">
+                        <input class="input_panel" #input formControlName="email" matInput pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"  required>
+                        <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>                        
+                    </mat-form-field>                    
+                    <span class="sign_left_panel_content_label">Password</span>
+                    <mat-form-field fxFlex="grow" appearance="outline">
+                        <input class="input_panel" [type]="inputType" formControlName="password" matInput required>
+                        <mat-error *ngIf="form.get('password').hasError('required')">We need a password to log you in</mat-error>
+                    </mat-form-field>                    
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-checkbox class="caption1" color="primary">Remember Me</mat-checkbox>
+                    <a [routerLink]="['/forgot-password']" class="caption2">Forgot Password?</a>
+                </div>
+
+                <button (click)="switchViewer('panel/dashboard/home')" color="primary" mat-raised-button type="button" class="login_btn">
+                    LOG IN
+                </button>
+
+                <p class="text-secondary text-center">
+                    Don't have an account yet? &nbsp;
+                    <a (click)="switchViewer('signup')">SIGN UP</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="w-2/5 signin_right" style="background-image: url('../../../assets/img/signin/signin.png');">
+        <div class="signin_rigt_sub">
+            <div class="sign_right_panel_title"><span>Haven't Signed Up Yet?</span></div>
+            <div class="sign_right_panel_subtitle"><span>Let's get you all set so you can start building your business with Infinovae</span></div>
+            <button (click)="switchViewer('signup')" color="primary" mat-raised-button type="button" class="signup_btn">
+                SIGN UP
+            </button>
+        </div>
+    </div>
+</div>

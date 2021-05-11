@@ -1,0 +1,23 @@
+.button {
+  position: relative;
+
+  &.active {
+    background: var(--background-hover);
+  }
+
+  .mat-icon {
+    color: var(--toolbar-icon-color);
+  }
+
+  .noti-badge {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+  }
+}

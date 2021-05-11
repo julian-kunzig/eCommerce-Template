@@ -1,0 +1,60 @@
+<div class="dropdown">
+  <div class="dropdown-content">
+    <a (click)="close()"
+       *ngFor="let item of items; trackBy: trackById"
+       [routerLink]="item.route"
+       class="notification"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       matRipple>
+      <i [ngClass]="[item.colorClass, item.iconClass]"
+         class="notification-icon"
+         fxFlex="none"></i>
+      <div fxFlex="auto">
+        <div class="notification-label">{{ item.label }}</div>
+      </div>
+      <i class="icon-inf-arrow-right notification-chevron"></i>
+    </a>
+    <a (click)="logout()" [routerLink]="['/']" class="notification" fxLayout="row"
+       fxLayoutAlign="start center" matRipple >
+      <i class="notification-icon text-white icon-inf-sign-out"
+                fxFlex="none"></i>
+      <div fxFlex="auto">
+        <div class="notification-label">Logout</div>
+      </div>
+      <i class="icon-inf-arrow-right notification-chevron"></i>
+    </a>
+  </div>
+</div>
+
+<mat-menu #statusMenu="matMenu" xPosition="before" yPosition="below">
+  <button (click)="setStatus(status)"
+          *ngFor="let status of statuses; trackBy: trackById"
+          mat-menu-item>
+    <ic-icon [icon]="status.icon" [ngClass]="status.colorClass" inline="true" size="24px"></ic-icon>
+    <span>{{ status.label }}</span>
+  </button>
+</mat-menu>
+
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icBusiness"></mat-icon>
+    <span>Change Address</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icVerifiedUser"></mat-icon>
+    <span>Change Username</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icLock"></mat-icon>
+    <span>Change Password</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icNotificationsOff"></mat-icon>
+    <span>Disable Notifications</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <p *ngIf="data.result">Added to the list.</p>
+    <p *ngIf="!data.result">Already exists in the list.</p>
+</div>
+<div mat-dialog-actions class="actions text-center mt-5">
+    <button mat-button mat-dialog-close (click)="close()" class="primary-action small">Close</button>
+</div>

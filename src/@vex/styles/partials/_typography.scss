@@ -1,0 +1,81 @@
+// Typography
+
+/*
+  InterDynamicTracking takes the font size in points
+  or pixels and returns the compensating tracking in EM.
+  function InterDynamicTracking(fontSize) {
+    const a = -0.0223
+    const b = 0.185
+    const c = -0.1745;
+    // tracking = a + b * e ^ (c * fontSize)
+    return a + b * Math.pow(Math.E, c * fontSize)
+  }
+*/
+
+.display-4 {
+  @include mat-typography-level-to-styles($config, display-4);
+}
+
+.display-3 {
+  @include mat-typography-level-to-styles($config, display-3);
+}
+
+.display-2 {
+  @include mat-typography-level-to-styles($config, display-2);
+}
+
+.display-1, h1 {
+  @include mat-typography-level-to-styles($config, display-1);
+}
+
+.headline, h2 {
+  @include mat-typography-level-to-styles($config, headline);
+}
+
+.title, h3 {
+  @include mat-typography-level-to-styles($config, title);
+}
+
+.subheading-2, h4 {
+  @include mat-typography-level-to-styles($config, subheading-2);
+}
+
+.subheading-1, h5 {
+  @include mat-typography-level-to-styles($config, subheading-1);
+}
+
+.body-2, h6 {
+  @include mat-typography-level-to-styles($config, body-2);
+}
+
+.body-1, p {
+  @include mat-typography-level-to-styles($config, body-1);
+}
+
+.caption {
+  @include mat-typography-level-to-styles($config, caption);
+}
+
+.text-xs {
+  letter-spacing: 0;
+}
+
+.text-sm {
+  letter-spacing: -0.009em;
+}
+
+.text-base {
+  letter-spacing: -0.011em;
+}
+
+.text-lg {
+  letter-spacing: -0.014em;
+}
+
+.text-2xl {
+  letter-spacing: -0.019em;
+}
+
+.text-3xl {
+  letter-spacing: -0.021em;
+}

@@ -1,0 +1,64 @@
+<div class="card campaign-card">
+    <div class="trans-ease-out cursor-pointer relative">
+        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+            <button mat-raised-button class="favorite-toggle cursor-pointer" [class.active]="campaign.favorite" (click)="saveArchive.emit(campaign.id)"></button>
+        </ng-container>
+        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+            <button mat-raised-button class="check-mark cursor-pointer" style="display: none;" [class.in_queue]="campaign.in_queue" (click)="addQueue.emit(campaign.id)">
+                <mat-icon [icIcon]="icCheck"></mat-icon>
+            </button>
+        </ng-container>
+        <div class="photo-container" (click)="openCampaign.emit(campaign.id)">
+            <ng-container *ngIf="campaign.coverImg">
+                <img [src]="campaign.coverImg" alt="">
+            </ng-container>
+            <ng-container *ngIf="!campaign.coverImg">
+                <img src="../../../../../assets/img/placeholder.png" alt="">
+            </ng-container>
+        </div>
+        <div class="campaign-details">
+            <h4 class="title mb-1 mt-3">{{ campaign.name }}
+                <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                    <button mat-raised-button type="button" [matMenuTriggerFor]="quickmenu" class="quickmenu-toggle"></button>
+                    <mat-menu #quickmenu="matMenu" xPosition="before" class="quick-menu">
+                        <button (click) = "editCampaign.emit(campaign.id)"><span>Edit</span></button>
+                        <button (click) = "saveArchive.emit(campaign.id)"><span *ngIf="!campaign.favorite">Archive</span><span *ngIf="campaign.favorite">Unarchive</span></button>
+                        <button (click) = "deleteCampaign.emit(campaign.id)"><span>Delete</span></button>
+                    </mat-menu>
+                </ng-container>
+            </h4>
+            <div class="detailed-info">
+                <div class="info-row">
+                    <label>SNS</label>
+                    <div>
+                        <ul class="socials">
+                            <li *ngFor="let pf of campaign.platform" [className]="pf"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <label>Description</label>
+                    <div class="description">{{ campaign.description }}</div>
+                </div>
+                <div class="info-row period">
+                    <label>Period</label>
+                    <div>{{ campaign.periodStart }} ~ {{ campaign.periodEnd }}</div>
+                </div>
+            </div>
+            <ul *ngIf="campaign.category" class="categories">
+                <ng-container *ngFor="let cat of campaign.category; index as id">
+                    <li *ngIf="id < 3">{{ campService.getCatLabel(cat) }}</li>
+                </ng-container>
+                <li *ngIf="campaign.category.length > 3" class="more-label">+{{ campaign.category.length - 3}}</li>
+            </ul>
+        </div>
+        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+            <div class="hover-menu">
+                <button mat-raised-button type="button" class="save-mylist" (click)="saveMylist.emit(campaign.id)"
+                        #stooltip="matTooltip"
+                        matTooltip="Add to My List"
+                        matTooltipPosition = "above"></button>
+            </div>
+        </ng-container>
+    </div>
+</div>

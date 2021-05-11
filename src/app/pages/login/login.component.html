@@ -1,0 +1,46 @@
+<div class="body" style="background-image: url('../../../assets/img/signin/02.-Egg-Sour.png');">
+    <div class="logo_bar">        
+        <a href="https://infinovae.com/">
+            <div class="logo" style="background-image: url('../../../assets/img/logo.png');">
+                <!-- <img src="assets/img/logo.png" alt="logo"  (click)="switchViewer('influencer')"> -->
+            </div>
+        </a>       
+    </div>
+    <div class="body_content" >
+        <div class="body_subcontent">
+            <div class="signin_title">                
+                Welcome to Infinovae!                
+            </div>
+            <div  class="body_panel">                
+                <div class="panel-switcher">
+                    <button mat-raised-button (click)="switchViewer('brand')" >
+                        <div class="brand_img" >
+                            <!-- <img src="../../../assets/img/signin/people.png" alt="brand_img"> -->
+                            <div class="brand_people" style="background-image: url('../../../assets/img/signin/people.png');"></div>
+                        </div>
+                        <div class="title" >
+                            I'm a Brand
+                        </div>
+                        <div class="content">
+                            Looking for influencers<br>to advertise my products.
+                        </div>
+                        <!--  -->
+                    </button>
+                    <button mat-raised-button (click)="switchViewer('influencer')">
+                        <div class="audio_img" >
+                            <!-- <img src="../../../assets/img/signin/audio.png" alt="audio_img"> -->
+                            <div class="influencer_audio" style="background-image: url('../../../assets/img/signin/audio.png');"></div>
+                        </div>
+                        <div class="title">
+                            I'm an Influencer
+                        </div>
+                        <div class="content">
+                            <span>Advertising products<br>for brands.</span>
+                        </div>
+                    </button>
+                </div>
+       
+            </div>
+        </div>
+    </div>
+</div>

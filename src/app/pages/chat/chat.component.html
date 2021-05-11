@@ -1,0 +1,112 @@
+<div class="w-full h-full" fxLayout="column">
+    <mat-drawer-container class="card overflow-hidden" fxFlex="auto">
+        <mat-drawer [mode]="mobileQuery.matches ? 'over' : 'side'" (openedChange)="drawerChange($event)"
+            [opened]="drawerOpen$ | async" class="drawer bg-base" position="start">
+            <div class="h-full pr-2" fxLayout="column">
+                <div class="p-4 border-b chat-top" fxFlex="none" fxLayout="row" fxLayoutAlign="start center"
+                    fxLayoutGap="16px">
+                    <div [matMenuTriggerFor]="statusMenu" class="relative cursor-pointer">
+                        <img class="avatar bg-card" fxFlex="none" src="assets/img/avatars/default.png">
+                        <ic-icon [icon]="activeStatus.icon" [ngClass]="activeStatus.id"
+                            class="absolute top-1 -right-1 rounded-full"></ic-icon>
+                    </div>
+
+                    <div class="border rounded-full text-hint overflow-hidden bg-card" fxFlex="auto" fxLayout="row"
+                        fxLayoutAlign="start center">
+                        <ic-icon [icon]="icSearch" class="ml-4 mr-3" height="18px" width="18px"></ic-icon>
+                        <input class="outline-none border-0 h-10 w-full placeholder:text-secondary caption bg-card"
+                            fxFlex="auto" placeholder="Search or start a new chat" type="text">
+                    </div>
+                </div>
+
+                <!--                <h2 class="headline font-normal m-0 p-4 text-primary border-b" fxFlex="none" fxLayout="row">-->
+                <!--            <span class="block">-->
+                <!--              <ic-icon [icon]="icChat" class="mr-5 ml-1" height="28px" inline="true" width="28px"></ic-icon>-->
+                <!--            </span>-->
+                <!--                    <span class="block">Chats</span>-->
+                <!--                </h2>-->
+
+
+                <!-- <vex-scrollbar *ngIf="chats$ | async as chats" [@stagger]="chats.length" class="flex-auto bg-white">
+                    <a *ngFor="let chat of chats; trackBy: trackById"
+                       @fadeInUp
+                       [routerLink]="[chat.id]"
+                       class="border-b px-4 py-6 hover:bg-hover cursor-pointer relative select-none block no-underline text-dark"
+                       matRipple
+                       routerLinkActive="chat-bg-hover">
+                        <div fxLayout="row"
+                             fxLayoutAlign="start center"
+                             fxLayoutGap="16px">
+                            <div class="relative" fxFlex="none">
+                                <img [src]="chat.imageSrc" class="avatar">
+                                <ic-icon *ngIf="chat.status === 'Online'"
+                                         [icon]="icCheckCircle"
+                                         class="absolute top-1 -right-1 rounded-full online"></ic-icon>
+                            </div>
+                            <div class="overflow-hidden" fxFlex="auto">
+                                <div [class.font-medium]="chat.unreadCount > 0" class="subheading-2 leading-snug">{{ chat.from }}</div>
+                                <div [class.font-medium]="chat.unreadCount > 0"
+                                     class="body-1 text-secondary truncate">{{ chat.message }}</div>
+                            </div>
+                            <div fxFlex="none" fxLayout="column" fxLayoutAlign="center end">
+                                <div class="caption font-medium text-secondary">{{ chat.timestamp }}</div>
+                                <div *ngIf="chat.unreadCount > 0"
+                                     class="w-5 h-5 unread-count rounded-full caption text-center mt-1">
+                                    {{ chat.unreadCount }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </vex-scrollbar> -->
+
+                <vex-scrollbar class="flex-auto bg-white" *ngIf="conversationList$ | async as conversationList">
+                    <a *ngFor="let conversation of conversationList.results;" @fadeInUp
+                        [routerLink]="[conversation.conversation_uuid]"
+                        class="border-b px-4 py-6 hover:bg-hover cursor-pointer relative select-none block no-underline text-dark"
+                        matRipple routerLinkActive="chat-bg-hover">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                            <div class="relative" fxFlex="none">
+                                <div *ngIf="!conversation.read">
+                                    <ic-icon [icon]="icCheckCircle" class="absolute top-1 -right-1 rounded-full online">
+                                    </ic-icon>
+                                </div>
+                                <img [src]="conversation.other_user_profile.profile_photo_url" class="avatar">
+                            </div>
+                            <div *ngIf="conversation.read">
+                                <div class="overflow-hidden" fxFlex="auto">
+                                    <div class="body-1 text-secondary truncate">
+                                        {{(conversation.latest_message.body.length>24)?
+                                        (conversation.latest_message.body |
+                                        slice:0:24)+'...':(conversation.latest_message.body)}}</div>
+                                </div>
+                            </div>
+                            <div *ngIf="!conversation.read">
+                                <div class="overflow-hidden" fxFlex="auto">
+                                    <div class="body-1 font-bold text-secondary truncate">
+                                        {{(conversation.latest_message.body.length>24)?
+                                        (conversation.latest_message.body |
+                                        slice:0:24)+'...':(conversation.latest_message.body)}}</div>
+                                </div>
+                            </div>
+                            <div fxFlex="auto" fxLayout="column" fxLayoutAlign="center end">
+                                <div class="caption text-secondary">{{ conversation.latest_message.sent_at | timeSince}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </vex-scrollbar>
+            </div>
+        </mat-drawer>
+
+        <mat-drawer-content class="chat-pattern relative">
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
+
+<mat-menu #statusMenu="matMenu" xPosition="after" yPosition="below">
+    <button (click)="setStatus(status)" *ngFor="let status of statuses; trackBy: trackById" mat-menu-item>
+        <ic-icon [icon]="status.icon" [ngClass]="status.colorClass" inline="true" size="24px"></ic-icon>
+        <span>{{ status.label }}</span>
+    </button>
+</mat-menu>

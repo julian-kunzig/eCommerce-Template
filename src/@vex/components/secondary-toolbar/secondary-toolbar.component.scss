@@ -1,0 +1,35 @@
+.secondary-toolbar {
+  background: var(--secondary-toolbar-background);
+  height: var(--secondary-toolbar-height);
+  margin-top: calc(var(--secondary-toolbar-height) * -1);
+
+  &.fixed {
+    width: var(--toolbar-width);
+  }
+}
+
+.secondary-toolbar-placeholder {
+  height: var(--secondary-toolbar-height);
+}
+
+::ng-deep .is-mobile .fixed {
+  width: 100%;
+}
+
+::ng-deep body .fixed {
+  width: calc(100% - var(--sidenav-width));
+}
+
+::ng-deep {
+  vex-breadcrumbs {
+    @apply hidden;
+  }
+
+  @screen sm {
+    vex-breadcrumbs {
+      @apply block;
+    }
+  }
+}
+
+

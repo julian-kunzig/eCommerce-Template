@@ -1,0 +1,198 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Profile</span>
+        </h1>
+        <p class="description color-gray">Find your desired influencers to work with</p>
+    </div>
+    <div class="profile-view-wrapper mt-10">
+        <div class="profile-top">
+            <div class="profile-photo">
+                <img [src]="profile.photo_img" alt="">
+            </div>
+            <div class="profile-info">
+                <div class="profile-actions">
+                    <a class="report-link" [routerLink]="['/panel/dashboard/report']"><img src="../../../../assets/img/flag.png" alt=""><span>Report</span></a>
+                    <button mat-raised-button class="favorite-toggle" [class.active]="profile.favorited" (click)="saveFavorite()"></button>
+                    <button mat-raised-button type="button" class="go-chart" (click)="goChat()"></button>
+                    <button mat-raised-button type="button" class="save-mylist" (click)="saveMylist()"></button>
+                </div>
+                <h4 class="title mt-3">{{ profile.name }}</h4>
+                <p class="mb-2">@{{ profile.name }}</p>
+                <div fxLayout="row">
+                    <ul class="socials">
+                        <li *ngFor="let pf of profile.socials" [className]="pf"></li>
+                    </ul>
+                    <p class="text-capitalize gender"> &nbsp;|&nbsp; {{ profile.gender }} &nbsp;|&nbsp; {{ profile.ages[0] }}-{{ profile.ages[1] }}</p>
+                </div>
+                <div fxLayout="row" class="social-summary my-2">
+                    <div><span class="value">{{ profile.followers }}</span>Followers</div>
+                    <div><span class="value">{{ profile.posts }}</span>Posts</div>
+                    <div><span class="value">{{ profile.acheivedCampaign }}</span>Acheived campaign</div>
+                    <div><span class="value">${{ profile.price }}</span>Per post</div>
+                </div>
+                <p class="my-2 sayings">{{ profile.sayings }}<a [href]="profile.video" *ngIf="profile.video" class="profile-video">{{ profile.video }}</a></p>
+                <ul *ngIf="profile.categories" class="categories mt-5">
+                    <ng-container *ngFor="let cat of profile.categories; index as id">
+                        <li *ngIf="id < 3">{{ campService.getCatLabel(cat) }}</li>
+                    </ng-container>
+                    <li *ngIf="profile.categories.length > 3" class="more-label">+{{ profile.categories.length - 3}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="profile-content mt-10">
+            <mat-tab-group mat-align-tabs="start" animationDuration="1500ms">
+                <mat-tab label="Analyze">
+                    <button [matMenuTriggerFor]="platform"
+                            color="primary"
+                            fxLayout="row"
+                            fxLayoutAlign="start center"
+                            type="button" mat-icon-button>
+                        <span>{{ curfilter.label }}</span>
+                        <mat-icon [icIcon]="icArrowDown"></mat-icon>
+                    </button>
+                    <mat-menu #platform="matMenu" xPosition="before" class="show-filter">
+                        <button mat-menu-item *ngFor="let filter of filters"
+                                [class.active] = "curfilter.value === filter.value" (click)="setFilter(filter)">
+                            <span>{{ filter.label }}</span>
+                        </button>
+                    </mat-menu>
+                    <div class="analyze-wrapper mt-8" *ngIf="SummaryData">
+                        <div class="followers">
+                            <h5>Followers</h5>
+                            <div class="result">
+                                <div class="pyramid-label">
+                                    <span>10K ~</span>
+                                    <span>7K ~ 10K</span>
+                                    <span>3K ~ 7K</span>
+                                    <span>~ 3K</span>
+                                </div>
+                                <div class="pyramid">
+                                    <div class="zone" [class.pointed]="Followers.value >= 10000"></div>
+                                    <div class="zone" [class.pointed]="Followers.value >= 7000 && Followers.value < 10000"></div>
+                                    <div class="zone" [class.pointed]="Followers.value >= 3000 && Followers.value < 7000"></div>
+                                    <div class="zone" [class.pointed]="Followers.value < 3000"></div>
+                                </div>
+                                <div class="followers-value">
+                                    <p>Followers</p>
+                                    <h2>{{ translateFollowerLabel(Followers.value) }}</h2>
+                                    <!-- change rate hidden -->
+                                    <!-- <h4 [class.text-green]="Followers.change > 0"
+                                        [class.text-red]="Followers.change <= 0"
+                                        class="subheading-1 font-medium mt-4 mb-0">
+                                        <ic-icon *ngIf="Followers.change > 0"
+                                                 [icon]="icTrendingUp"
+                                                 [inline]="true"
+                                                 height="20px"
+                                                 width="20px"></ic-icon>
+                                        <ic-icon *ngIf="Followers.change <= 0"
+                                                 [icon]="icTrendingDown"
+                                                 [inline]="true"
+                                                 height="20px"
+                                                 width="20px"></ic-icon>
+                                        <span class="ml-1">{{ Followers.change }}</span>
+                                        <span class="font-normal change-suffix">%</span>
+                                    </h4> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analyze">
+                            <h5>Analyze</h5>
+                            <div class="result">
+                                <div>
+                                    <vex-widget-quick-value-start [change]="Likes.change"
+                                                                  [iconClass] = "'icon-likes'"
+                                                                  iconClass="text-primary bg-primary-light"
+                                                                  gdColumn.lt-sm="1"
+                                                                  label="Average of Likes"
+                                                                  subLabel = "Last 28days"
+                                                                  changeSuffix="%"
+                                                                  [value]="Likes.value"></vex-widget-quick-value-start>
+                                </div>
+                                <div [className]="curfilter.value">
+                                    <vex-widget-quick-value-start [change]="Posting.change"
+                                                                  [iconClass] = "'icon-posting'"
+                                                                  subLabel = "Last 28days"
+                                                                  changeSuffix="%"
+                                                                  iconClass="text-primary bg-primary-light"
+                                                                  gdColumn.lt-sm="1"
+                                                                  label="Reach"
+                                                                  [value]="Posting.value"></vex-widget-quick-value-start>
+                                </div>
+                                <div>
+                                    <vex-widget-quick-value-start [change]="Comments.change"
+                                                                  [iconClass] = "'icon-comments'"
+                                                                  iconClass="text-primary bg-primary-light"
+                                                                  gdColumn.lt-sm="1"
+                                                                  label="Average of Comments"
+                                                                  subLabel = "Last 28days"
+                                                                  changeSuffix="%"
+                                                                  [value]="Comments.value"></vex-widget-quick-value-start>
+                                </div>
+                                <div>
+                                    <vex-widget-quick-value-start [iconClass] = "'icon-rate'"
+                                                                  iconClass="text-primary bg-primary-light"
+                                                                  gdColumn.lt-sm="1"
+                                                                  label="Impressions"
+                                                                  subLabel = "Last 28days"
+                                                                  [value]="Rating.value"></vex-widget-quick-value-start>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="most-liked mt-5 overflow-hidden">
+                        <h5 class="subtitle my-6">Most Liked Posts</h5>
+                        <div class="posts" gdColumns="repeat(3, minmax(0, 1fr))" gdColumns.sm="1fr" gdColumns.xs="1fr" gdGap="15px">
+                            <div class="post">
+                                <div class="post-thumbnail"><img src="../../../../assets/img/demo/post-1.png" alt=""></div>
+                            </div>
+                            <div class="post">
+                                <div class="post-thumbnail"><img src="../../../../assets/img/demo/post-2.png" alt=""></div>
+                            </div>
+                            <div class="post">
+                                <div class="post-thumbnail"><img src="../../../../assets/img/demo/post-3.png" alt=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Review">
+                    <h5 class="subtitle">Advertiser’s Review</h5>
+                    <div class="review-wrapper mt-10">
+                        <div class="summary-ratings">
+                            <div fxLayout="row" class="items-center justify-between pr-5 pb-4">
+                                <h5>{{ calcRating() }}</h5>
+                                <div fxLayout="row" class="items-center">
+                                    <div class="rating"><span [ngStyle]="{'width': calcRatingWidth() + '%'}"></span></div>
+                                    <span class="pl-3">{{ getReviews().length }} reviews</span>
+                                </div>
+                            </div>
+                            <ul class="rating-details">
+                                <li><span>5</span><span class="rating-bar"><span [ngStyle]="{'width': calcRatingWidthByScore(4.5, 5) + '%'}"></span></span>
+                                    <span class="value">{{ calcRatingWidthByScore(4.5, 5) }}%</span></li>
+                                <li><span>4</span><span class="rating-bar"><span [ngStyle]="{'width': calcRatingWidthByScore(3.5, 4.4) + '%'}"></span></span>
+                                    <span class="value">{{ calcRatingWidthByScore(3.5, 4.4) }}%</span></li>
+                                <li><span>3</span><span class="rating-bar"><span [ngStyle]="{'width': calcRatingWidthByScore(2.5, 3.4) + '%'}"></span></span>
+                                    <span class="value">{{ calcRatingWidthByScore(2.5, 3.4) }}%</span></li>
+                                <li><span>2</span><span class="rating-bar"><span [ngStyle]="{'width': calcRatingWidthByScore(1.5, 2.4) + '%'}"></span></span>
+                                    <span class="value">{{ calcRatingWidthByScore(1.5, 2.4) }}%</span></li>
+                                <li><span>1</span><span class="rating-bar"><span [ngStyle]="{'width': calcRatingWidthByScore(0, 1.4) + '%'}"></span></span>
+                                    <span class="value">{{ calcRatingWidthByScore(0, 1.4) }}%</span></li>
+                            </ul>
+                        </div>
+                        <div class="reviews">
+                            <div class="review-item" *ngFor="let review of getReviews()" (click)="openReviewDetail(review.review_id)">
+                                <div class="review-top">
+                                    <div class="avatar"></div>
+                                    <div class="review-title">{{ review.review_title }}<span class="review-date">{{ translateDate(review.review_date) }}</span></div>
+                                    <div fxLayout="row" class="items-center"><div class="rating"><span [ngStyle]="{'width': (review.rating * 20) + '%'}"></span></div>
+                                        <span class="pl-2 w-8">{{ review.rating }}</span></div>
+                                </div>
+                                <p class="review-description">{{ review.summary }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

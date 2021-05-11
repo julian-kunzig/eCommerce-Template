@@ -1,0 +1,146 @@
+// @formatter:off
+:root {
+  // Generic
+  --padding-gutter: 1rem;
+  --padding: 1.5rem;
+  --padding-16: 1rem;
+  --padding-12: 0.75rem;
+  --padding-8: 0.5rem;
+  --padding-4: 0.25rem;
+
+  --color-primary: 92, 119, 255;
+  --color-primary-contrast: 255, 255, 255;
+
+  --color-accent: 255, 64, 129;
+  --color-accent-contrast: 255, 255, 255;
+
+  --color-warn: 244, 67, 54;
+  --color-warn-contrast: 255, 255, 255;
+
+  @screen lg {
+    --padding-gutter: 1.5rem;
+  }
+
+  // Typography
+  --font: theme('fontFamily.sans');
+  --font-weight-medium: 500;
+  --font-caption: #{mat-font-weight($config, caption) #{mat-font-size($config, caption)}/#{mat-line-height($config, caption)} mat-font-family($config, caption)};
+  --font-body-1: #{mat-font-weight($config, body-1) #{mat-font-size($config, body-1)}/#{mat-line-height($config, body-1)} mat-font-family($config, body-1)};
+  --font-body-2: #{mat-font-weight($config, body-2) #{mat-font-size($config, body-2)}/#{mat-line-height($config, body-2)} mat-font-family($config, body-2)};
+  --font-subheading-1: #{mat-font-weight($config, subheading-1) #{mat-font-size($config, subheading-1)}/#{mat-line-height($config, subheading-1)} mat-font-family($config, subheading-1)};
+  --font-subheading-2: #{mat-font-weight($config, subheading-2) #{mat-font-size($config, subheading-2)}/#{mat-line-height($config, subheading-2)} mat-font-family($config, subheading-2)};
+  --font-headline: #{mat-font-weight($config, headline) #{mat-font-size($config, headline)}/#{mat-line-height($config, headline)} mat-font-family($config, headline)};
+  --font-title: #{mat-font-weight($config, title) #{mat-font-size($config, title)}/#{mat-line-height($config, title)} mat-font-family($config, title)};
+  --font-display-1: #{mat-font-weight($config, display-1) #{mat-font-size($config, display-1)}/#{mat-line-height($config, display-1)} mat-font-family($config, display-1)};
+  --font-display-2: #{mat-font-weight($config, display-2) #{mat-font-size($config, display-2)}/#{mat-line-height($config, display-2)} mat-font-family($config, display-2)};
+  --font-display-3: #{mat-font-weight($config, display-3) #{mat-font-size($config, display-3)}/#{mat-line-height($config, display-3)} mat-font-family($config, display-3)};
+  --font-display-4: #{mat-font-weight($config, display-4) #{mat-font-size($config, display-4)}/#{mat-line-height($config, display-4)} mat-font-family($config, display-4)};
+
+  // Transitions
+  --trans-ease-in-out: all var(--trans-ease-in-out-duration) var(--trans-ease-in-out-timing-function);
+  --trans-ease-in-out-duration: #{$swift-ease-in-out-duration};
+  --trans-ease-in-out-timing-function: #{$swift-ease-in-out-timing-function};
+  --trans-ease-out: all var(--trans-ease-out-duration) var(--trans-ease-out-timing-function);
+  --trans-ease-out-duration: #{$swift-ease-out-duration};
+  --trans-ease-out-timing-function: #{$swift-ease-out-timing-function};
+  --trans-ease-in: all var(--trans-ease-in-duration) var(--trans-ease-in-timing-function);
+  --trans-ease-in-duration: #{$swift-ease-in-duration};
+  --trans-ease-in-timing-function: #{$swift-ease-in-timing-function};
+  --trans-shadow-duration: #{$mat-elevation-transition-duration};
+  --trans-shadow-timing-function: #{$mat-elevation-transition-timing-function};
+  --trans-shadow: box-shadow var(--trans-shadow-duration) var(--trans-shadow-timing-function);
+
+  --text-color: #{$dark-primary-text};
+  --text-color-light: #{$light-primary-text};
+  --text-secondary: #{$dark-secondary-text};
+  --text-secondary-light: #{$light-secondary-text};
+  --text-hint: #{$dark-disabled-text};
+  --text-hint-light: #{$light-disabled-text};
+
+  // Foreground
+  --foreground-divider: #{map-get(map-get($vex-theme, foreground), divider)};
+
+  // Background
+  --background-base: rgb(245, 245, 248);
+  --background-card: #{map-get(map-get($vex-theme, background), card)};
+  --background-app-bar: #{map-get(map-get($vex-theme, background), app-bar)};
+  --background-hover: #{map-get(map-get($vex-theme, background), hover)};
+
+  // Elevation
+  --elevation-default: var(--elevation-z6);
+  --elevation-z0: none;
+  --elevation-z1: #{vex-elevation(1)};
+  --elevation-z2: #{vex-elevation(2)};
+  --elevation-z3: #{vex-elevation(3)};
+  --elevation-z4: #{vex-elevation(4)};
+  --elevation-z5: #{vex-elevation(5)};
+  --elevation-z6: #{vex-elevation(6)};
+  --elevation-z7: #{vex-elevation(7)};
+  --elevation-z8: #{vex-elevation(8)};
+  --elevation-z9: #{vex-elevation(9)};
+  --elevation-z10: #{vex-elevation(10)};
+  --elevation-z11: #{vex-elevation(11)};
+  --elevation-z12: #{vex-elevation(12)};
+  --elevation-z13: #{vex-elevation(13)};
+  --elevation-z14: #{vex-elevation(14)};
+  --elevation-z15: #{vex-elevation(15)};
+  --elevation-z16: #{vex-elevation(16)};
+  --elevation-z17: #{vex-elevation(17)};
+  --elevation-z18: #{vex-elevation(18)};
+  --elevation-z19: #{vex-elevation(19)};
+  --elevation-z20: #{vex-elevation(20)};
+
+  // Sidenav
+  --sidenav-width: 280px;
+  --sidenav-collapsed-width: 72px;
+  --sidenav-background: #{$sidenav-background};
+  --sidenav-color: white;
+
+  // Sidenav Item
+  --sidenav-item-padding: var(--padding);
+  --sidenav-toolbar-background: #{darken($sidenav-background, 1.5)};
+  --sidenav-item-background-active: #{darken($sidenav-background, 3)};
+  --sidenav-item-color: #A1A2B6;
+  --sidenav-item-color-active: #{$light-primary-text};
+  --sidenav-item-icon-color: #494B74;
+  --sidenav-item-icon-color-active: rgb(var(--color-primary));
+  --sidenav-item-icon-gap: 16px;
+  --sidenav-item-icon-size: 24px;
+  --sidenav-item-border-color: transparent;
+  --sidenav-item-border-color-active: rgb(var(--color-primary));
+  --sidenav-item-dropdown-background: #{darken($sidenav-background, 3)};
+  --sidenav-item-dropdown-background-hover: #{darken($sidenav-background, 4)};
+  --sidenav-item-dropdown-gap: 12px;
+
+  // Toolbar
+  --toolbar-height: 64px;
+  --toolbar-background: white;
+  --toolbar-color: #{$dark-primary-text};
+  --toolbar-icon-color: rgb(var(--color-primary));
+
+  // Secondary Toolbar
+  --secondary-toolbar-background: var(--background-card);
+  --secondary-toolbar-height: 54px;
+
+  // Navigation
+  --navigation-height: 64px;
+  --navigation-background: var(--background-card);
+  --navigation-color: var(--text-secondary);
+
+  // Footer
+  --footer-height: 56px;
+  --footer-z-index: 100;
+  --footer-background: var(--background-card);
+  --footer-color: var(--text-color);
+  --footer-elevation: 0 -10px 30px 0 rgba(82, 63, 104, .06);
+
+  // Page Layouts
+  --page-layout-header-height: 200px;
+  --page-layout-toolbar-height: 64px;
+
+  // Misc
+  --blink-scrollbar-width: 12px;
+  --default-icon-size: 24px;
+  --border-radius: 4px;
+}
+// @formatter:on

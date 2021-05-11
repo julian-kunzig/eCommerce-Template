@@ -1,0 +1,31 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">View Proposal</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+    </div>
+    <div class="proposal-view-wrapper mt-10">
+        <div class="profile-info">
+            <img [src]="profile.photo_img" alt="">
+            <h4 class="title mt-3">{{ profile.name }}</h4>
+            <div fxLayout="row" class="justify-center">
+                <ul class="socials">
+                    <li *ngFor="let pf of profile.socials" [className]="pf"></li>
+                </ul>
+                <p class="text-capitalize gender"> &nbsp;|&nbsp; {{ profile.gender }} &nbsp;|&nbsp; {{ profile.ages[0] }}-{{ profile.ages[1] }}</p>
+            </div>
+            <div fxLayout="row" class="social-summary my-2 justify-center">
+                <div><span class="value">{{ profile.followers }}</span>Followers</div>
+                <div><span class="value">{{ profile.posts }}</span>Posts</div>
+                <div><span class="value">{{ profile.acheivedCampaign }}</span>Acheived campaign</div>
+                <div><span class="value">${{ profile.price }}</span>Per post</div>
+            </div>
+            <button mat-raised-button class="my-5"><span>View profile</span></button>
+        </div>
+        <pre>{{ proposal.description }}</pre>
+    </div>
+    <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+        <button mat-button type="button" (click)="backList()">Back</button>
+    </div>
+</div>

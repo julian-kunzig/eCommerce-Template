@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2020 by original authors @ fontello.com</metadata>
+<defs>
+<font id="inf-simple" horiz-adv-x="1000" >
+<font-face font-family="inf-simple" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="inf-globe" unicode="&#xe801;" d="M501-67h-1a417 417 0 1 0 0 834h1a417 417 0 0 0 0-834z m-123 375a459 459 0 0 1 123-275 477 477 0 0 1 122 275z m-208 0a334 334 0 0 1 222-273 534 534 0 0 0-98 273z m537 0a551 551 0 0 0-98-273 334 334 0 0 1 221 273z m-97 356a541 541 0 0 0 97-272h123a334 334 0 0 1-220 272z m-109 3h0a476 476 0 0 1-123-275h245a465 465 0 0 1-122 275z m-108-2a334 334 0 0 1-223-273h125a552 552 0 0 0 98 274z" horiz-adv-x="1000" />
+
+<glyph glyph-name="inf-offer" unicode="&#xe817;" d="M355 694c-129-19-163-32-176-67-4-10-15-78-26-151-17-120-17-134-6-156 7-14 104-116 216-227l202-201 41 0 42 0 155 156 155 155 0 41 0 41-193 194c-106 107-202 202-214 210-34 24-65 25-196 5z m329-252c104-105 189-193 189-198 0-11-256-267-267-267-5 0-93 85-197 189l-187 188 17 119c9 65 18 119 18 120 1 1 53 9 116 18 63 9 116 17 119 18 2 0 89-84 192-187z m-314 39c-8-7-14-19-14-25 0-15 23-38 38-38 15 0 38 23 38 38 0 15-23 38-38 38-6 0-18-6-24-13z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>

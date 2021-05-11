@@ -1,0 +1,32 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Report</span>
+        </h1>
+        <p class="description color-gray">Find your influencers who are going to work with you</p>
+    </div>
+    <div class="report-wrapper mt-10">
+        <form [formGroup]="reportFrmGroup">
+            <div class="form-field">
+                <div class="form-label">What is the issue? <span class="required">*</span></div>
+                <vex-campaign-questgroup [ctrlName]="'issueOpts'" formControlName="issueOpts" [data]="issueData" required></vex-campaign-questgroup>
+            </div>
+            <div class="form-field mt-5">
+                <div class="form-label">Please share additional details <span class="required">*</span></div>
+                <mat-form-field appearance="outline">
+                    <textarea formControlName="additional" matInput rows = "5" placeholder="I have concerns about…" required></textarea>
+                </mat-form-field>
+            </div>
+            <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                <button mat-button type="button" (click)="backList()">Back</button>
+                <button mat-button type="button" class="primary" (click)="saveReport()">Submit</button>
+            </div>
+        </form>
+        <div class="report-success">
+            <img src="../../../../assets/img/report-end.png" alt="">
+            <h4>THANK YOU!</h4>
+            <p>Your feedback has been submitted. We’ll take it from here!</p>
+            <button mat-raised-button [routerLink]="['/panel/dashboard/home']" class="primary"><i class="icon-inf-home"></i><span>Go Home</span></button>
+        </div>
+    </div>
+</div>

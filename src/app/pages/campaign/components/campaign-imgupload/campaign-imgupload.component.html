@@ -1,0 +1,29 @@
+<div class="upload-btn-wrapper mb-3" [class.has-image] = "imageSrc">
+    <div class="preview-wrapper">
+        <img [src]="imageSrc" *ngIf = "imageSrc" alt="">
+        <button (click)="onRemoveImage($event)" *ngIf = "imageSrc" class="delete-image">
+            <i class="icon-inf-delete"></i>
+        </button>
+    </div>
+    <div matRipple *ngIf = "!imageSrc">
+        <button class="btn"><img src="../../../../../assets/img/fileicon.png" alt=""><span>Upload your file here</span></button>
+        <input type="file" (change) = "onFileChange($event)" accept=".png,.jpg,.jpeg" />
+    </div>
+    <div class="img-cropping-wrapper">
+        <div class="cropping-section">
+            <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1 / 1"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+            <div class="actions mt-3">
+                <button mat-raised-button class="primary-action" (click)="saveCroppedImage($event)">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

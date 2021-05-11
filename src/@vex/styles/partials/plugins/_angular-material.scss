@@ -1,0 +1,130 @@
+.mat-icon-button .mat-button-wrapper > *,
+.mat-menu-item .mat-icon,
+.mat-button .mat-icon {
+  vertical-align: middle !important;
+}
+
+.mat-form-field-suffix, .mat-form-field-prefix {
+  .mat-icon-button .mat-icon {
+    font-size: inherit;
+  }
+}
+
+.mat-table {
+  mat-row,
+  mat-header-row,
+  mat-footer-row,
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    border-bottom-color: var(--foreground-divider);
+  }
+}
+
+.mat-form-field {
+  margin-bottom: 4px;
+}
+
+.mat-primary.mat-form-field {
+  .mat-form-field-prefix,
+  .mat-form-field-suffix {
+    transition: var(--trans-ease-out);
+  }
+
+  &.mat-focused .mat-form-field-prefix,
+  &.mat-focused .mat-form-field-suffix {
+    @apply text-primary;
+  }
+}
+
+.mat-form-field.mat-form-field-invalid {
+  &.mat-focused .mat-form-field-prefix,
+  &.mat-focused .mat-form-field-suffix {
+    @apply text-red;
+  }
+}
+
+.mat-table .mat-cell,
+.mat-table .mat-header-cell {
+  box-sizing: content-box;
+  padding-left: var(--padding-12);
+  padding-right: var(--padding-12);
+  white-space: nowrap;
+}
+
+.mat-paginator-page-size-select.mat-form-field .mat-form-field-flex {
+  padding-top: 0;
+}
+
+.mat-menu-item ic-icon {
+  margin-inline-end: var(--padding-16);
+  vertical-align: middle;
+
+  > svg {
+    vertical-align: middle;
+  }
+}
+
+.mat-select-panel {
+  @apply text-base;
+}
+
+.mat-drawer-side {
+  border: 0;
+}
+
+textarea.mat-input-element {
+  @apply leading-normal;
+}
+
+.vex-flex-form-field {
+  .mat-form-field-infix {
+    width: 50px;
+  }
+}
+
+.vex-dense-form-field {
+  margin-bottom: -1.34375em;
+
+  &.mat-form-field-appearance-outline {
+    .mat-form-field-infix {
+      padding-top: 4px;
+    }
+  }
+}
+
+.vex-tabs {
+  .mat-tab-label.mat-tab-label-active {
+    opacity: 1;
+  }
+
+  .mat-tab-link.mat-tab-label-active {
+    opacity: 1;
+  }
+}
+
+.vex-tabs-dense {
+  .mat-tab-label {
+    min-width: 0;
+  }
+}
+
+.uppercase > * > .mat-sort-header-button {
+  @apply uppercase;
+}
+
+.mat-card-image {
+  max-width: none;
+}
+
+/*
+.mat-button-focus-overlay {
+  background: rgba(var(--palette-foreground-base), 1);
+}
+.mat-checkbox .mat-ripple-element {
+  background-color: rgb(var(--palette-foreground-base));
+}
+.mat-option.mat-option-disabled {
+  color: rgba(var(--palette-foreground-hint-text), 0.38);
+}
+*/

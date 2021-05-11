@@ -1,0 +1,20 @@
+.vex-style-light {
+  $sidenav-background: white;
+
+  --navigation-background: var(--background-card);
+  --sidenav-background: #{$sidenav-background};
+
+  // Sidenav
+  --toolbar-background: var(--background-card);
+  --sidenav-color: var(--text-color);
+
+  // Sidenav Item
+  --sidenav-item-background-active: #{darken($sidenav-background, 2)};
+  --sidenav-item-color: var(--text-color);
+  --sidenav-item-color-active: var(--text-color);
+  --sidenav-item-dropdown-background: #{darken($sidenav-background, 2)};
+  --sidenav-item-dropdown-background-hover: #{darken($sidenav-background, 3)};
+  --sidenav-item-icon-color: #494B74;
+  --sidenav-item-icon-color-active: rgb(var(--color-primary));
+  --sidenav-toolbar-background: #{$sidenav-background};
+}

@@ -1,0 +1,83 @@
+.vex-layout-ares {
+
+  --footer-background: var(--background-base);
+  --sidenav-background: var(--background-base);
+  --toolbar-background: var(--background-base);
+  --sidenav-color: var(--text-color);
+  --sidenav-item-background-active: var(--background-card);
+  --sidenav-item-color: var(--text-color);
+  --sidenav-item-color-active: var(--text-color);
+  --sidenav-item-dropdown-background: var(--background-base);
+
+  --sidenav-item-dropdown-background-hover: var(--background-hover);
+  --secondary-toolbar-background: var(--background-base);
+
+  --sidenav-toolbar-background: var(--background-base);
+
+  --secondary-toolbar-height: 64px;
+
+  .sidenav {
+    border: none;
+
+    vex-sidenav-item {
+      .item {
+        width: unset;
+        @apply rounded-full py-2 mx-4;
+
+        &.active {
+          @apply shadow;
+        }
+      }
+
+      .item-level-0 > .item {
+        @apply my-1;
+      }
+
+      .item-level-1 .item.active {
+        @apply shadow-none font-medium;
+
+        .item-label {
+          @apply text-black;
+        }
+      }
+
+      .item-level-1 .item:hover .item-label {
+        @apply text-black;
+      }
+    }
+  }
+
+  .sidenav-collapsed .sidenav vex-sidenav-item .item {
+    @apply mx-0;
+  }
+
+  vex-secondary-toolbar {
+    @apply rounded-b overflow-hidden;
+
+    .secondary-toolbar {
+      @apply shadow-none border-t-0 -mb-gutter;
+    }
+  }
+
+  vex-footer {
+    @apply rounded-t overflow-hidden;
+  }
+
+  .vex-page-layout-header {
+    background: var(--background-base);
+    color: var(--text-color);
+
+    vex-breadcrumbs {
+      .text-hint {
+        color: var(--text-hint) !important;
+      }
+    }
+  }
+
+  &.vex-style-default {
+    --sidenav-item-background-active: theme('backgroundColor.primary.default');
+    --sidenav-item-color-active: theme('textColor.primary-contrast');
+    --sidenav-item-dropdown-color-hover: var(--text-color);
+    --sidenav-item-icon-color-active: theme('textColor.primary-contrast');
+  }
+}

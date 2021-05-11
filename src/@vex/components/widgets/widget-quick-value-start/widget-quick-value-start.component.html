@@ -1,0 +1,50 @@
+<div (mouseenter)="showButton = true"
+     (mouseleave)="showButton = false"
+     class="card relative hover:shadow-16 trans-shadow h-full">
+  <div>
+      <h3 class="subheading-2 font-medium m-0">{{ label }}<span class="sublabel" *ngIf="subLabel">({{ subLabel }})</span></h3>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="rounded-full quick-icon" [ngClass]="iconClass" >
+    </div>
+    <div fxLayout="row" style="margin: 0 auto;">
+      <h2 class="font-bold mt-3 mr-4 mb-2 quick-value">{{ value }}</h2>
+      <!-- chang rate hidden -->
+      <!-- <h4 [class.text-green]="change > 0"
+          [class.text-red]="change <= 0"
+          class="subheading-1 font-medium mt-4 mb-0">
+        <ic-icon *ngIf="change > 0"
+                 [icon]="icTrendingUp"
+                 [inline]="true"
+                 height="20px"
+                 width="20px"></ic-icon>
+        <ic-icon *ngIf="change <= 0"
+                 [icon]="icTrendingDown"
+                 [inline]="true"
+                 height="20px"
+                 width="20px"></ic-icon>
+        <span class="ml-1">{{ change }}</span>
+        <span class="font-normal change-suffix">{{ changeSuffix }}</span>
+      </h4> -->
+    </div>
+  </div>
+
+  <button *ngIf="helpText"
+          [matTooltip]="helpText"
+          class="absolute top-0 left-0 mt-2 ml-2 text-hint"
+          mat-icon-button
+          matTooltipPosition="after"
+          type="button">
+    <mat-icon [icIcon]="icHelp" height="18px" width="18px"></mat-icon>
+  </button>
+
+<!--  <button (click)="openSheet()"-->
+<!--          *ngIf="showButton"-->
+<!--          @scaleInOut-->
+<!--          class="absolute -top-3 -right-3 bg-card shadow-8"-->
+<!--          color="primary"-->
+<!--          mat-icon-button-->
+<!--          type="button">-->
+<!--    <mat-icon [icIcon]="icShare" height="24px" width="24px"></mat-icon>-->
+<!--  </button>-->
+</div>

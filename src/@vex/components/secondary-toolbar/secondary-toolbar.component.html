@@ -1,0 +1,13 @@
+<div class="secondary-toolbar-placeholder">&nbsp;</div>
+
+<div [ngClass]="{ 'fixed': fixed$ | async, 'w-full': !(fixed$ | async) }"
+     class="secondary-toolbar shadow-b py-1 z-40 border-t"
+     fxLayout="row">
+  <div class="px-gutter" fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" vexContainer>
+    <h1 *ngIf="current"
+        class="subheading-2 font-medium m-0 ltr:pr-3 rtl:pl-3 ltr:border-r rtl:border-l ltr:mr-3 rtl:ml-3"
+        fxFlex.xs="auto">{{ current }}</h1>
+
+    <ng-content></ng-content>
+  </div>
+</div>

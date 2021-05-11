@@ -1,0 +1,67 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Social Media Platform</span>
+        </h1>
+        <p class="description color-gray">Link your social media account.</p>
+    </div>
+    <div class="user-social-wrapper mt-10">
+        <ul class="user-social-nav">
+            <li>
+                <button mat-raised-button matRipple (click)="signInWithInsta()"><img src="../../../../assets/img/instagram.png" ><span>Instagram</span></button>
+                <ng-container *ngIf="userService.instaLoginStatus">
+                    <div class="linked_account">
+                        <div class="avatar"><img [src]="userService.instaAvatar" alt=""></div>
+                        <h4>{{ userService.instaName }}</h4>
+                        <button mat-raised-button matRipple (click)="signOutWithIns()"><span>Unlinked</span></button>
+                    </div>
+                </ng-container>
+            </li>
+            <li><button mat-raised-button matRipple (click)="signInWithFB()"><img src="../../../../assets/img/facebook.png" ><span>Facebook</span></button>
+                <ng-container *ngIf="user_fb && user_fb.provider === FBLoginProvider.PROVIDER_ID">
+                    <div class="linked_account">
+                        <div class="avatar"><img [src]="user_fb.photoUrl" alt=""></div>
+                        <h4>{{ user_fb.name }}</h4>
+                        <button mat-raised-button matRipple (click)="signOutWithFB()"><span>Unlinked</span></button>
+                    </div>
+                </ng-container>
+            </li>
+            <li><button mat-raised-button matRipple (click)="signInWithGoogle()"><img src="../../../../assets/img/youtube.png" ><span>Youtube</span></button>
+                <ng-container *ngIf="user_google && user_google.provider === GoogleLoginProvider.PROVIDER_ID">
+                    <div class="linked_account">
+                        <div class="avatar"><img [src]="user_google.photoUrl" alt=""></div>
+                        <h4>{{ user_google.name }}</h4>
+                        <button mat-raised-button matRipple (click)="signOutWithGoogle()"><span>Unlinked</span></button>
+                    </div>
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<jw-modal id="insta_userlist_modal">
+	<h1>Link Facebook Page</h1>
+    <p style="margin: 1vw 0;">Below you can see a list of your Facebook pages, select one to proceed with linking process.</p>
+    <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        style="display: block;"
+        [(ngModel)]="selectedPage">
+        <mat-radio-button [disabled]="page.enableFlag" class="example-radio-button" *ngFor="let page of pages" [value]="page" style="width: 100%; margin: 1vw 0;" >         
+            <div class="radio-content" style="display: flex;">
+                <img *ngIf="page.instagram_business_account != null" [src]="page.picture.data.url" style="width: 5vw; border-radius: 50%; margin: 0vw 2vw; opacity: 1;">
+                <img *ngIf="page.instagram_business_account == null" [src]="page.picture.data.url" style="width: 5vw; border-radius: 50%; margin: 0vw 2vw; opacity: 0.3;">
+                <div style="display: flex; align-items: center;">
+                    <div style="display: block;">
+                        <p>{{page.name}}</p>
+                        <p *ngIf="page.instagram_business_account != null" style="color: rgb(0, 110, 255);">{{page.instagram_business_account.username}}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-radio-button>
+    </mat-radio-group>
+    <div style="display: flex; margin-top: 2vw">
+        <div  style="width: 50%;display: flex; align-items: center;" ><button (click)="closeModal();">Cancel</button></div>
+        <div  style="width: 50%; justify-content: flex-end; display: flex;" ><button class="confirm_btn" (click)="confirmModal();">Confirm</button></div>
+    </div>
+</jw-modal>

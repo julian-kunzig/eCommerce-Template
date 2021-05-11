@@ -1,0 +1,433 @@
+.body {
+  display: flex;
+  height: 100%;
+}
+.logo {
+  width: 9vw;
+  height: 2.5vw;
+  margin: 2vw 3vw;
+  /* background-image: url('../../../assets/img/logo.png'); */
+  background-size: 100% 100%;
+}
+.logo_bar {
+  background-color: white;  
+  position: absolute;
+}
+.signin_left {
+  // background: url('../../../assets/img/signin/02.-Egg-Sour.png') no-repeat center center fixed;
+  // background-size: cover;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+.sign_left_panel {
+  padding: 3vw 13vw;
+  font-family: sans-serif;
+  
+}
+
+.sign_left_panel_title {
+  text-align: center;
+  font-size: 1.8vw;
+  font-weight: bold;
+  color: #060131;
+}
+.sign_left_panel_subtitle {
+  text-align: center;
+  font-size: 1vw;
+  padding: 0vw 6vw;
+  margin-top: 2vw;
+  color: #898989;
+}
+.sign_left_panel_content {
+  padding-top: 3vw;
+  
+}
+.sign_left_panel_content_label {
+  font-size: 1vw;
+  color: #060131;
+  font-weight: bold;
+  margin-top: 1vw;
+}
+.caption2 {
+  color: #1C53C9;
+  font-size: 1vw;
+}
+.caption1 {
+  font-size: 1vw; 
+  
+}
+.login_btn {
+  background: #7645D0;
+  border-radius: 50vw;
+  margin-top: 4vw;
+  // padding: 0.5vw;
+  font-size: 1vw;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login_btn:hover {
+  background: #6e3ace;
+}
+.signin_right {
+  /* background-image: url('../../../assets/img/signin/signin.png'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0vw 7vw 0vw 12vw;
+  display: flex;
+  align-items: center;
+  // height: 100%;
+}
+.signin_rigt_sub {
+  display: block;
+}
+.signup_btn {
+  //background: #7645D0;
+  background: transparent;
+  border: 0.1vw solid white;
+  border-radius: 50vw;
+  margin-top: 2vw;
+  height: 3vw;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1vw;
+  margin: 2vw auto;
+}
+.signup_btn:hover {
+  background: #9d5ae0;
+}
+.input_panel {
+  font-size: 1.3vw;
+}
+.sign_right_panel_title {
+  text-align: center;
+  font-size: 1.4vw;
+  font-weight: bold;
+  color: white;
+  height: 2vw;
+}
+.sign_right_panel_subtitle {
+  text-align: center;
+  font-size: 1vw;
+  height: 3vw;
+  margin-top: 1vw;
+  color:rgb(255, 255, 255);
+}
+.text-secondary {
+  display: none;
+  a {
+    text-decoration: underline;
+  } 
+}
+
+.mat-form-field {
+  font: 400 0.8vw/1.125 var(--font);
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0.5vw !important;
+  border-left-style:solid !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {  
+  display: none;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-gap {
+  display: none;
+}
+::ng-deep .mat-checkbox-frame {
+  border-width: 0.01vw !important;
+  border-style: solid;
+  border-radius: 0.3vw !important;
+  border-color: #cac8c8;
+  box-shadow: 0.11vw 0.1vw 0.1vw #cac9c9;
+  width: 1vw !important;
+  height: 1vw !important;
+}
+::ng-deep .mat-checkbox-inner-container {
+  // margin: 0vw !important;
+  margin-right: 0.5vw !important;
+  // margin-top: 1vw !important;
+  // margin: 1vw !important;
+}
+::ng-deep .mat-error {
+  font-size: 0.9vw;
+}
+// ::ng-deep .mat-checkbox-checked .mat-checkbox-checkmark {
+//   margin-top: 0vw !important;
+//   height: 100%;
+// }
+::ng-deep .mat-checkbox-background {
+  width: 1vw !important;
+  height: 1vw !important;
+}
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 17vw;
+    height: 4.8vw;
+    margin: 5vw 6vw;   
+  }
+  
+  .logo_bar {
+    // height: 5vw;
+    background: transparent;
+    position: absolute;
+  }
+  .signin_left {
+    background: url('../../../assets/img/signin/signin1.png') no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    
+  }
+  .sign_left_panel {
+    padding: 11vw 6vw;
+    font-family: sans-serif;
+    background: white;
+    border-radius: 16vw 0vw 0vw 16vw;
+    height: 86%;
+  }
+  
+  .sign_left_panel_title {
+    text-align: center;
+    font-size: 3.8vw;
+    font-weight: bold;
+    color: #060131;
+  }
+  .sign_left_panel_subtitle {
+    text-align: center;
+    font-size: 2.5vw;
+    padding: 0vw 20vw;
+    color: #898989;
+    margin-top: 3.5vw;
+  }
+  .sign_left_panel_content {
+    padding-top: 8vw;
+    // height: 34vw;
+    margin-bottom: 0px;
+  }
+  
+  .sign_left_panel_content_label {
+    font-size: 2.6vw;
+    color: #060131;
+    font-weight: bold;
+  }
+  .caption2 {
+    color: #1C53C9;
+    font-size: 2.53vw;
+  }
+  .caption1 {
+    font-size: 2.7vw;
+    
+  }
+  .login_btn {
+    
+    margin-top: 7vw;
+    // padding: 0.5vw;
+    font-size: 2.5vw;
+    height: 9vw;    
+  }
+  .login_btn:hover {
+    filter: brightness(0.8);
+  }
+  .signin_right {
+    display: none;
+  }
+  .input_panel {
+    font-size: 3.3vw;
+  }
+  .text-secondary {
+    display: flex;
+    margin-top: 10vw;
+    justify-content: center;
+    font-size: 2.6vw;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 2vw;
+  }
+  
+  .mat-form-field {
+    font: 400 2.2vw/1.125 var(--font);
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 1.7vw !important;
+    border-left-style:solid !important;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {  
+    display: none;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-gap {
+    display: none;
+  }
+  ::ng-deep .mat-checkbox-frame {
+    border-width: 0.01vw !important;
+    border-style: solid;
+    border-radius: 0.6vw !important;
+    border-color: #cac8c8;
+    box-shadow: 0.1vw 0.1vw 0.3vw #cac9c9;
+    width: 2.2vw !important;
+    height: 2.2vw !important;
+  }
+  ::ng-deep .mat-checkbox-inner-container {
+    // margin: 0vw !important;
+    margin-right: 1vw !important;
+    // margin-top: 1vw !important;
+    // margin: 1vw !important;
+  }
+  ::ng-deep .mat-error {
+    font-size: 2vw;
+  }
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-checkmark {
+    margin-top: 0vw !important;
+  }
+  ::ng-deep .mat-checkbox-background {
+    width: 2.2vw !important;
+    height: 2.2vw !important;
+  }
+}
+@media screen and (max-width: 375px) {
+  .logo {
+    width: 22vw;
+    height: 6.3vw;
+    margin: 5vw 6vw;   
+  }
+  
+  .logo_bar {
+    // height: 5vw;
+    background: transparent;
+    position: absolute;
+  }
+  .signin_left {    
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    
+  }
+  .sign_left_panel {
+    padding: 11vw 6vw;
+    font-family: sans-serif;
+    background: white;
+    border-radius: 16vw 0vw 0vw 16vw;
+    height: 89%;
+  }
+  .input_panel {
+    height: 4vw;
+    width: 100%;
+    border-radius: 2vw;
+  }
+  .sign_left_panel_title {
+    text-align: center;
+    font-size: 5vw;
+    font-weight: bold;
+    color: #060131;
+  }
+  .sign_left_panel_subtitle {
+    text-align: center;
+    font-size: 3.2vw;
+    padding: 0vw 12vw;
+    color: #898989;
+    margin-top: 3.5vw;
+  }
+  .sign_left_panel_content {
+    padding-top: 12vw;
+    // height: 34vw;
+    margin-bottom: 0px;
+  }
+  
+  .sign_left_panel_content_label {
+    font-size: 3.3vw;
+    color: #060131;
+    font-weight: bold;
+  }
+  .caption2 {
+    color: #1C53C9;
+    font-size: 3.3vw;
+  }
+  .caption1 {
+    font-size: 3.4vw;
+    
+  }
+  .login_btn {
+    margin-top: 12vw;
+    font-size: 3.4vw;
+    height: 11vw;   
+  }
+  .login_btn:hover {
+    filter: brightness(0.8);
+  }
+  .signin_right {
+    display: none;
+  }
+  
+  .text-secondary {
+    display: flex;
+    margin-top: 18vw;
+    justify-content: center;
+    font-size: 3.1vw;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 2vw;
+  }
+  
+  .mat-form-field {
+    font: 400 2.8vw/1.125 var(--font);
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 3.7vw !important;
+    border-left-style:solid !important;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {  
+    display: none;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-gap {
+    display: none;
+  }
+  ::ng-deep .mat-checkbox-frame {
+    border-width: 0.01vw !important;
+    border-style: solid;
+    border-radius: 1.3vw !important;
+    border-color: #cac8c8;
+    box-shadow: 0.1vw 0.1vw 0.3vw #cac9c9;
+    width: 4.7vw !important;
+    height: 4.7vw !important;
+  }
+  ::ng-deep .mat-checkbox-inner-container {
+    // margin: 0vw !important;
+    margin-right: 2vw !important;
+    // margin-top: 1vw !important;
+    // margin: 1vw !important;
+  }
+  ::ng-deep .mat-error {
+    font-size: 2.4vw;
+  }
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-checkmark {
+    margin-top: 0vw !important;
+  }
+  ::ng-deep .mat-checkbox-background {
+    width: 4.7vw !important;
+    height: 4.7vw !important;
+  }
+}
+
+.progress-bar {
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  z-index: 99999;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}

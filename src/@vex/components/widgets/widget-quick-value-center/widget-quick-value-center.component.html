@@ -1,0 +1,47 @@
+<div (mouseenter)="showButton = true"
+     (mouseleave)="showButton = false"
+     class="card p-6 relative hover:shadow-16 trans-shadow"
+     fxLayout="column"
+     fxLayoutAlign="start center">
+  <div [ngClass]="iconClass" class="rounded-full w-12 h-12 flex items-center justify-center">
+    <mat-icon [icIcon]="icon"></mat-icon>
+  </div>
+
+  <h2 class="display-2 font-bold mt-4 mb-2">{{ value }}</h2>
+  <h3 class="subheading-2 font-medium text-secondary m-0">{{ label }}</h3>
+
+  <h4 [class.text-green]="change > 0"
+      [class.text-red]="change <= 0"
+      class="subheading-1 font-medium mt-4 mb-0">
+    <ic-icon *ngIf="change > 0"
+             [icon]="faCaretUp"
+             [inline]="true"
+             height="20px"
+             width="20px"></ic-icon>
+    <ic-icon *ngIf="change <= 0"
+             [icon]="faCaretDown"
+             [inline]="true"
+             height="20px"
+             width="20px"></ic-icon>
+    <span>{{ change }}%</span>
+  </h4>
+
+  <button *ngIf="helpText"
+          [matTooltip]="helpText"
+          class="absolute top-0 left-0 mt-2 ml-2 text-hint"
+          mat-icon-button
+          matTooltipPosition="after"
+          type="button">
+    <mat-icon [icIcon]="icHelp" height="18px" width="18px"></mat-icon>
+  </button>
+
+  <button (click)="openSheet()"
+          *ngIf="showButton"
+          @scaleInOut
+          class="absolute -top-3 -right-3 bg-card shadow-8"
+          color="primary"
+          mat-icon-button
+          type="button">
+    <mat-icon [icIcon]="icShare" height="24px" width="24px"></mat-icon>
+  </button>
+</div>

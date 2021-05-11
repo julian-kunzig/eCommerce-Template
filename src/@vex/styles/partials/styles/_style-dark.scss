@@ -1,0 +1,35 @@
+.vex-style-dark {
+  @include angular-material-theme($vex-dark-theme);
+
+  // Foreground
+  --background-app-bar: #{map-get(map-get($vex-dark-theme, background), app-bar)};
+
+  // Background
+  --footer-background: var(--background-card);
+  --navigation-background: #{map-get(map-get($vex-dark-theme, background), card)};
+  --toolbar-background: #{map-get(map-get($vex-dark-theme, background), card)};
+  --background-base: #{map-get(map-get($vex-dark-theme, background), background)};
+
+  // Colors
+  --background-card: #{map-get(map-get($vex-dark-theme, background), card)};
+  --footer-color: var(--text-color);
+  --navigation-color: var(--text-color);
+  --text-color: #{$light-primary-text};
+  --toolbar-color: #{$light-primary-text};
+  --text-color-light: #{$dark-primary-text};
+
+  // Toolbar
+  --foreground-divider: #{map-get(map-get($vex-dark-theme, foreground), divider)};
+  --text-hint: #{$light-disabled-text};
+
+  // Navigation
+  --text-hint-light: #{$dark-disabled-text};
+  --background-hover: #{map-get(map-get($vex-dark-theme, background), hover)};
+
+  // Secondary Toolbar
+  --text-secondary: #{$light-secondary-text};
+
+  // Footer
+  --text-secondary-light: #{$dark-secondary-text};
+  --secondary-toolbar-background: var(--background-card);
+}

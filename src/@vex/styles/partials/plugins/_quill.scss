@@ -1,0 +1,23 @@
+.ql-toolbar.ql-snow {
+  @apply border-0 rounded-t px-4 py-4 shadow;
+}
+
+.ql-container.ql-snow {
+  @apply border-0 rounded-b;
+}
+
+.ql-toolbar.ql-snow .ql-picker .ql-picker-label:focus {
+  @apply outline-none;
+}
+
+.ql-toolbar.ql-snow button.ql-active {
+  @apply bg-primary rounded text-primary-contrast;
+
+  .ql-stroke {
+    @apply stroke-current;
+  }
+
+  .ql-fill {
+    @apply fill-current;
+  }
+}

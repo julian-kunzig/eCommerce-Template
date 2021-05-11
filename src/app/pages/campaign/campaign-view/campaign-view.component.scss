@@ -1,0 +1,31 @@
+.campaign-view {
+  .brand-link {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 20px;
+    min-width: 200px;
+    background: #fff;
+    color: #666267;
+    border-radius: 30px;
+    font-size: 17px;
+    position: relative;
+
+    span {
+      margin-left: 20px;
+    }
+
+    &:after {
+      content: '\e80b';
+      position: absolute;
+      top: 13px;
+      right: 15px;
+      font-family: "inf-icons";
+      font-size: 12px;
+      color: #666267;
+    }
+  }
+  .actions .secondary-action {
+    background: #4cb6e4;
+    background: linear-gradient(39deg, #4cb6e4 0%, #6963dc 59%, #833ab4 100%);
+  }
+}

@@ -1,0 +1,40 @@
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  .chkitem-wrapper {
+    flex: 0 0 32%;
+    position: relative;
+    margin-bottom: 5px;
+    max-width: 185px;
+    & + .chkitem-wrapper {
+      margin-left: 5px;
+    }
+    input {
+      opacity: 0;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      outline: none;
+      cursor: pointer;
+
+      &:checked + label {
+        background: rgb(249,215,70);
+        background: linear-gradient(39deg, rgba(249,215,70,1) 0%, rgba(237,42,115,1) 100%);
+        color: #fff;
+      }
+    }
+
+    label {
+      border-radius: 10px;
+      border: 1px solid #CCC;
+      background: #FFF;
+      text-align: center;
+      height: 44px;
+      width: 100%;
+      display: block;
+      padding: 10px 0;
+    }
+  }
+}

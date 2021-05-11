@@ -1,0 +1,35 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Send offer</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+    </div>
+    <ng-container *ngIf="campaigns.length > 0">
+        <div
+                @stagger
+                class="overflow-y-auto campaign-grid-wrapper"
+                fxFlex="auto">
+            <div class="py-gutter"
+                 vexContainer
+                 gdColumns="repeat(4, minmax(0, 1fr))"
+                 gdColumns.lt-lg="repeat(3, minmax(0, 1fr))"
+                 gdColumns.lt-md="repeat(2, minmax(0, 1fr))"
+                 gdColumns.xs="1fr"
+                 gdGap="24px">
+
+                <vex-campaign-card  (openCampaign)="openCampaign($event)"
+                                    (addQueue) = "addQueue($event)"
+                                    *ngFor="let campaign of campaigns"
+                                    @fadeInUp [campaign]="campaign"></vex-campaign-card>
+
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!campaigns.length">
+        <h3 class="text-center mt-10">No Campaigns found.</h3>
+    </ng-container>
+    <div class="actions mt-6 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+        <button mat-button type="button" class="primary" (click)="sendOffer()">Send</button>
+    </div>
+</div>

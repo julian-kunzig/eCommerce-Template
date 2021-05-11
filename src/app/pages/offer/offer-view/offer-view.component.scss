@@ -1,0 +1,8 @@
+.actions {
+  .second-action {
+    margin-left: auto;
+  }
+  .second-action ~ .primary-action {
+    margin-left: initial;
+  }
+}

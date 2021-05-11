@@ -1,0 +1,16 @@
+:host {
+  bottom: 0;
+  display: block;
+  width: 100%;
+  z-index: var(--footer-z-index);
+}
+
+.footer {
+  background: var(--footer-background);
+  color: var(--footer-color);
+  height: var(--footer-height);
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+  position: relative;
+  z-index: var(--footer-z-index);
+}

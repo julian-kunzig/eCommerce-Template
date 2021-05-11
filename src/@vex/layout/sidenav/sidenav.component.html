@@ -1,0 +1,40 @@
+<div (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()"
+     [class.collapsed]="collapsed"
+     [class.open]="collapsed && collapsedOpen$ | async"
+     class="sidenav flex flex-col">
+  <div fxLayout="row" class="items-center sidenav-top">
+    <div class="sidenav-toolbar flex-none flex items-center">
+      <button (click)="openSidenav()" mat-icon-button type="button" class="mobile-nav-btn">
+        <mat-icon [icIcon]="icMenu" [inline]="true"></mat-icon>
+      </button>
+      <button (click)="toggleSidenav()" mat-icon-button type="button" class="mobile-nav-btn toggle-sidebar">
+        <mat-icon [icIcon]="icMenu" [inline]="true"></mat-icon>
+      </button>
+      <img [src]="imageUrl$ | async" class="select-none flex-none default-logo" [routerLink]="['dashboard/home']">
+      <img [src]="mimageUrl$ | async" class="select-none flex-none mobile-logo" [routerLink]="['dashboard/home']">
+      <h2 class="title ltr:pl-4 rtl:pr-4 select-none flex-auto" *ngIf="showTitle$ | async">{{ title$ | async }}</h2>
+      <button (click)="toggleCollapse()"
+              *ngIf="showCollapsePin$ | async"
+              class="w-8 h-8 -mr-2 leading-none flex-none hidden lg:block"
+              mat-icon-button
+              type="button">
+        <mat-icon *ngIf="!collapsed" [icIcon]="icRadioButtonChecked" size="14px"></mat-icon>
+        <mat-icon *ngIf="collapsed" [icIcon]="icRadioButtonUnchecked" size="14px"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="sidenav-user" [routerLink]="['user/view/']" matRipple>
+      <img [src]="userService.currentUser.avatar" class="select-none flex-none">
+      <div class="body-1 font-medium leading-snug" fxHide.xs>{{ userService.currentUser.fullName }}</div>
+  </div>
+
+  <vex-scrollbar class="flex-auto">
+    <div class="sidenav-items">
+      <ng-container *ngFor="let item of items; trackBy: trackByRoute">
+        <vex-sidenav-item *ngIf="checkMenuVisible(item.permission)" [item]="item"
+                          [level]="0"></vex-sidenav-item>
+      </ng-container>
+    </div>
+  </vex-scrollbar>
+</div>

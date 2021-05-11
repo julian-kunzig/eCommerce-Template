@@ -1,0 +1,299 @@
+<div class="h-full discover-grid-wrapper" fxLayout="column">
+    <div fxFlex="none">
+        <div vexContainer>
+            <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+                <span @fadeInRight class="block">Discover</span>
+            </h1>
+            <p class="description color-gray">You’ve made this amount of the result.</p>
+            <div fxLayout="row" fxLayoutAlign="start center" class="pt-6">
+                <nav class="vex-tabs border-0" fxFlex="auto" mat-tab-nav-bar>
+                    <a #rla="routerLinkActive"
+                       *ngFor="let link of links"
+                       [active]="rla.isActive"
+                       [routerLink]="link.route"
+                       [queryParams]="link.params"
+                       mat-tab-link
+                       routerLinkActive>
+                        {{ link.label }}
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="filter-toolbar" *ngIf="activeTab === 'all'">
+        <div class="filter-toolbar-overlay" (click)="closeFilter()"></div>
+        <div class="filter-options">
+            <div class="search-wrapper">
+                <button type="submit"><i class="icon-inf-search" matPrefix></i></button>
+                <mat-form-field appearance="outline" class="search" fxFlex="auto">
+                    <mat-label>Search for name</mat-label>
+                    <input matInput [formControl]="searchCtrl" >
+                </mat-form-field>
+            </div>
+            <div class="selected-filter" *ngIf="applyFilter">
+
+            </div>
+            <div class="sort-wrapper">
+                <span>Sort</span>
+                <button [matMenuTriggerFor]="sortby"
+                        color="primary"
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                        type="button" mat-icon-button>
+                    <span>{{ curfilter.label }}</span>
+                    <mat-icon [icIcon]="icArrowDown"></mat-icon>
+                </button>
+                <mat-menu #sortby="matMenu" xPosition="before" class="show-filter">
+                    <button mat-menu-item *ngFor="let filter of filters"
+                            [class.active] = "curfilter.value === filter.value" (click)="setFilter(filter)">
+                        <span>{{ filter.label }}</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <button mat-raised-button type="button" class="advanced-toggle" (click)="openFilter()">
+                <span>Filter</span>
+            </button>
+        </div>
+        <div class="advanced-options">
+            <div class="options-wrapper">
+                <button mat-raised-button type="button" class="close-action" (click)="closeFilter()"><span>Filter</span></button>
+                <form [formGroup]="advfilterForm">
+                    <div class="pt-gutter"
+                         vexContainer
+                         gdColumns="repeat(4, minmax(0, 1fr))"
+                         gdColumns.lt-lg="repeat(3, minmax(0, 1fr))"
+                         gdColumns.lt-md="repeat(1, minmax(0, 1fr))"
+                         gdColumns.xs="1fr"
+                         gdGap="10px">
+                        <div class="filter-option platform-filter">
+                            <span class="filter-opt-label">Platform</span>
+                            <div class="form-field filter-opt-item socials">
+                                <vex-campaign-chkgroup [data] = "platforms" [values]="filteropt.platform" class="w-full"></vex-campaign-chkgroup>
+                            </div>
+                        </div>
+                        <div class="filter-option category-filter">
+                            <span class="filter-opt-label">Category</span>
+                            <div class="form-field filter-opt-item">
+                                <vex-campaign-chkgroup [data] = "categories" [values]="filteropt.category" ></vex-campaign-chkgroup>
+                            </div>
+                        </div>
+                        <div class="filter-option">
+                            <span class="filter-opt-label">Brand’s criteria</span>
+                            <div class="filter-opt-items">
+                                <div class="form-field filter-opt-item">
+                                    <div class="form-label">Location</div>
+                                    <div>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>State</mat-label>
+                                            <mat-select disableOptionCentering panelClass="country" formControlName="country" [(ngModel)]="filteropt.country">
+                                                <mat-option *ngFor="let ct of states" [value]="ct.code">{{ ct.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>City</mat-label>
+                                            <mat-select disableOptionCentering panelClass="city" formControlName="city" [(ngModel)]="filteropt.city">
+                                                <mat-option *ngFor="let ct of cities" [value]="ct.code">{{ ct.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="form-field filter-opt-item vertical">
+                                    <div class="form-label justify-between" fxLayout="row">
+                                        <span>Distance</span>
+                                        <div>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.distance[0]" class="w-14">
+                                            <span>~</span>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.distance[1]" class="w-14">
+                                        </div>
+                                    </div>
+                                    <ng5-slider [(value)]="filteropt.distance[0]" [(highValue)]="filteropt.distance[1]" [options]="doptions"></ng5-slider>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-option">
+                            <span class="filter-opt-label"></span>
+                            <div class="filter-opt-items">
+                                <div class="form-field filter-opt-item vertical">
+                                    <div class="form-label justify-between" fxLayout="row">
+                                        <span>Age</span>
+                                        <div>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.age[0]" class="w-10">
+                                            <span>~</span>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.age[1]" class="w-10">
+                                        </div>
+                                    </div>
+                                    <ng5-slider [(value)]="filteropt.age[0]" [(highValue)]="filteropt.age[1]" [options]="aoptions"></ng5-slider>
+                                </div>
+                                <div class="form-field filter-opt-item vertical">
+                                    <div class="form-label justify-between" fxLayout="row">
+                                        <div>Follower</div>
+                                        <div>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.follower[0]" class="w-14">
+                                            <span>~</span>
+                                            <input type="number" readonly [ngModelOptions]="{standalone: true}" [(ngModel)]="filteropt.follower[1]" class="w-14">
+                                        </div>
+                                    </div>
+                                    <ng5-slider [(value)]="filteropt.follower[0]" [(highValue)]="filteropt.follower[1]" [options]="foptions"></ng5-slider>
+                                </div>
+                                <div class="form-field filter-opt-item items-center justify-between">
+                                    <div class="form-label">Gender</div>
+                                    <mat-radio-group [(ngModel)]="filteropt.gender" formControlName="gender">
+                                        <mat-radio-button value="any">Any</mat-radio-button>
+                                        <mat-radio-button value="male">Male</mat-radio-button>
+                                        <mat-radio-button value="female">Female</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="filter-actions">
+                <button mat-raised-button type="button" class="apply-filter" (click)="saveFilter()" ><span>Save</span></button>
+                <div class="filter-result">
+                    <span>Total result</span>
+                    <span class="counts">3000</span>
+                </div>
+                <button mat-raised-button type="button" class="reset-filter" (click)="resetFilter()">
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="campaigns && activeTab === 'all'">
+        <ng-container *ngIf="campaigns.length > 0">
+            <div
+                    @stagger
+                    class="overflow-y-auto campaign-grid-wrapper"
+                    fxFlex="auto">
+                <div class="py-gutter"
+                     vexContainer
+                     gdColumns="repeat(4, minmax(0, 1fr))"
+                     gdColumns.lt-lg="repeat(3, minmax(0, 1fr))"
+                     gdColumns.lt-md="repeat(2, minmax(0, 1fr))"
+                     gdColumns.xs="1fr"
+                     gdGap="24px">
+    
+                        <vex-campaign-card  (openCampaign)="openCampaign($event)"
+                                            (saveArchive)="saveArchive($event)"
+                                            (editCampaign)="editCampaign($event)"
+                                            (saveMylist)="saveMylist($event)"
+                                            (deleteCampaign)="deleteCampaign($event)"
+                                            *ngFor="let campaign of campaigns; trackBy: trackById"
+                                            @fadeInUp [campaign]="campaign"></vex-campaign-card>
+    
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!campaigns.length">
+            <h3 class="text-center mt-10">No Campaigns found.</h3>
+        </ng-container>
+    </div>
+
+    <div *ngIf="favorites && activeTab === 'favorited'">
+        <ng-container *ngIf="favorites.length > 0">
+            <div
+                    @stagger
+                    class="overflow-y-auto campaign-grid-wrapper"
+                    fxFlex="auto">
+                <div class="py-gutter"
+                     vexContainer
+                     gdColumns="repeat(4, minmax(0, 1fr))"
+                     gdColumns.lt-lg="repeat(3, minmax(0, 1fr))"
+                     gdColumns.lt-md="repeat(2, minmax(0, 1fr))"
+                     gdColumns.xs="1fr"
+                     gdGap="24px">
+    
+                        <vex-campaign-card  (openCampaign)="openCampaign($event)"
+                                            (saveArchive)="saveArchive($event)"
+                                            (editCampaign)="editCampaign($event)"
+                                            (saveMylist)="saveMylist($event)"
+                                            (deleteCampaign)="deleteCampaign($event)"
+                                            *ngFor="let favorite of favorites; trackBy: trackById"
+                                            @fadeInUp [campaign]="favorite"></vex-campaign-card>
+    
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!favorites.length">
+            <h3 class="text-center mt-10">No Campaigns found.</h3>
+        </ng-container>
+    </div>
+   
+    <div class="mylist-wrapper" *ngIf="activeTab === 'mylist'">
+        <h4 class="my-6">Campaigns in My List [<span class="counts">{{ myCampSource.data.length }}</span>]</h4>
+        <vex-scrollbar class="h-full relative">
+            <div fxLayout="column" fxLayoutAlign="space-between">
+                <table mat-table [dataSource]="myCampSource" class="mycamp-table">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? cmasterToggle() : null"
+                                          [checked]="cselection.hasValue() && iscAllSelected()"
+                                          [indeterminate]="cselection.hasValue() && !iscAllSelected()"
+                                          [aria-label]="ccheckboxLabel"
+                                          *ngIf="myCampSource.data.length">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                          (change)="$event ? cselection.toggle(element) : null"
+                                          [checked]="cselection.isSelected(element)"
+                                          [aria-label]="ccheckboxLabel(element)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="img-wrapper"><img [src]="element.coverImg" alt=""></div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Name</th>
+                        <td mat-cell *matCellDef="let element" class="name"><span>{{element.name}}</span></td>
+                    </ng-container>
+                    <ng-container matColumnDef="platform">
+                        <th mat-header-cell *matHeaderCellDef class="text-center">Platform</th>
+                        <td mat-cell *matCellDef="let element">
+                            <ul class="platforms">
+                                <li [ngClass]="pf" *ngFor="let pf of element.platform">{{ campService.getSocialLabel(pf) }}</li>
+                            </ul>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="period">
+                        <th mat-header-cell *matHeaderCellDef class="text-center">Period</th>
+                        <td mat-cell *matCellDef="let element" class="period text-center"><span>{{element.periodStart}} - {{element.periodEnd}}</span></td>
+                    </ng-container>
+                    <ng-container matColumnDef="delete">
+                        <th mat-header-cell *matHeaderCellDef class="text-center">Delete</th>
+                        <td mat-cell *matCellDef="let element" class="text-center">
+                            <button type="button" mat-raised-button (click)="deleteFromList(element.id)"><i class="icon-inf-delete"></i></button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="clistVColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: clistVColumns;"></tr>
+                </table>
+                <div class="totals">Total: <span class="selected-counts">{{ cselection.selected.length }}</span></div>
+                <mat-paginator #myCampPaginator [fxHide]="myCampSource.data.length === 0"
+                               [pageSize]="5"
+                               [pageSizeOptions]="[5,10,20]"
+                               class="sticky bottom-0 left-0 right-0 border-t"
+                               fxFlex="none"></mat-paginator>
+                <div *ngIf="myCampSource.data.length === 0"><h5 class="empty-msg mt-5 text-center">No campaigns in your list.</h5></div>
+            </div>
+        </vex-scrollbar>
+        <div class="summary-wrapper mt-10">
+            <ul>
+                <li>Total Campaign<span class="selected-counts">{{ cselection.selected.length }}</span></li>
+            </ul>
+        </div>
+        <div class="make-proposal mt-3 pt-3">
+            <h4 class="my-5">Make your proposal</h4>
+            <textarea id="proposal_txt" [ngModelOptions]="{standalone: true}" [(ngModel)]="proposalTxt" cols="30" rows="10"></textarea>
+            <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                <button mat-button type="button" (click)="backList()">Back</button>
+                <button mat-raised-button class="step-next primary-action" (click)="sendProposal()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>

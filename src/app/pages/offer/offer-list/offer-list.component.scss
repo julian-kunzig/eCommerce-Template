@@ -1,0 +1,88 @@
+.mylist-wrapper h4 span.counts {
+  color:#ED2A73;
+  font-weight: 700;
+}
+.empty-msg {
+  color: #898989;
+}
+.totals {
+  background: #C9C7D5;
+  padding: 15px 30px;
+  text-align: right;
+  color: #3E3E3E;
+  font-weight: 400;
+
+  span.selected-counts {
+    margin-left: 40px;
+    font-weight: 700;
+    font-size: 1.2em;
+  }
+}
+.emptyListSpan {
+  text-align: center;
+}
+.emptyListImg {
+  margin: 100px auto 30px;// margins constraint size, if size any larger img is blurry so increase resolution or use SVG file
+}
+table {
+  background: transparent;
+  border-top: 1.6px solid #292929;
+  border-collapse: collapse;
+  color: #3E3E3E;
+  th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 10px;
+  }
+  th.mat-header-cell {
+    font-size: 1em;
+    &.campaign-header {
+      padding-left: 90px;
+    }
+  }
+  td {
+    padding: 10px;
+    font-size: 13px;
+    &.campaign {
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 15px;
+        font-size: 16px;
+        color: #3E3E3E;
+      }
+    }
+    &.accept_date {
+      font-size: 16px;
+    }
+    &.budget {
+      font-size: 17px;
+      font-weight: 700;
+    }
+  }
+  button {
+    background: #C9C7D5;
+    padding: 7px 12px;
+    border-radius: 27px;
+    color: #fff;
+    transition: all .2s ease-in;
+
+    &:hover {
+      background: rgb(205,34,156);
+      background: linear-gradient(52deg, rgba(205,34,156,1) 0%, rgba(243,106,78,1) 100%);
+    }
+  }
+  .img-wrapper {
+    border-radius: 50%;
+    min-width: 70px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+    }
+  }
+  th, td {
+    border-bottom: 1px solid #A8A8A8 !important;
+  }
+}

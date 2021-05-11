@@ -1,0 +1,6 @@
+<div class="checkbox-group">
+    <div *ngFor="let item of data; let i=index" class="chkitem-wrapper">
+        <input type="checkbox" [value]="item.value" (change)="onChange($event)" [checked]="checkValue(item.value)"/>
+        <label [ngClass]="item.value">{{item.label}}</label>
+    </div>
+</div>

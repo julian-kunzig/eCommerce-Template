@@ -1,0 +1,40 @@
+<div [ngClass.gt-sm]="['mr-6']" class="card overflow-auto" fxLayout="row" fxLayout.lt-md="column">
+  <div class="bg-primary text-primary-contrast p-gutter" fxFlex="300px" fxFlex.lt-md="auto">
+    <h2 class="headline mb-4">Mega Menu</h2>
+
+    <p class="caption">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+      live the blind
+      texts.</p>
+
+    <p class="caption">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language
+      ocean.</p>
+
+    <button class="border border-primary-contrast border-solid mt-4" mat-button type="button">LEARN MORE</button>
+  </div>
+
+  <div class="p-gutter" fxFlex="400px" fxFlex.lt-md="auto">
+    <h3 class="body-2 m-0">FEATURES</h3>
+
+    <div class="mt-4" gdColumns="1fr 1fr 1fr" gdGap="16px">
+      <a (click)="close()"
+         *ngFor="let feature of features"
+         [routerLink]="feature.route"
+         class="text-dark p-3 text-center hover:bg-hover hover:text-primary trans-ease-out rounded block no-underline">
+        <ic-icon [icon]="feature.icon" class="text-primary" size="32px"></ic-icon>
+        <div class="body-1 mt-2">{{ feature.label }}</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="p-gutter" fxFlex="350px" fxFlex.lt-md="auto">
+    <h3 class="body-2 m-0">PAGES</h3>
+
+    <div class="mt-6" gdColumns="1fr 1fr" gdGap="16px 48px">
+      <a (click)="close()"
+         *ngFor="let page of pages"
+         [routerLink]="page.route"
+         class="text-dark body-1 no-underline hover:text-primary trans-ease-out">{{ page.label }}</a>
+    </div>
+  </div>
+</div>
+

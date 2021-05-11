@@ -1,0 +1,79 @@
+.dropdown {
+  background: var(--background-card);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  box-shadow: var(--elevation-z4);
+  max-width: 100vw;
+  overflow: hidden;
+  width: 350px;
+  @apply rounded;
+}
+
+.dropdown-header {
+  @apply bg-primary shadow text-primary-contrast py-4 px-6;
+}
+
+.dropdown-heading {
+  font: var(--font-title);
+}
+
+.dropdown-content {
+  max-height: 291px; // 73px height of 1 notification * 4
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dropdown-footer {
+  background: var(--background-app-bar);
+  border-top: 1px solid var(--foreground-divider);
+  padding: var(--padding-8) var(--padding);
+}
+
+.notification {
+  color: var(--text-color);
+  padding: var(--padding-16) var(--padding);
+  position: relative;
+  text-decoration: none;
+  transition: var(--trans-ease-out);
+  user-select: none;
+
+  &:hover {
+    background: var(--background-hover);
+
+    .notification-label {
+      @apply text-primary;
+    }
+  }
+
+  &.read {
+    opacity: 0.5;
+  }
+}
+
+.notification-icon {
+  margin-inline-end: var(--padding);
+}
+
+.notification-label {
+  transition: inherit;
+}
+
+.notification-description {
+  color: var(--text-secondary);
+  font: var(--font-caption);
+}
+
+.notification-chevron {
+  color: var(--text-hint);
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.notification + .notification {
+  border-top: 1px solid var(--foreground-divider);
+}
+
+.unactioned {
+  font-weight: bold;
+}

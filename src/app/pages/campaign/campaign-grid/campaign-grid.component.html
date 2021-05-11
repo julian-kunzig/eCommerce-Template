@@ -1,0 +1,66 @@
+<div class="h-full" fxLayout="column">
+    <div fxFlex="none">
+        <div vexContainer>
+            <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+                <span @fadeInRight class="block">Campaign</span>
+            </h1>
+            <p class="description color-gray">Create or view your campaigns</p>
+            <div fxLayout="row" fxLayoutAlign="start center" class="pt-6">
+                <nav class="vex-tabs border-0" fxFlex="auto" mat-tab-nav-bar>
+                    <a #rla="routerLinkActive"
+                       *ngFor="let link of links"
+                       [active]="rla.isActive"
+                       [routerLink]="link.route"
+                       [queryParams]="link.params"
+                       mat-tab-link
+                       routerLinkActive>
+                        {{ link.label }}
+                    </a>
+                </nav>
+                <button [matMenuTriggerFor]="sortby"
+                        color="primary"
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                        type="button" mat-icon-button>
+                    <span>{{ curfilter.label }}</span>
+                    <mat-icon [icIcon]="icArrowDown"></mat-icon>
+                </button>
+            </div>
+            <mat-menu #sortby="matMenu" xPosition="before" class="show-filter">
+                <button mat-menu-item *ngFor="let filter of filters"
+                        [class.active] = "curfilter.value === filter.value" (click)="setFilter(filter)">
+                    <span>{{ filter.label }}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    <div
+         @stagger
+         class="overflow-y-auto campaign-grid-wrapper"
+         fxFlex="auto">
+        <div class="py-gutter"
+             vexContainer
+             gdColumns="repeat(4, minmax(0, 1fr))"
+             gdColumns.lt-lg="repeat(3, minmax(0, 1fr))"
+             gdColumns.lt-md="repeat(2, minmax(0, 1fr))"
+             gdColumns.xs="1fr"
+             gdGap="24px">
+            <div *ngIf="activeTab !== 'archive'">
+                <div class="card justify-center flex-col items-center">
+                    <button fxFlex="none" mat-raised-button type="button" class="add-campaign" routerLink="../new">
+                        <img src="../../../../assets/img/add_campaign.png" alt="" class="w-20 mx-auto">
+                    </button>
+                    <span class="text-center text-gray mt-2">Add a new campaign.</span>
+                </div>
+            </div>
+            <ng-container *ngIf="(filteredCampaigns$ | async).length > 0">
+                <vex-campaign-card  (openCampaign)="openCampaign($event)"
+                                    (saveArchive)="saveArchive($event)"
+                                    (editCampaign)="editCampaign($event)"
+                                    (deleteCampaign)="deleteCampaign($event)"
+                                   *ngFor="let campaign of filteredCampaigns$ | async; trackBy: trackById"
+                @fadeInUp [campaign]="campaign"></vex-campaign-card>
+            </ng-container>
+        </div>
+    </div>
+</div>

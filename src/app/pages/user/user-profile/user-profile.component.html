@@ -1,0 +1,263 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Profile Setting</span>
+        </h1>
+        <p class="description color-gray">Update your account information</p>
+    </div>
+    <div class="user-profile-setting mt-10">
+        <form [formGroup]="profileFormGroup">
+            <mat-tab-group mat-align-tabs="start">
+                <mat-tab label="Profile">
+                    <div class="mt-10">
+                        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                            <div class="form-field">
+                                <div class="form-label">Full name</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="fullName" [value]="profile.fullName">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field date-field">
+                                <div class="form-label mt-3">Date of birth</div>
+                                <div class="datepicker-wrapper">
+                                    <input [matDatepicker]="ctrlbirth" (focus)="ctrlbirth.open()"  matInput formControlName="ctrlbirth" readonly [(ngModel)]="BirthDay">
+                                    <mat-datepicker-toggle matSuffix [for]="ctrlbirth">
+                                        <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #ctrlbirth></mat-datepicker>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Gender</div>
+                                <mat-radio-group formControlName="gender" [value]="profile.gender">
+                                    <mat-radio-button value="male">Male</mat-radio-button>
+                                    <mat-radio-button value="female">Female</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                            <div class="form-field">
+                                <div class="form-label">Brand’s name</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="company">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Brand’s website</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="brandsite">
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <div class="form-field">
+                            <div class="form-label">Email (This email is authorized)
+                                <button mat-raised-button class="change-enable" (click)="toggleDisable('email')" ><span>Change</span></button></div>
+                            <mat-form-field appearance="outline">
+                                <input matInput formControlName="ctrlemail" [readonly]="disableEmail" [class.disabled] = "disableEmail">
+                            </mat-form-field>
+                        </div>
+                        <div class="form-field">
+                            <div class="form-label">Phone number (This number is authorized)
+                                <button mat-raised-button class="change-enable" (click)="toggleDisable('phone')"><span>Change</span></button></div>
+                            <mat-form-field appearance="outline">
+                                <mat-label>(000) 000-0000</mat-label>
+                                <input type="text" matInput mask="(000) 000-0000" formControlName="ctrlphone" [readonly]="disablePhone" [class.disabled] = "disablePhone"/>
+                            </mat-form-field>
+                        </div>
+                        <hr>
+                        <div class="form-field mt-5">
+                            <div class="form-label">Category<p><small>Choose categories.</small></p></div>
+                            <vex-campaign-chkgroup [data] = "categories" formControlName="cats" [values]="profile.category" ></vex-campaign-chkgroup>
+                        </div>
+                        <div class="form-field bio-field">
+                            <div class="form-label">Bio</div>
+                            <mat-form-field appearance="outline">
+                                <textarea matInput rows = "5" formControlName="bio" [(ngModel)]="profile.bio" placeholder="Describe yourself."></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Detail Info">
+                    <div class="mt-10">
+                        <div class="form-field">
+                            <div class="form-label">Address</div>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Address line 1 (Street address, P.O.box, Company name C/O)</mat-label>
+                                <input formControlName="addressline1" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Address line 2 (Apartment, suite, unit, building, floor, etc.)</mat-label>
+                                <input formControlName="addressline2" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>City</mat-label>
+                                <input formControlName="addrcity" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>State / Province / Region</mat-label>
+                                <input formControlName="addrstate" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Zip Code</mat-label>
+                                <input formControlName="zipcode" matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <h4 class="sub-title mt-3 mb-2">My Wallet</h4>
+                    <p>Choose the type of payment</p>
+                    <div class="payments mt-8">
+                        <div class="creditcard pmethod-wrapper">
+                            <button mat-raised-button type="button" [class.activated] = "ccards.length > 0 && paymentOpt == 'creditcard'" (click)="openForm('creditcard')">
+                                <i class="icon-inf-ccard"></i>
+                                <span>Credit card</span>
+                            </button>
+                            <div class="popup-form">
+                                <div class="popup-top">
+                                    <span>Add a credit or debit card</span>
+                                    <button mat-raised-button type="button" (click)="closeForm('creditcard')"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+                                </div>
+                                <div class="popup-content">
+                                    <form [formGroup]="ccFormGroup">
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Card number</div>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>0000-0000-0000</mat-label>
+                                                <input type="text" matInput mask="0000-0000-0000" formControlName="ccardNum" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Name on card</div>
+                                            <mat-form-field appearance="outline">
+                                                <input type="text" matInput formControlName="ccardName">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align field-group">
+                                            <div class="form-label">Expiration date</div>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>MM</mat-label>
+                                                <input type="text" matInput formControlName="ccardExpmonth">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>YYYY</mat-label>
+                                                <input type="text" matInput formControlName="ccardExpyear">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">CVC number</div>
+                                            <mat-form-field appearance="outline" class="small-field">
+                                                <input type="text" matInput formControlName="ccardCVC">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="actions text-right mr-2">
+                                            <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+                                            <button *ngIf="curCardId === 0" mat-raised-button class="primary-action" (click)="addMethod('creditcard')">Add your card</button>
+                                            <button *ngIf="curCardId !== 0" mat-raised-button class="primary-action" (click)="updateMethod()">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bank pmethod-wrapper">
+                            <button mat-raised-button type="button" [class.activated] = "bankAcc.type !== '' && paymentOpt == 'bank'" (click)="openForm('bank')">
+                                <i class="icon-inf-bank"></i>
+                                <span>Bank</span>
+                            </button>
+                            <div class="popup-form">
+                                <div class="popup-top">
+                                    <span>Banking Account Information</span>
+                                    <button mat-raised-button type="button" (click)="closeForm('bank')"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+                                </div>
+                                <div class="popup-content">
+                                    <form [formGroup]="bankFormGroup" (ngSubmit)="saveBankInfo()">
+                                        <div class="form-field left-align">
+                                            <mat-radio-group formControlName="bankType" required>
+                                                <mat-radio-button value="Checking">Checking</mat-radio-button>
+                                                <mat-radio-button value="Saving">Saving</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Routing Number</div>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="bankRouting">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Account Number</div>
+                                            <mat-form-field appearance="outline" >
+                                                <input matInput formControlName="bankAccnum">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Account Holder</div>
+                                            <mat-form-field appearance="outline" >
+                                                <input matInput formControlName="bankAccholder">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Confirm Account Number</div>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="bankCfAccnum">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="actions text-right mr-2">
+                                            <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+                                            <button mat-raised-button class="primary-action" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+        <div *ngIf="ccards.length > 0 && paymentOpt == 'creditcard'" class="psummary-wrapper mt-10 mb-10">
+            <div fxLayout.gt-xs="row" class="psummary-header">
+                <div fxFlex = "50%">Your credit card and debit card</div>
+                <div fxFlex = "50%">Expiration Date</div>
+            </div>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let ccard of ccards">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>{{ ccard.name }}</mat-panel-title>
+                        <mat-panel-description>{{ ccard.expMonth }}/{{ ccard.expYear }}</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <table>
+                        <thead><tr><th>Name on Card</th><th>Billing Address</th></tr></thead>
+                        <tbody><tr><td>{{ profileFormGroup.value.fullName }}</td><td>
+                            {{ profileFormGroup.value.addressline1 }}<br>
+                            {{ profileFormGroup.value.addressline2 }}<br>
+                            {{ profileFormGroup.value.addrstate }}&nbsp;,&nbsp;{{ profileFormGroup.value.addrcity }}&nbsp;,&nbsp;{{ profileFormGroup.value.zipcode }}<br>
+                        </td></tr></tbody>
+                        <tfoot>
+                        <tr><td></td><td class="text-right">
+                            <button mat-raised-button type="button" class="mr-4" (click)="deleteInfo('creditcard', ccard.id)"><i class="icon-inf-delete"></i></button>
+                            <button mat-raised-button type="button" class="btn-action small" (click)="openForm('creditcard', ccard.id)"><span>Edit</span></button>
+                        </td></tr>
+                        </tfoot>
+                    </table>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div *ngIf="bankAcc.type && paymentOpt == 'bank'" class="psummary-wrapper mt-10 mb-10">
+            <div fxLayout.gt-xs="row" class="psummary-header">
+                <div fxFlex = "25%">Account Type</div>
+                <div fxFlex = "25%">Bank Name</div>
+                <div fxFlex = "25%">Account Number</div>
+                <div fxFlex = "25%"></div>
+            </div>
+            <div fxLayout.gt-xs="row" class="bankinfo">
+                <div fxFlex = "25%">{{ bankAcc.type }}</div>
+                <div fxFlex = "25%">{{ bankAcc.routing }}</div>
+                <div fxFlex = "25%">{{ bankAcc.number }}</div>
+                <div fxFlex = "25%" class="text-right">
+                    <button mat-raised-button type="button" class="mr-4" (click)="deleteInfo('bank')"><i class="icon-inf-delete"></i></button>
+                    <button mat-raised-button type="button" class="btn-action small" (click)="openForm('bank')"><span>Edit</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+            <button mat-raised-button class="step-next primary-action" (click)="saveProfile()">Save</button>
+        </div>
+    </div>
+</div>

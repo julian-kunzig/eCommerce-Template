@@ -1,0 +1,25 @@
+runtime: python27
+threadsafe: yes
+api_version: 1
+service: dashboard
+
+# Google App Engine's cache default expiration time is 10 minutes. It's suitable for most Production
+# scenarios, but a shorter TTL may be desired for Development and QA, as it allows us to see a fresh
+# code in action just a minute after the deployment.
+default_expiration: 60s
+
+handlers:
+- url: /(.*\.(js|css|svg|png|jpg|eot|ttf|json|pdf|woff|woff2)(|\.map))$
+  static_files: dist/vex/\1
+  secure: always
+  upload: dist/vex/(.*)(|\.map)
+
+- url: /(.*)
+  static_files: dist/vex/index.html
+  secure: always
+  upload: dist/*
+
+skip_files:
+- ^(?!dist)
+- node_modules/
+- e2e/

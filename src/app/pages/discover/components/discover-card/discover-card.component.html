@@ -1,0 +1,44 @@
+<div class="card profile-card">
+    <div class="trans-ease-out relative">
+        <div class="photo-container"
+             [ngStyle]="{'background': 'url(' + profile.profile_bg + ') center center no-repeat'}">
+            <div class="profile-photo cursor-pointer" (click)="openProfile.emit(profile.id)">
+                <img [src]="profile.photo_img" alt="">
+            </div>
+            <button mat-raised-button class="favorite-toggle cursor-pointer" [class.active]="profile.favorited" (click)="saveFavorite.emit(profile.id)"></button>
+        </div>
+        <div class="details">
+            <h4 class="title mt-3">{{ profile.name }}</h4>
+            <p>@{{ profile.name }}</p>
+            <div>
+                <ul class="socials">
+                    <li *ngFor="let pf of profile.socials" [className]="pf"></li>
+                </ul>
+            </div>
+            <p class="text-capitalize gender">{{ profile.gender }} &nbsp;|&nbsp; {{ profile.ages[0] }}-{{ profile.ages[1] }} | ${{ profile.price }} <small>/per post</small></p>
+            <p class="my-3 sayings">{{ profile.sayings }}</p>
+            <ul *ngIf="profile.categories" class="categories">
+                <ng-container *ngFor="let cat of profile.categories; index as id">
+                    <li *ngIf="id < 3">{{ campService.getCatLabel(cat) }}</li>
+                </ng-container>
+                <li *ngIf="profile.categories.length > 3" class="more-label">+{{ profile.categories.length - 3}}</li>
+            </ul>
+        </div>
+        <div class="content-bottom" fxLayout="row">
+            <p><strong>{{ profile.acheivedCampaign }}</strong><br>Acheived campaign</p>
+            <p><strong>{{ translateFollowerLabel(profile.followers) }}</strong><br>Followers</p>
+            <p><strong>{{ profile.posts }}</strong><br>Posts</p>
+            <div class="hotness">{{ profile.hotness }}</div>
+        </div>
+        <div class="hover-menu">
+            <button mat-raised-button type="button" class="go-chart" (click)="goChat.emit(profile.id)"
+                    #btooltip="matTooltip"
+                    matTooltip="Chat"
+                    matTooltipPosition = "above"></button>
+            <button mat-raised-button type="button" class="save-mylist" (click)="saveMylist.emit(profile.id)"
+                    #stooltip="matTooltip"
+                    matTooltip="Add to My List"
+                    matTooltipPosition = "above"></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+    <div class="alert-msg-wrapper text-center">
+        <mat-icon [icIcon]="icWarning" [inline]="true" ></mat-icon>
+        <p>{{ data.msg }}</p>
+    </div>
+</div>
+<div mat-dialog-actions class="actions text-right mt-5">
+    <button mat-button mat-dialog-close (click)="close()" class="primary-action small">Close</button>
+</div>

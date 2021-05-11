@@ -1,0 +1,20 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Terms and Conditions /Disclosures</span>
+        </h1>
+        <p class="description color-gray">You must read and agree to the following legal documents in order to proceed</p>
+    </div>
+    <div class="disclosure-wrapper mt-10">
+        <div class="disclosure-docs">
+            <ul>
+                <li *ngFor="let pdf of pdfs" (click)="browseDoc(pdf.path)"><span>{{ pdf.doc_title }}</span></li>
+            </ul>
+        </div>
+        <div class="document-viewer">
+            <pdf-viewer [src]="currentDoc"
+                        [original-size]="false"
+            ></pdf-viewer>
+        </div>
+    </div>
+</div>

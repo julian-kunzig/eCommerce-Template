@@ -1,0 +1,75 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Edit Offer</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+        <div class="offer-info preview-form edit-offer mt-10">
+            <form [formGroup]="offerform">
+                <div class="details">
+                    <div class="info-row">
+                        <label>Campaign Name</label>
+                        <div class="form-field">
+                            <mat-form-field appearance="outline">
+                                <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <label>Budget</label>
+                        <div class="form-field">
+                            <mat-form-field appearance="outline">
+                                <label matPrefix>$</label>
+                                <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.budget">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <label>Platform</label>
+                        <ul class="socials">
+                            <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+                        </ul>
+                    </div>
+                    <div class="info-row">
+                        <label>Placement</label>
+                        <ul *ngIf="campaign.placement" class="placement">
+                            <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
+                        </ul>
+                    </div>
+                    <div class="info-row">
+                        <label>Content Creation</label>
+                        <div class="form-field">
+                            <mat-form-field appearance="outline">
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <label>Requirements</label>
+                        <div class="form-field">
+                            <mat-form-field appearance="outline">
+                                <textarea matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.requirement"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <label>Offer Date</label>
+                        <pre>{{ offer.accept_date }}</pre>
+                    </div>
+                    <div class="info-row">
+                        <label>Brand Message</label>
+                        <div class="form-field">
+                            <mat-form-field appearance="outline">
+                                <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.name" placeholder="Let’s set up time to talk everyday for progress report purposes">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+            <button mat-button type="button" (click)="backList()">Back</button>
+            <button mat-button type="button" class="primary" (click)="saveOffer()">Save</button>
+        </div>
+    </div>
+</div>

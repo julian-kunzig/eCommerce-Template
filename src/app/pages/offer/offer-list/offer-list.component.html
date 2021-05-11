@@ -1,0 +1,83 @@
+<div class="h-full discover-grid-wrapper" fxLayout="column">
+    <div fxFlex="none">
+        <div vexContainer>
+            <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+                <span @fadeInRight class="block">Offer</span>
+            </h1>
+            <p class="description color-gray">Check out your current, pending, and fulfilled offers below</p>
+            <div fxLayout="row" fxLayoutAlign="start center" class="pt-6">
+                <nav class="vex-tabs border-0" fxFlex="auto" mat-tab-nav-bar>
+                    <a #rla="routerLinkActive" *ngFor="let link of links" [active]="rla.isActive"
+                        [routerLink]="link.route" [queryParams]="link.params" mat-tab-link routerLinkActive>
+                        {{ link.label }}
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="(filteredOffers$ | async).length > 0; else emptyTableImg">
+        <div class="mylist-wrapper">
+            <h4 class="my-6">My offer [<span class="counts">{{ myOfferSource.data.length }}</span>]</h4>
+            <vex-scrollbar class="h-full relative">
+                <div fxLayout="column" fxLayoutAlign="space-between">
+                    <table mat-table [dataSource]="myOfferSource" class="myoffercamp-table">
+                        <ng-container matColumnDef="campaign">
+                            <th mat-header-cell *matHeaderCellDef class="campaign-header">Campaign</th>
+                            <td mat-cell *matCellDef="let element" class="campaign">
+                                <div class="img-wrapper"><img [src]="element.coverImg" alt=""></div>
+                                <span>{{ element.camp_name }}</span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="budget">
+                            <th mat-header-cell *matHeaderCellDef>Budget</th>
+                            <td mat-cell *matCellDef="let element" class="budget"><span>${{element.budget}}</span></td>
+                        </ng-container>
+                        <ng-container matColumnDef="accepted_date">
+                            <th mat-header-cell *matHeaderCellDef>Accepted Date</th>
+                            <td mat-cell *matCellDef="let element" class="accept_date"><span>{{ element.accept_date
+                                    }}</span></td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="progress">
+                            <th mat-header-cell *matHeaderCellDef>Progress</th>
+                            <td mat-cell *matCellDef="let element" class="progress"><span>{{ progressLabel(element.status) }}</span></td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="view">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                <button type="button" mat-raised-button (click)="viewDetail(element.campId)"><span>View More</span></button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="clistVColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: clistVColumns;"></tr>
+                    </table>
+                    <div class="totals">Total: <span class="selected-counts">{{ myOfferSource.data.length }}</span>
+                    </div>
+                    <mat-paginator #myCampPaginator [fxHide]="myOfferSource.data.length === 0" [pageSize]="5"
+                        [pageSizeOptions]="[5,10,20]" class="sticky bottom-0 left-0 right-0 border-t" fxFlex="none">
+                    </mat-paginator>
+                    <div *ngIf="myOfferSource.data.length === 0">
+                        <h5 class="empty-msg mt-5 text-center">No campaigns in your list.</h5>
+                    </div>
+                </div>
+            </vex-scrollbar>
+        </div>
+    </ng-container>
+    <ng-template #emptyTableImg>
+        <!-- todo: distinguish which we're in -->
+        <span class="emptyListSpan" *ngIf="activeTab === 'current'">
+            <img class="emptyListImg" src="../../../../assets/img/noCurrentOffer.png">
+            You do not have any current offers at the moment...
+        </span>
+
+        <span class="emptyListSpan" *ngIf="activeTab === 'pending'">
+            <img class="emptyListImg" src="../../../../assets/img/noPendingOffer.png">
+            You do not have any pending offers at the moment...
+        </span>
+
+        <span class="emptyListSpan" *ngIf="activeTab === 'fulfilled'">
+            <img class="emptyListImg" src="../../../../assets/img/noFulfilledOffer.png">
+            You do not have any fulfilled offers at the moment...
+        </span>
+
+    </ng-template>
+</div>

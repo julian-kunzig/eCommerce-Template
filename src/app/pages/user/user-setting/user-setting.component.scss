@@ -1,0 +1,80 @@
+.user-setting-wrapper {
+  text-align: center;
+  .photo-wrapper {
+    display: inline-block;
+    .preview {
+      overflow: hidden;
+      position: relative;
+      max-width: 200px;
+      max-height: 200px;
+      > img{
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .upload-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.15);
+    cursor: pointer;
+  }
+  input[type=file] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .user-setting-nav {
+    color: #000;
+
+    ul {
+      display: block;
+      padding: 0;
+      margin: 0;
+
+      li {
+        & + li {
+          margin-top: 10px;
+        }
+        button {
+          display: block;
+          width: 100%;
+          padding: 12px 40px;
+          border-radius: 9px;
+          background-color: #EAE9EF;
+          text-align: left;
+
+          &.user-profile-link {
+            background: #EAE9EF url("../../../../assets/img/user-profile.png") 15px center no-repeat;
+          }
+          &.user-social-link {
+            background: #EAE9EF url("../../../../assets/img/user-social.png") 15px center no-repeat;
+          }
+        }
+      }
+    }
+  }
+}
+.user-setting-nav button:after {
+  content: '\e80b';
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-family: 'inf-icons';
+  font-size: 12px;
+  color: #989898;
+}

@@ -1,0 +1,9 @@
+.vex-layout-ikaros {
+  --navigation-height: 0px;
+
+  &.vex-style-default {
+    --toolbar-background: #{$sidenav-background};
+    --navigation-color: white;
+    --toolbar-color: white;
+  }
+}

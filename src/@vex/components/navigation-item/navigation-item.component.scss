@@ -1,0 +1,21 @@
+.navigation-item {
+  @apply rounded cursor-pointer text-sm font-medium px-4 py-2 relative select-none no-underline block;
+  margin-inline-end: var(--padding-8);
+  transition: var(--trans-ease-out);
+}
+
+.navigation-color {
+  color: var(--navigation-color);
+}
+
+.navigation-menu-item {
+  transition: var(--trans-ease-out);
+
+  &:hover {
+    @apply text-primary;
+
+    .mat-icon {
+      @apply text-primary;
+    }
+  }
+}

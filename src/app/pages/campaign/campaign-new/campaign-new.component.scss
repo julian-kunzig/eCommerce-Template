@@ -1,0 +1,28 @@
+.currency-field-wrapper > input {
+  border: 1.7px solid #CCC;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0.49em 0.75em;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left !important;
+  outline: none;
+
+  &.mat-field-invalid {
+    border-color: #f44336 !important;
+  }
+}
+.currency-field-wrapper {
+  position: relative;
+}
+.currency-field-wrapper label {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  color: #707070;
+}
+.campaign-new-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}

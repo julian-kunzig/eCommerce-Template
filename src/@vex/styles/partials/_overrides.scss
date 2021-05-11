@@ -1,0 +1,21 @@
+.mat-icon,
+.mat-icon-button .mat-icon {
+  font-size: var(--default-icon-size);
+  height: unset;
+  width: unset;
+}
+
+.ic-inline > svg {
+  display: inline-block;
+}
+
+ic-icon:not(.ic-inline) > svg,
+.iconify:not(.ic-inline) > svg {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.vex-scrollblock {
+  position: fixed;
+  width: 100%;
+}

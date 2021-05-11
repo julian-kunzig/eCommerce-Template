@@ -1,0 +1,82 @@
+<h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+    <span @fadeInRight class="block">Offer</span>
+</h1>
+<p class="description color-gray mb-10">You’ve made this amount of the result.</p>
+<div class="offer-view preview-form">
+    <div class="photo-wrapper" *ngIf="campaign.coverImg">
+        <img [src]="campaign.coverImg" alt="">
+    </div>
+    <h2 class="prod-name mt-6">{{ campaign.name }}</h2>
+    <ul class="socials mt-4">
+        <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+    </ul>
+    <ul class="categories mt-4">
+        <li *ngFor="let cat of campaign.category">{{ campService.getCatLabel(cat) }}</li>
+    </ul>
+    <div class="details mt-10">
+        <div class="info-row">
+            <label>Description</label>
+            <pre>{{ campaign.description }}</pre>
+        </div>
+        <div class="info-row">
+            <label>Period</label>
+            <p>{{ campaign.periodStart }} ~ {{ campaign.periodEnd }}</p>
+        </div>
+        <div class="info-row">
+            <label>Placement</label>
+            <ul *ngIf="campaign.placement" class="placement">
+                <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
+            </ul>
+        </div>
+        <div class="info-row">
+            <label>Budget</label>
+            <p>$ {{ campaign.budget }} / per post</p>
+        </div>
+        <div class="info-row">
+            <label>Criteria</label>
+            <div>
+                <p>Age : {{ campaign.ages[0] }}-{{ campaign.ages[1] }}</p>
+                <p>Minimum follower : {{ translateFollowerLabel(campaign.followers[0]) }}-{{ translateFollowerLabel(campaign.followers[1]) }}</p>
+                <p>Language : <ng-container *ngFor="let ln of campaign.langs; last as isLast" >{{ campService.getLangLabel(ln) }}<ng-container *ngIf="!isLast">,</ng-container></ng-container></p>
+                <p>Location - Country : {{ campService.getCountryLabel(campaign.country) }} / City : {{ campService.getCityLabel(campaign.city) }}</p>
+                <p>Caption : {{ campaign.caption }}</p>
+            </div>
+        </div>
+        <div class="info-row">
+            <label>Requirement</label>
+            <pre>{{ campaign.requirement }}</pre>
+        </div>
+        <div class="info-row tags">
+            <label>Tag</label>
+            <div>
+                <ul *ngIf="campaign.tags">
+                    <li *ngFor="let tg of campaign.tags">@{{ tg }}</li>
+                </ul>
+                <ul *ngIf="campaign.tags2">
+                    <li *ngFor="let tg of campaign.tags2">#{{ tg }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="info-row">
+            <label>Image for detail</label>
+        </div>
+        <div class="text-center gallery-wrapper">
+            <ng-container *ngFor="let imgsrc of campaign.gallery">
+                <div class="gallery-item" *ngIf="imgsrc">
+                    <img [src]="imgsrc" alt="">
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+        <button mat-button type="button" (click)="backList()">Back</button>
+        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+            <button mat-button type="button" class="second-action" (click)="declineOffer()">Decline</button>
+            <button mat-raised-button class="step-next primary-action" (click)="acceptOffer()" [disabled]="offer.status === 'accepted'">Accept</button>
+        </ng-container>
+        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+            <button mat-button type="button" class="second-action">Not Interested</button>
+            <button mat-raised-button class="step-next primary-action" (click)="offerPreview()">Interested</button>
+        </ng-container>
+    </div>
+</div>

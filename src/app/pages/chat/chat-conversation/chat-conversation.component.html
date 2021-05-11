@@ -1,0 +1,125 @@
+<div class="w-full h-full overflow-hidden" fxLayout="column">
+    <div class="bg-white p-4 border-b chat-border" fxFlex="none" fxLayout="row" fxLayoutAlign="start center"
+        fxLayoutGap="16px">
+        <button (click)="openDrawer()" class="block md:hidden" mat-icon-button type="button">
+            <mat-icon [icIcon]="icMoreVert" class="text-secondary"></mat-icon>
+        </button>
+
+        <div class="relative">
+            <img [src]="chat?.imageSrc" class="avatar" fxFlex="none">
+            <ic-icon *ngIf="chat?.status === 'Online'" [icon]="icCheckCircle"
+                class="absolute top-1 -right-1 rounded-full online"></ic-icon>
+        </div>
+
+        <div fxFlex="auto">
+            <div class="subheading-1">{{ chat?.from }}</div>
+            <div [class.text-green]="chat?.status === 'Online'" class="caption leading-none text-secondary">{{
+                chat?.status }}</div>
+        </div>
+        <button mat-icon-button class="chat-message-search">
+            <i class="icon-inf-search"></i>
+        </button>
+        <button [matMenuTriggerFor]="chatMenu" mat-icon-button class="chat-menu-trigger"
+            style="width: 30px; height: 30px; line-height: 30px;" type="button">
+            <mat-icon [icIcon]="icMenu" size="21px"></mat-icon>
+        </button>
+    </div>
+
+    <vex-scrollbar [@stagger]="messages.length" class="p-4 flex-auto bg-white">
+        <div class="edit-offer-wrapper" *ngIf="enableOffer">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Edit Offer</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row">
+                        <button mat-raised-button (click)="disableEditOffer()"><span>No, I will not edit
+                                offer</span></button>
+                        <button mat-raised-button (click)="editOffer()"><span>Yes, I will edit offer</span></button>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <ng-container *ngFor="let msg of msgs; trackBy: trackById">
+            <div @fadeInUp class="max-w-3/4 me justify-end" fxFlexAlign="end" fxLayout="row">
+                <div class="m-1 mr-0 py-2 px-4 shadow-1 rounded-full bg-card">{{ msg.body }}</div>
+            </div>
+        </ng-container>
+
+        <!-- <ng-container *ngFor="let message of messages; trackBy: trackById">
+            <ng-container *ngIf="message.from === 'me'">
+                <ng-container *ngIf="message.type === 'message'">
+                    <div @fadeInUp class="max-w-3/4 me justify-end" fxFlexAlign="end" fxLayout="row">
+                        <div class="m-1 mr-0 py-2 px-4 shadow-1 rounded-full bg-card">{{ message.message }}</div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="message.type === 'offer'">
+                    <div @fadeInUp class="max-w-3/4 me justify-end" fxFlexAlign="end" fxLayout="row">
+                        <div class="m-1 mr-0 py-5 px-5 shadow-1 message-with-offer">
+                            {{ message.message }}
+                            <vex-offer-card  (openOffer)="openOffer($event)"
+                                                @fadeInUp [inputOffer]="message.offer"></vex-offer-card>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="message.type === 'proposal'">
+                    <div @fadeInUp class="max-w-3/4 me justify-end" fxFlexAlign="end" fxLayout="row">
+                        <div class="m-1 mr-0 py-5 px-5 shadow-1 message-with-proposal">
+                            {{ message.message }}
+                            <div class="proposal-card" (click)="viewProposal(message.proposal.id)">
+                                <div class="items-center" fxLayout="row">
+                                    <img [src]="campaign(message.proposal.campId).coverImg" alt="">
+                                    <p>{{ campaign(message.proposal.campId).name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="message.from === 'partner'">
+                <div @fadeInUp class="max-w-3/4 partner" fxFlexAlign="start" fxLayout="row">
+                    <div class="m-1 mr-0 py-3 px-4 shadow-1 partner-message">{{ message.message }}</div>
+                </div>
+            </ng-container>
+        </ng-container> -->
+    </vex-scrollbar>
+
+    <div class="p-4 bg-white border-t chat-send-form">
+        <form (ngSubmit)="send()" [formGroup]="form">
+            <div class="text-hint overflow-hidden bg-card" fxFlex="auto" fxLayout="row" fxLayoutAlign="start center">
+                <input class="outline-none border-0 h-8 w-240 placeholder:text-secondary body-1 bg-card"
+                    formControlName="message" fxFlex="auto" placeholder="Type a message..." type="text">
+                <div class="chat-attach">
+                    <img src="../../../../assets/img/chat-attach.png" alt="">
+                    <input type="file">
+                </div>
+                <button [class.text-primary]="form.get('message').value" [disabled]="!form.get('message').value"
+                    mat-icon-button type="submit">
+                    <img src="../../../../assets/img/chat-send.png" alt="">
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<mat-menu #chatMenu="matMenu" xPosition="before" yPosition="below" class="chat-menu quick-menu">
+    <button mat-menu-item>
+        <span>Send offer</span>
+    </button>
+
+    <button mat-menu-item class="no-border" (click)="sendCampaign()">
+        <span>Send camapign</span>
+    </button>
+
+    <button mat-menu-item>
+        <span>Turn off notification</span>
+    </button>
+    <button mat-menu-item class="no-border">
+        <span>Delete</span>
+    </button>
+
+    <button mat-menu-item>
+        <span>Report a problem</span>
+    </button>
+</mat-menu>

@@ -1,0 +1,88 @@
+<mat-progress-bar [class.visible]="progressbar_visible"
+                  [value]="progressbar_value"
+                  class="progress-bar"
+                  mode="determinate"></mat-progress-bar>
+<div class="body">
+    <div class="logo_bar">
+        <a href="https://infinovae.com/">
+            <div class="logo" style="background-image: url('../../../assets/img/logo1.png');">            
+            </div>
+        </a>
+                       
+    </div>
+    <div class="w-2/5 signin_left" style="background-image: url('../../../assets/img/signin/signup2.png');">
+        <div class="signin_left_sub">
+            <div class="sign_left_panel_title"><span>Already Signed Up?</span></div>
+            <div class="sign_left_panel_subtitle"><span>Log in to your account so you can continue build your business with Infinovae.</span></div>
+            <button (click)="switchViewer('/signin')" color="primary" mat-raised-button type="button" class="login_btn">
+                LOG IN
+            </button>
+        </div>
+    </div>
+    <div class="w-3/5 h-full signin_right">
+        <div class="sign_right_panel w-full">         
+            <div [formGroup]="form" class="" fxLayout="column">
+                <div class="sign_right_panel_title"><span>Sign Up for an Account</span></div>
+                <div class="sign_right_panel_subtitle"><span>Welcome to Infinovae. Let's get you all set so you can start building your business with Infinovae.</span></div>
+                <div  class="sign_right_panel_content" fxFlex="auto" fxLayout="column">
+                    <span class="sign_right_panel_content_label">Email Address</span>
+                    <mat-form-field fxFlex="grow" appearance="outline" >
+                        <input class="input_panel" formControlName="email" matInput pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+                        <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>
+                    </mat-form-field>
+                    <span class="sign_right_panel_content_label">Password</span>
+                    <mat-form-field fxFlex="grow" appearance="outline">
+                        <input class="input_panel" [type]="inputType" formControlName="password" matInput required>
+                        <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Toggle Visibility" type="button">
+                            <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                            <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+                        </button>
+                        <!-- <mat-hint>Click the eye to toggle visibility</mat-hint> -->
+                        <mat-error *ngIf="form.get('password').hasError('required')">We need a password to log you in</mat-error>
+                    </mat-form-field>
+                    <div class="name_field">
+                        <div class="w-2/4 name_content_f">
+                            <span class="sign_right_panel_content_label name_label">First Name</span>
+                            <span class="sign_right_panel_content_label full_name_label">Full Name</span>
+                            <mat-form-field fxFlex="grow" appearance="outline">
+                                <input class="input_panel" formControlName="first_name" placeholder="First Name" matInput required>
+                                <!-- <mat-error *ngIf="form.get('email').hasError('required')">We need a first name to log you in</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="w-2/4 name_content_l">
+                            <span class="sign_right_panel_content_label name_label">Last Name</span>
+                            <mat-form-field fxFlex="grow" appearance="outline">
+                                <input class="input_panel" formControlName="last_name" placeholder="Last Name" matInput required>
+                                <!-- <mat-error *ngIf="form.get('email').hasError('required')">We need a last name to log you in</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="policy">
+                    <div>By clicking SIGN UP, I agree that:</div>
+                    <div style="display: block; ">
+                        <span>- I have read and accepted the </span>
+                        <a href="#" style="color: #E32D71;">&nbsp;Terms of Use.</a>
+                    </div>
+                    <div style="display: block; ">
+                        <span>- The </span>
+                        <a href="#" style="color: #E32D71;">&nbsp;Infinovae&nbsp;</a>
+                        <span>keep me informed with personalized emails about products and services.</span>
+                    <!-- <a [routerLink]="['/forgot-password']" class="caption2">Forgot Password?</a> -->
+                    </div>
+                </div>
+
+                <button (click)="send()" color="primary" mat-raised-button type="button" class="signup_btn">
+                    SIGN UP
+                </button>
+
+                <p class="text-secondary text-center">
+                    Already have an account? &nbsp;
+                    <a (click)="switchViewer('/signin')">LOG IN</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</div>

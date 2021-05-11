@@ -1,0 +1,534 @@
+<div @stagger class="p-gutter" vexContainer>
+    <div @fadeInUp class="overflow-hidden campaign-new-wrapper">
+        <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="true" [class]="currentStep" (selectionChange)="selectionChange($event)">
+            <ng-template matStepperIcon="edit">
+            </ng-template>
+            <ng-template matStepperIcon="done">
+            </ng-template>
+            <mat-step [stepControl]="prodserviceGroup">
+                <form [formGroup]="prodserviceGroup">
+                    <ng-template matStepLabel>Product or Service</ng-template>
+                    <ng-template matStepperIcon="edit"></ng-template>
+                    <div gdColumns="repeat(2, minmax(0, 1fr))"
+                         gdColumns.sm="1fr"
+                         gdColumns.xs="1fr"
+                         gdGap="10%" class="inner-container">
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label">Product or Service name <span class="required">*</span></div>
+                                <mat-form-field appearance="outline">
+                                    <input formControlName="servicename" matInput maxlength="20"> <!--Character Length-->
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Category <span class="required">*</span></div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select multiple disableOptionCentering panelClass="category" formControlName="category">
+                                        <mat-option *ngFor="let category of categories" [value]="category.value">{{category.label}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Description <span class="required">*</span></div>
+                                <mat-form-field appearance="outline">
+                                    <textarea formControlName="description" matInput rows = "7" placeholder="Describe your campaign and what you expect from the influencers.Try to be as clear as possible."></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label">Budget <span class="required">*</span></div>
+                                <div class="currency-field-wrapper">
+                                    <input currencyMask formControlName="budget" class="budget-field" required />
+                                    <label>/ per post</label>
+                                </div>
+                                <button mat-raised-button #btooltip="matTooltip"
+                                        matTooltip="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut"
+                                        matTooltipPosition = "left"
+                                        class="help-tip tooltip-description">
+                                </button>
+                            </div>
+                            <div class="form-field upload-img-field">
+                                <div class="form-label mt-10">Campaign cover image <span class="required">*</span><p class="mt-10 mb-3">Your company is <strong>Nike</strong></p></div>
+                                <vex-campaign-imgupload formControlName="coverImg"></vex-campaign-imgupload>
+                                <button mat-raised-button #ctooltip="matTooltip"
+                                        matTooltip="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut"
+                                        matTooltipPosition = "left"
+                                        class="help-tip mt-0 tooltip-description">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="briefingGroup">
+                <form [formGroup]="briefingGroup">
+                    <ng-template matStepLabel>Briefing</ng-template>
+                    <ng-template matStepperIcon="edit"><span>2</span></ng-template>
+                    <div gdColumns="repeat(2, minmax(0, 1fr))"
+                         gdColumns.sm="1fr"
+                         gdColumns.xs="1fr"
+                         gdGap="10%" class="inner-container">
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label mt-10">Platform <span class="required">*</span></div>
+                                <vex-campaign-chkgroup formControlName="platform" [data] = "platforms"></vex-campaign-chkgroup>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Placement <span class="required">*</span></div>
+                                <vex-campaign-chkgroup formControlName="placement" [data] = "placements"></vex-campaign-chkgroup>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Requirement <span class="required">*</span></div>
+                                <mat-form-field appearance="outline">
+                                    <textarea formControlName="requirement" matInput rows = "5"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label mt-10">
+                                    <span>Period (optional)</span>
+                                    <mat-slide-toggle [checked]="false" class="ml-5 align-middle" (change)="enablePeriod($event)"></mat-slide-toggle>
+                                    <p>Select campaign launch and end dates</p>
+                                </div>
+                                <div [class.opt_disabled] = "!ePeriod">
+                                    <div fxLayout="row" class="justify-between">
+                                        <div fxFlex = "48%">
+                                            <div class="form-label mt-3 sub-label">Start date</div>
+                                            <div class="datepicker-wrapper">
+                                                <input [matDatepicker]="periodStart" (focus)="periodStart.open()" matInput readonly formControlName="periodStart">
+                                                <mat-datepicker-toggle matSuffix [for]="periodStart">
+                                                    <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #periodStart></mat-datepicker>
+                                            </div>
+                                        </div>
+                                        <div fxFlex = "48%">
+                                            <div class="form-label mt-3 sub-label">End date</div>
+                                            <div class="datepicker-wrapper">
+                                                <input [matDatepicker]="periodEnd" (focus)="periodEnd.open()" matInput readonly formControlName="periodEnd">
+                                                <mat-datepicker-toggle matSuffix [for]="periodEnd">
+                                                    <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #periodEnd></mat-datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Caption example (optional)</div>
+                                <mat-form-field appearance="outline">
+                                    <input formControlName="caption" matInput>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Location Tag (optional)</div>
+                                <mat-form-field appearance="outline" class="chips-wrapper">
+                                    <mat-chip-list #locationtags aria-label="Tag selection" formControlName="locationtags">
+                                        <mat-chip *ngFor="let tag of lttags" [selectable]="selectable"
+                                                  [removable]="removable" (removed)="remove(tag, 3)">
+                                            {{ tag }}
+                                            <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                        </mat-chip>
+                                        <input placeholder=""
+                                               [matChipInputFor]="locationtags"
+                                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                               [matChipInputAddOnBlur]="addOnBlur"
+                                               (matChipInputTokenEnd)="add($event, 3)">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Tag to include into the post</div>
+                                <mat-form-field appearance="outline" class="chips-wrapper">
+                                    <label matPrefix>@</label>
+                                    <mat-chip-list #chipList aria-label="Tag selection" formControlName="ctrltags">
+                                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                                  [removable]="removable" (removed)="remove(tag)">
+                                            {{ tag }}
+                                            <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                        </mat-chip>
+                                        <input placeholder=""
+                                               [matChipInputFor]="chipList"
+                                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                               [matChipInputAddOnBlur]="addOnBlur"
+                                               (matChipInputTokenEnd)="add($event)">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="chips-wrapper">
+                                    <label matPrefix>#</label>
+                                    <mat-chip-list #chipList_2 aria-label="Tag selection" formControlName="ctrltags2">
+                                        <mat-chip *ngFor="let tag of tags2" [selectable]="selectable"
+                                                  [removable]="removable" (removed)="remove(tag, 2)">
+                                            {{ tag }}
+                                            <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                        </mat-chip>
+                                        <input placeholder=""
+                                               [matChipInputFor]="chipList_2"
+                                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                               [matChipInputAddOnBlur]="addOnBlur"
+                                               (matChipInputTokenEnd)="add($event, 2)">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label mt-10">Content creation <span class="required">*</span></div>
+                                <vex-campaign-questgroup (setQuestion)="addQuest_creation($event)" [ctrlName]="'contents'" formControlName="contents" [data]="contentdata"></vex-campaign-questgroup>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Does influencer need product? <span class="required">*</span></div>
+                                <vex-campaign-questgroup (setQuestion)="addQuest_product($event)" [ctrlName]="'infquests'" formControlName="infquests" [data]="influencers"></vex-campaign-questgroup>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label mt-12">
+                                    <span>Image for detail</span>
+                                    <p>The mood board allows you to give to the influencers a source of inspiration for
+                                        the kind of content you expect to receive from them. You can upload
+                                        maximum 6 images or videos</p>
+                                </div>
+                                <vex-campaign-imgupload formControlName="galleryImg_1" ></vex-campaign-imgupload>
+                                <vex-campaign-imgupload formControlName="galleryImg_2"></vex-campaign-imgupload>
+                                <vex-campaign-imgupload formControlName="galleryImg_3"></vex-campaign-imgupload>
+                                <vex-campaign-imgupload formControlName="galleryImg_4"></vex-campaign-imgupload>
+                                <vex-campaign-imgupload formControlName="galleryImg_5"></vex-campaign-imgupload>
+
+                                <button mat-raised-button #tooltip="matTooltip"
+                                        matTooltip="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut"
+                                        matTooltipPosition = "left"
+                                        class="help-tip mt-0 tooltip-description">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="influencersGroup">
+                <form [formGroup]="influencersGroup">
+                    <ng-template matStepLabel>Influencers</ng-template>
+                    <ng-template matStepperIcon="edit"><span>3</span></ng-template>
+                    <div gdColumns="repeat(2, minmax(0, 1fr))"
+                         gdColumns.sm="1fr"
+                         gdColumns.xs="1fr"
+                         gdGap="10%" class="inner-container">
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label">Gender</div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select disableOptionCentering panelClass="gender" formControlName="gender">
+                                        <mat-option value="male">Male</mat-option>
+                                        <mat-option value="female">Female</mat-option>
+                                        <mat-option value="any">Any</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field pr-2">
+                                <div class="form-label">Age</div>
+                                <ng5-slider formControlName="ages" [(highValue)]="ahighValue" [options]="aoptions"></ng5-slider>
+                            </div>
+                            <div class="form-field pr-2">
+                                <div class="form-label">Minimum number of followers</div>
+                                <ng5-slider formControlName="followers" [(highValue)]="fhighValue" [options]="foptions"></ng5-slider>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-field">
+                                <div class="form-label">Location</div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select disableOptionCentering panelClass="country" formControlName="country">
+                                        <mat-option *ngFor="let ct of countries" [value]="ct.code">{{ ct.name }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>City</mat-label>
+                                    <mat-select disableOptionCentering panelClass="city" formControlName="city">
+                                        <mat-option *ngFor="let ct of cities" [value]="ct.code">{{ ct.name }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Posting languages</div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select multiple disableOptionCentering panelClass="langs" formControlName="langs">
+                                        <mat-option *ngFor="let ln of languages" [value]="ln.code">{{ ln.name }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <div class="preview-form">
+                    <ng-template matStepLabel>Review</ng-template>
+                    <ng-template matStepperIcon="edit"><span>4</span></ng-template>
+                    <div class="photo-wrapper">
+                        <img [src]="campaign.coverImg" alt="">
+                    </div>
+                    <h2 class="prod-name mt-6">{{ campaign.name }}</h2>
+                    <ul class="socials mt-4">
+                        <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+                    </ul>
+                    <ul class="categories mt-4">
+                        <li *ngFor="let cat of campaign.category">{{ campService.getCatLabel(cat) }}</li>
+                    </ul>
+                    <div class="details mt-10">
+                        <div class="info-row">
+                            <label>Description</label>
+                            <pre>{{ campaign.description }}</pre>
+                        </div>
+                        <div class="info-row" *ngIf="campaign.periodStart">
+                            <label>Period</label>
+                            <p>{{ campaign.periodStart }} ~ {{ campaign.periodEnd }}</p>
+                        </div>
+                        <div class="info-row">
+                            <label>Placement</label>
+                            <ul *ngIf="campaign.placement" class="placement">
+                                <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
+                            </ul>
+                        </div>
+                        <div class="info-row">
+                            <label>Budget</label>
+                            <p>$ {{ campaign.budget }} / per post</p>
+                        </div>
+                        <div class="info-row">
+                            <label>Criteria</label>
+                            <div>
+                                <p>Age : {{ campaign.ages[0] }}-{{ campaign.ages[1] }}</p>
+                                <p>Minimum follower : {{ translateFollowerLabel(campaign.followers[0]) }}-{{ translateFollowerLabel(campaign.followers[1]) }}</p>
+<!--                                <p>Language : <ng-container *ngFor="let ln of campaign.langs; last as isLast" >{{ campService.getLangLabel(ln) }}<ng-container *ngIf="!isLast">,</ng-container></ng-container></p>-->
+                                <p>Location - <ng-container *ngFor="let ln of campaign.locationtags; last as isLast" >{{ ln }}<ng-container *ngIf="!isLast">,</ng-container></ng-container></p>
+                                <p>Caption : {{ campaign.caption }}</p>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <label>Requirement</label>
+                            <pre>{{ campaign.requirement }}</pre>
+                        </div>
+                        <div class="info-row">
+                            <label>Tag</label>
+                            <div>
+                                <ul *ngIf="campaign.tags">
+                                    <li *ngFor="let tg of campaign.tags">@{{ tg }}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul *ngIf="campaign.tags2">
+                                    <li *ngFor="let tg of campaign.tags2">#{{ tg }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <label>Image for detail</label>
+                        </div>
+                        <div class="text-center gallery-wrapper">
+                            <ng-container *ngFor="let imgsrc of campaign.gallery">
+                                <div class="gallery-item" *ngIf="imgsrc">
+                                    <img [src]="imgsrc" alt="">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="submitGroup">
+                <form [formGroup]="submitGroup">
+                    <ng-template matStepLabel>Billing</ng-template>
+                    <ng-template matStepperIcon="edit"><span>5</span></ng-template>
+                    <h4 class="sub-title mb-5">Billing Information</h4>
+                    <div class="form-field">
+                        <div class="form-label">Full name</div>
+                        <mat-form-field appearance="outline">
+                            <input formControlName="fullname" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Address</div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address line 1 (Street address, P.O.box, Company name C/O)</mat-label>
+                            <input formControlName="addressline1" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address line 2 (Apartment, suite, unit, building, floor, etc.)</mat-label>
+                            <input formControlName="addressline2" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input formControlName="addrcity" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>State / Province / Region</mat-label>
+                            <input formControlName="addrstate" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Zip Code</mat-label>
+                            <input formControlName="zipcode" matInput>
+                        </mat-form-field>
+                    </div>
+                    <h4 class="sub-title mt-3 mb-2">My Wallet</h4>
+                    <p>Choose the type of payment</p>
+                    <div class="payments mt-8">
+                        <div class="creditcard pmethod-wrapper">
+                            <button mat-raised-button type="button" [class.activated] = "ccards.length > 0 && paymentOpt == 'creditcard'" (click)="openForm('creditcard')">
+                                <i class="icon-inf-ccard"></i>
+                                <span>Credit card</span>
+                            </button>
+                            <div class="popup-form">
+                                <div class="popup-top">
+                                    <span>Add a credit or debit card</span>
+                                    <button mat-raised-button type="button" (click)="closeForm('creditcard')"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+                                </div>
+                                <div class="popup-content">
+                                    <form [formGroup]="ccFormGroup">
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Card number</div>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>0000-0000-0000</mat-label>
+                                                <input type="text" matInput mask="0000-0000-0000" formControlName="ccardNum" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Name on card</div>
+                                            <mat-form-field appearance="outline">
+                                                <input type="text" matInput formControlName="ccardName">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align field-group">
+                                            <div class="form-label">Expiration date</div>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>MM</mat-label>
+                                                <input type="text" matInput formControlName="ccardExpmonth">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>YYYY</mat-label>
+                                                <input type="text" matInput formControlName="ccardExpyear">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                        <div class="form-label">CVC number</div>
+                                        <mat-form-field appearance="outline" class="small-field">
+                                            <input type="text" matInput formControlName="ccardCVC">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="actions text-right mr-2">
+                                        <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+                                        <button *ngIf="curCardId === 0" mat-raised-button class="primary-action" (click)="addMethod('creditcard')">Add your card</button>
+                                        <button *ngIf="curCardId !== 0" mat-raised-button class="primary-action" (click)="updateMethod()">Save</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bank pmethod-wrapper">
+                            <button mat-raised-button type="button" [class.activated] = "bankAcc.type !== '' && paymentOpt == 'bank'" (click)="openForm('bank')">
+                                <i class="icon-inf-bank"></i>
+                                <span>Bank</span>
+                            </button>
+                            <div class="popup-form">
+                                <div class="popup-top">
+                                    <span>Banking Account Information</span>
+                                    <button mat-raised-button type="button" (click)="closeForm('bank')"><mat-icon [icIcon]="icCancel" inline="true"></mat-icon></button>
+                                </div>
+                                <div class="popup-content">
+                                    <form [formGroup]="bankFormGroup" (ngSubmit)="saveBankInfo()">
+                                        <div class="form-field left-align">
+                                            <mat-radio-group formControlName="bankType" required>
+                                                <mat-radio-button value="Checking">Checking</mat-radio-button>
+                                                <mat-radio-button value="Saving">Saving</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Routing Number</div>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="bankRouting">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Account Number</div>
+                                            <mat-form-field appearance="outline" >
+                                                <input matInput formControlName="bankAccnum">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Account Holder</div>
+                                            <mat-form-field appearance="outline" >
+                                                <input matInput formControlName="bankAccholder">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-field left-align">
+                                            <div class="form-label">Confirm Account Number</div>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="bankCfAccnum">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="actions text-right mr-2">
+                                            <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+                                            <button mat-raised-button class="primary-action" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div *ngIf="ccards.length > 0 && paymentOpt == 'creditcard'" class="psummary-wrapper mt-10 mb-10">
+                    <div fxLayout.gt-xs="row" class="psummary-header">
+                        <div fxFlex = "50%">Your credit card and debit card</div>
+                        <div fxFlex = "50%">Expiration Date</div>
+                    </div>
+                    <mat-accordion>
+                        <mat-expansion-panel *ngFor="let ccard of ccards">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ ccard.name }}</mat-panel-title>
+                                <mat-panel-description>{{ ccard.expMonth }}/{{ ccard.expYear }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <table>
+                                <thead><tr><th>Name on Card</th><th>Billing Address</th></tr></thead>
+                                <tbody><tr><td>{{ submitGroup.value.fullname }}</td><td>
+                                    {{ submitGroup.value.addressline1 }}<br>
+                                    {{ submitGroup.value.addressline2 }}<br>
+                                    {{ submitGroup.value.addrstate }}&nbsp;,&nbsp;{{ submitGroup.value.addrcity }}&nbsp;,&nbsp;{{ submitGroup.value.zipcode }}<br>
+                                </td></tr></tbody>
+                                <tfoot>
+                                    <tr><td></td><td class="text-right">
+                                        <button mat-raised-button type="button" class="mr-4" (click)="deleteInfo('creditcard', ccard.id)"><i class="icon-inf-delete"></i></button>
+                                        <button mat-raised-button type="button" class="btn-action small" (click)="openForm('creditcard', ccard.id)"><span>Edit</span></button>
+                                    </td></tr>
+                                </tfoot>
+                            </table>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+                <div *ngIf="bankAcc.type && paymentOpt == 'bank'" class="psummary-wrapper mt-10 mb-10">
+                    <div fxLayout.gt-xs="row" class="psummary-header">
+                        <div fxFlex = "25%">Account Type</div>
+                        <div fxFlex = "25%">Bank Name</div>
+                        <div fxFlex = "25%">Account Number</div>
+                        <div fxFlex = "25%"></div>
+                    </div>
+                    <div fxLayout.gt-xs="row" class="bankinfo">
+                        <div fxFlex = "25%">{{ bankAcc.type }}</div>
+                        <div fxFlex = "25%">{{ bankAcc.routing }}</div>
+                        <div fxFlex = "25%">{{ bankAcc.number }}</div>
+                        <div fxFlex = "25%" class="text-right">
+                            <button mat-raised-button type="button" class="mr-4" (click)="deleteInfo('bank')"><i class="icon-inf-delete"></i></button>
+                            <button mat-raised-button type="button" class="btn-action small" (click)="openForm('bank')"><span>Edit</span></button>
+                        </div>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step>
+                <div class="confirmation-wrapper">
+                    <p class="text-center">You are almost done<br>Good luck with your campaign!</p>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+        <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+            <button *ngIf="stepper.selectedIndex" color="primary" mat-button type="button" (click)="prevStep(stepper)">Back</button>
+            <button *ngIf="stepper.selectedIndex !==5" mat-raised-button class="step-next primary-action" (click)="nextStep(stepper)">Next</button>
+            <button *ngIf="stepper.selectedIndex ===5" mat-raised-button class="primary-action" (click)="submitCampaign()">Done</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="inf_section">
+    <ul>
+        <li *ngFor="let quest of data">
+<!--            <mat-checkbox [checked]="quest.completed" (change)="setComplete($event, quest)" [indeterminate]="someComplete(quest)">-->
+<!--                {{ quest.question }}-->
+<!--            </mat-checkbox>-->
+            <div class="custom-radio">
+                <input type="radio" [name]="ctrlName" [checked]="quest.completed" [value]="quest.id" [id]="ctrlName + quest.id" (change)="selectQuest($event)">
+                <label [for]="ctrlName + quest.id">
+                    <svg version="1.1" style="display: none;" focusable="false" viewBox="0 0 24 24" xml:space="preserve"><path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3"></path></svg>
+                    {{ quest.question }}
+                </label>
+            </div>
+
+            <ul *ngIf="quest.sub_quetions">
+                <li *ngFor="let qt of quest.sub_quetions">
+                    <mat-checkbox [checked]="qt.completed" (change)="setComplete($event, qt)" [disabled] = "!quest.completed" *ngIf="quest.sub_quetions[0] == qt" style="pointer-events: none;">
+                        {{ qt.question }}
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="qt.completed" (change)="setComplete($event, qt)" [disabled] = "!quest.completed" *ngIf="quest.sub_quetions[0] != qt" style="pointer-events: all;">
+                        {{ qt.question }}
+                    </mat-checkbox>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

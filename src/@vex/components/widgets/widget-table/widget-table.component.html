@@ -1,0 +1,50 @@
+<div class="card overflow-auto w-full" fxLayout="column">
+  <div class="border-b py-4 px-6" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="m-0 title" fxFlex="auto">Recent Sales</h2>
+
+    <button mat-icon-button type="button">
+      <mat-icon [icIcon]="icCloudDownload" class="text-secondary"></mat-icon>
+    </button>
+
+    <button mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreHoriz" class="text-secondary"></mat-icon>
+    </button>
+  </div>
+
+  <table [dataSource]="dataSource" class="w-full overflow-auto" mat-table matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Model Properties Column -->
+    <ng-container *ngFor="let column of columns">
+      <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+        <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
+      </ng-container>
+
+      <ng-container *ngIf="column.type === 'badge'" [matColumnDef]="column.property">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+        <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+          <div *ngIf="row[column.property] === 'ready'"
+               class="w-3 h-3 rounded-full bg-green cursor-pointer"
+               matTooltip="Ready to ship"></div>
+          <div *ngIf="row[column.property] === 'pending'"
+               class="w-3 h-3 rounded-full bg-orange cursor-pointer"
+               matTooltip="Pending Payment"></div>
+          <div *ngIf="row[column.property] === 'warn'"
+               class="w-3 h-3 rounded-full bg-red cursor-pointer"
+               matTooltip="Missing Payment"></div>
+        </td>
+      </ng-container>
+    </ng-container>
+
+
+    <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+    <!--suppress UnnecessaryLabelJS -->
+    <tr *matRowDef="let row; columns: visibleColumns;" mat-row></tr>
+  </table>
+
+  <mat-paginator [pageSize]="pageSize" class="paginator"></mat-paginator>
+
+</div>

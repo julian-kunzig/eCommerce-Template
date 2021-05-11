@@ -1,0 +1,61 @@
+.sidebar {
+  background: var(--background-card);
+  bottom: 0;
+  box-shadow: var(--elevation-z8);
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  max-width: 80vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  transition-duration: var(--trans-ease-in-duration);
+  transition-property: transform, visibility;
+  transition-timing-function: var(--trans-ease-in-timing-function);
+  visibility: hidden;
+  width: var(--sidenav-width);
+  z-index: 1000;
+
+  @screen sm {
+    max-width: unset;
+  }
+
+  &.position-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  &.position-right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+.backdrop {
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition-duration: 400ms;
+  transition-property: background-color, visibility;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  visibility: hidden;
+  z-index: 800 !important;
+
+  &.visible {
+    background-color: rgba(0, 0, 0, .6);
+    visibility: visible;
+  }
+
+  &.invisible {
+    background-color: transparent;
+  }
+}

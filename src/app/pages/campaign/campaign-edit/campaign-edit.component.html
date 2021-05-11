@@ -1,0 +1,242 @@
+<div class="h-full campaign-edit-wrapper" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Edit Campaign</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+    </div>
+    <form [formGroup]="editFormGroup">
+        <div class="photo-wrapper" *ngIf="campaign.coverImg">
+            <img [src]="campaign.coverImg" alt="">
+            <div class="upload-btn">
+                <button><img src="../../../../assets/img/img-upload.png" alt=""></button>
+                <input type="file" (change) = "onFileChange($event)" accept=".png,.jpg,.jpeg" />
+            </div>
+        </div>
+        <div class="img-cropping-wrapper">
+            <div class="cropping-section">
+                <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                ></image-cropper>
+                <div class="actions text-center mt-3">
+                    <button mat-raised-button class="mr-2" (click)="skipCrop()">Skip Crop</button>
+                    <button mat-raised-button class="primary-action" (click)="saveCroppedImage()">Save</button>
+                </div>
+            </div>
+        </div>
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Product and service">
+                <div class="mt-10">
+                    <div class="form-field">
+                        <div class="form-label">Product or  Service name</div>
+                        <mat-form-field appearance="outline">
+                            <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.name">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Category</div>
+                        <mat-form-field appearance="outline">
+                            <mat-select multiple disableOptionCentering panelClass="category" [(value)]="campaign.category">
+                                <mat-option *ngFor="let category of categories" [value]="category.value">{{category.label}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Description</div>
+                        <mat-form-field appearance="outline">
+                            <textarea matInput rows = "4" [ngModelOptions]="{standalone: true}" placeholder="Describe your campaign and what you expect from the influencers.Try to be as clear as possible." [(ngModel)]="campaign.description" ></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Platform</div>
+                        <vex-campaign-chkgroup [data] = "platforms" [values]="campaign.platform"></vex-campaign-chkgroup>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Placement</div>
+                        <vex-campaign-chkgroup [data] = "placements" [values]="campaign.placement"></vex-campaign-chkgroup>
+                    </div>
+                    <div class="form-field period">
+                        <div class="form-label">
+                            <span>Period (optional)</span>
+                            <mat-slide-toggle class="ml-5 align-middle" (change)="enablePeriod($event)" [checked]="ePeriod"></mat-slide-toggle>
+                            <p>Select campaign launch and end dates</p>
+                        </div>
+                        <div [class.opt_disabled] = "!ePeriod">
+                            <div fxLayout = "row" class="justify-between">
+                                <div fxFlex = "48%">
+                                    <div class="form-label mt-3 sub-label">Start date</div>
+                                    <div class="datepicker-wrapper">
+                                        <input [matDatepicker]="ctrlperiodStart" (focus)="ctrlperiodStart.open()" matInput readonly formControlName="ctrlperiodStart" readonly [(ngModel)]="periodStart">
+                                        <mat-datepicker-toggle matSuffix [for]="ctrlperiodStart">
+                                            <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #ctrlperiodStart></mat-datepicker>
+                                    </div>
+                                </div>
+                                <div fxFlex = "48%">
+                                    <div class="form-label mt-3 sub-label">End date</div>
+                                    <div class="datepicker-wrapper">
+                                        <input [matDatepicker]="ctrlperiodEnd" (focus)="ctrlperiodEnd.open()" matInput readonly formControlName="ctrlperiodEnd" [(ngModel)]="periodEnd">
+                                        <mat-datepicker-toggle matSuffix [for]="ctrlperiodEnd">
+                                            <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #ctrlperiodEnd></mat-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Requirement</div>
+                        <mat-form-field appearance="outline">
+                            <!-- <textarea matInput rows = "4" [ngModelOptions] = "{standalone: true}" [(ngModel)] = "campaign.requirement" formControlName="requirement" ></textarea> -->
+                            <!-- <textarea matInput rows = "4" [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.requirement"></textarea> -->
+                            <textarea formControlName="requirement" matInput rows = "5"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Caption example (optional)</div>
+                        <mat-form-field appearance="outline">
+                            <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="campaign.caption">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Location Tag (optional)</div>
+                        <mat-form-field appearance="outline" class="chips-wrapper">
+                            <mat-chip-list #locationtags aria-label="Tag selection" formControlName="locationtags" [(value)]="campaign.tags">
+                                <mat-chip *ngFor="let tag of lttags" [selectable]="selectable"
+                                          [removable]="removable" (removed)="remove(tag, 3)">
+                                    {{ tag }}
+                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                </mat-chip>
+                                <input placeholder=""
+                                       [matChipInputFor]="locationtags"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="add($event, 3)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Tag to include into the post</div>
+                        <mat-form-field appearance="outline" class="chips-wrapper">
+                            <label matPrefix>@</label>
+                            <mat-chip-list #chipList aria-label="Tag selection" formControlName="ctrltags" [(value)]="campaign.tags">
+                                <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                          [removable]="removable" (removed)="remove(tag)">
+                                    {{ tag }}
+                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                </mat-chip>
+                                <input placeholder=""
+                                       [matChipInputFor]="chipList"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="chips-wrapper">
+                            <label matPrefix>#</label>
+                            <mat-chip-list #chipList_2 aria-label="Tag selection" formControlName="ctrltags2" [(value)]="campaign.tags2">
+                                <mat-chip *ngFor="let tag of tags2" [selectable]="selectable"
+                                          [removable]="removable" (removed)="remove(tag, 2)">
+                                    {{ tag }}
+                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                </mat-chip>
+                                <input placeholder=""
+                                       [matChipInputFor]="chipList_2"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="add($event, 2)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field question">
+                        <div class="form-label mt-10">Content creation <span class="required">*</span></div>
+                        <vex-campaign-questgroup (setQuestion)="addQuest_creation($event)" [ctrlName]="'contents'" [values]="campaign.contents" [data]="contentdata"></vex-campaign-questgroup>
+                    </div>
+                    <div class="form-field question">
+                        <div class="form-label mt-10">Does influencer need product?</div>
+                        <vex-campaign-questgroup (setQuestion)="addQuest_product($event)" [ctrlName]="'infquests'" [values]="campaign.quests" [data]="influencers"></vex-campaign-questgroup>
+                    </div>
+                    <div class="form-field gallery-wrapper">
+                        <div class="form-label mt-10">Image for detail</div>
+                        <div class="gallery-preview">
+                            <ng-container *ngFor="let item of campaign.gallery; index as id">
+                                <div class="preview-item" *ngIf="item">
+                                    <button (click)="deleteGalleryItem(id)"><i class="icon-inf-delete"></i></button>
+                                    <img [src]="item" alt="">
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="multiple-upload" style="height: 200px">
+                            <ng-container *ngFor="let item of campaign.gallery; index as id">
+                                <div class="upload-item-btn" *ngIf="item === ''">
+                                    <span>Upload your file here</span>
+                                    <input type="file" (change)="uploadGalleryItem(id, $event)" accept=".png,.jpg,.jpeg">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Influencer">
+                <div class="mt-10">
+                    <div class="form-field">
+                        <div class="form-label">Gender</div>
+                        <mat-form-field appearance="outline">
+                            <mat-select disableOptionCentering panelClass="gender" [(value)]="campaign.gender">
+                                <mat-option value="male">Male</mat-option>
+                                <mat-option value="female">Female</mat-option>
+                                <mat-option value="any">Any</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Location</div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select disableOptionCentering panelClass="country" [(value)]="campaign.country">
+                                <mat-option *ngFor="let ct of countries" [value]="ct.code">{{ ct.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <mat-select disableOptionCentering panelClass="city" [(value)]="campaign.city">
+                                <mat-option *ngFor="let ct of cities" [value]="ct.code">{{ ct.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-label">Posting languages</div>
+                        <mat-form-field appearance="outline">
+                            <mat-select multiple disableOptionCentering panelClass="langs" [(value)]="campaign.langs">
+                                <mat-option *ngFor="let ln of languages" [value]="ln.code">{{ ln.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div gdColumns="repeat(2, minmax(0, 1fr))"
+                         gdColumns.sm="1fr"
+                         gdColumns.xs="1fr"
+                         gdGap="5%" class="inner-container">
+                        <div class="form-field pr-2">
+                            <div class="form-label">Age</div>
+                            <ng5-slider [(value)]="campaign.ages[0]" [(highValue)]="campaign.ages[1]" [options]="aoptions"></ng5-slider>
+                        </div>
+                        <div class="form-field pr-2">
+                            <div class="form-label">Minimum number of followers</div>
+                            <ng5-slider [(value)]="campaign.followers[0]" [(highValue)]="campaign.followers[1]" [options]="foptions"></ng5-slider>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+            <button mat-button type="button" (click)="backList()">Back</button>
+            <button mat-raised-button class="step-next primary-action" (click)="saveCampaign()">Save</button>
+        </div>
+    </form>
+</div>

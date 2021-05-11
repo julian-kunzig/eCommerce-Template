@@ -1,0 +1,51 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Setting</span>
+        </h1>
+        <p class="description color-gray">Update your account information</p>
+    </div>
+    <div class="user-setting-wrapper mt-10">
+        <div class="photo-wrapper">
+            <div class="preview">
+                <img [src]="userService.currentUser.avatar" alt="">
+                <div class="upload-btn">
+                    <button><img src="../../../../assets/img/img-upload.png" alt=""></button>
+                    <input type="file" (change) = "onFileChange($event)" accept=".png,.jpg,.jpeg" />
+                </div>
+            </div>
+            <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                <h4 class="mt-3">{{ userService.currentUser.company }}</h4>
+            </ng-container>
+            <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                <h4 class="mt-3">{{ userService.currentUser.fullName }}</h4>
+            </ng-container>
+        </div>
+        <div class="img-cropping-wrapper">
+            <div class="cropping-section">
+                <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="1 / 1"
+                        [resizeToWidth]="200"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+                <div class="actions mt-3">
+                    <button mat-raised-button class="primary-action" (click)="saveCroppedImage()">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 user-setting-nav">
+            <ul>
+                <li><button [routerLink]="['/panel/user/profile']" class="user-profile-link" matRipple><span>Profile</span></button></li>
+                <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                    <li><button [routerLink]="['/panel/user/social']" class="user-social-link" matRipple><span>Social Media Platform</span></button></li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>

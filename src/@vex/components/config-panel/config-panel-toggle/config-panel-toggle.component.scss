@@ -1,0 +1,11 @@
+.config-panel-toggle {
+  bottom: var(--padding);
+  position: fixed;
+  right: var(--padding);
+  z-index: 100;
+}
+
+::ng-deep [dir="rtl"] .config-panel-toggle {
+  left: var(--padding);
+  right: unset;
+}

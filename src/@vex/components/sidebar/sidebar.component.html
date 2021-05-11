@@ -1,0 +1,5 @@
+<div (click)="close()" [class.invisible]="invisibleBackdrop" [class.visible]="opened" class="backdrop"></div>
+
+<div [class.open]="opened" [class.position-left]="positionLeft" [class.position-right]="positionRight" class="sidebar">
+  <ng-content></ng-content>
+</div>

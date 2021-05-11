@@ -1,0 +1,30 @@
+input, textarea {
+  box-sizing: content-box;
+  line-height: 1.5;
+}
+
+button:focus {
+  outline: unset !important;
+}
+
+code {
+  background: var(--background-app-bar);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 85%;
+  padding: .2em .4em;
+}
+
+blockquote {
+  @apply bg-primary-light;
+  border-left: 3px solid theme('backgroundColor.primary.default');
+  color: rgba(0, 0, 0, .87);
+  font-style: normal;
+  margin: 1em 0 1.5em;
+  padding: 1em 1.5em;
+
+  > * {
+    margin: 0;
+  }
+}

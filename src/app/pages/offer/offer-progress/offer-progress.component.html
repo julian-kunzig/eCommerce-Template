@@ -1,0 +1,381 @@
+<div class="h-full offer-progress-wrapper" [class.influencer]="!isAdvertiser" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Offer</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+    </div>
+    <div class="content mt-10">
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab *ngIf="offer.type !== 'pending'" label="Work in progress">
+                <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="false" [class]="currentStep" (selectionChange)="selectionChange($event)">
+                    <mat-step [stepControl]="packageform">
+                        <ng-template matStepLabel>Package Tracking <p>Nike will upload package tracking info soon.</p></ng-template>
+                        <ng-template matStepperIcon="edit"><span>1</span></ng-template>
+                        <div class="get-started text-center" [class.have-info]="packinfo">
+                            <img src="../../../../assets/img/offer-bg.png" alt="">
+                            <h3 class="mt-10">Package tracking information hasn’t uploaded yet.</h3>
+                        </div>
+                        <div class="step-content">
+                            <h2>Package Tracking</h2>
+                            <p>Submit package tracking information.</p>
+                            <form [formGroup]="packageform" class="mt-6">
+                                <div class="form-field">
+                                    <div class="form-label">Ship Date</div>
+                                    <div class="datepicker-wrapper">
+                                        <input [matDatepicker]="shipDate" (focus)="shipDate.open()" matInput readonly formControlName="shipDate" [(ngModel)]="spDate" [disabled]="!isAdvertiser">
+                                        <div>
+                                            <mat-datepicker-toggle matSuffix [for]="shipDate">
+                                                <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #shipDate></mat-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Shipping Carrier</div>
+                                    <mat-form-field appearance="outline">
+                                        <mat-select disableOptionCentering panelClass="category" [(value)]="offer.ship_carrier" [disabled]="!isAdvertiser">
+                                            <mat-option value="USPS">USPS</mat-option>
+                                            <mat-option value="UPS">UPS</mat-option>
+                                            <mat-option value="FedEx">FedEx</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Estimated Arrival Date</div>
+                                    <div class="datepicker-wrapper">
+                                        <input [matDatepicker]="arrivalDate" (focus)="arrivalDate.open()"  matInput readonly formControlName="arrivalDate" [(ngModel)]="arrvDate" [disabled]="!isAdvertiser">
+                                        <div>
+                                            <mat-datepicker-toggle matSuffix [for]="arrivalDate">
+                                                <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #arrivalDate></mat-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Tacking Number</div>
+                                    <mat-form-field appearance="outline">
+                                        <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="offer.track_no" [readonly]="!isAdvertiser" [disabled]="!isAdvertiser">
+                                    </mat-form-field>
+                                </div>
+                                <ng-container *ngIf="isAdvertiser">
+                                    <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button (click)="savePackingInfo(stepper)">Save</button>
+                                    </div>
+                                </ng-container>
+                            </form>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="reviewform">
+                        <ng-template matStepLabel>Work Submission for Review<p>Kaitlyn Kristy will submit work for review soon.</p></ng-template>
+                        <ng-template matStepperIcon="edit"><span>2</span></ng-template>
+                        <div class="step-content">
+                            <h2>Work Submission for Review</h2>
+                            <p>Submit your work.</p>
+                            <ng-container *ngIf="isAdvertiser">
+                                <div class="post-preview mt-6">
+                                    <div class="post-top items-center" fxLayout="row">
+                                        <!-- <div class="avatar">
+                                            <img [src]="profile.photo_img" alt="">
+                                        </div>
+                                        <div>
+                                            <h3>{{ profile.name }}</h3>
+                                            <ul class="locations"><li *ngFor="let lt of offer.locationtags"><span>{{ lt }}</span></li></ul>
+                                        </div> -->
+                                    </div>
+                                    <div class="post-img">
+                                        <img [src]="offer.post_img" alt="">
+                                    </div>
+                                    <!-- <div class="items-center" fxLayout="row">
+                                        <p>{{ profile.name }}</p>
+                                        <p>{{ offer.caption }}</p>
+                                    </div> -->
+                                    <ul class="tags">
+                                        <li *ngFor="let tg of offer.tags" >@{{ tg }}</li>
+                                        <li *ngFor="let tg2 of offer.tags2" >#{{ tg2 }}</li>
+                                    </ul>
+                                </div>
+                                <ng-container *ngIf="!changeReq">
+                                    <div class="actions mt-5 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button (click)="expandReq()">Request Change</button>
+                                        <button mat-raised-button (click)="approve(stepper)">Approve</button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="changeReq">
+                                    <hr class="my-10">
+                                    <form [formGroup]="reviewform">
+                                        <div class="form-field">
+                                            <div class="form-label">Required Changes</div>
+                                            <mat-form-field appearance="outline">
+                                                <textarea rows="5" matInput [ngModelOptions]="{standalone: true}" placeholder="Explain what you want the influencer to change." [(ngModel)]="offer.change_note"></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                            <button mat-raised-button (click)="approve(stepper)">Request Change</button>
+                                        </div>
+                                    </form>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="!isAdvertiser">
+                                <form [formGroup]="reviewform" class="mt-6">
+                                    <div class="form-field upload-img-field">
+                                        <div class="form-label">Image</div>
+                                        <vex-campaign-imgupload formControlName="post_img"></vex-campaign-imgupload>
+                                    </div>
+                                    <div class="form-field">
+                                        <div class="form-label">Caption or Description</div>
+                                        <mat-form-field appearance="outline">
+                                            <input formControlName="caption" matInput>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-field">
+                                        <div class="form-label">Tags</div>
+                                        <mat-form-field appearance="outline" class="chips-wrapper">
+                                            <label matPrefix>@</label>
+                                            <mat-chip-list #chipList aria-label="Tag selection" formControlName="ctrltags">
+                                                <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                                          [removable]="removable" (removed)="remove(tag)">
+                                                    {{ tag }}
+                                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                                </mat-chip>
+                                                <input placeholder=""
+                                                       [matChipInputFor]="chipList"
+                                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                       [matChipInputAddOnBlur]="addOnBlur"
+                                                       (matChipInputTokenEnd)="add($event)">
+                                            </mat-chip-list>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="chips-wrapper">
+                                            <label matPrefix>#</label>
+                                            <mat-chip-list #chipList_2 aria-label="Tag selection" formControlName="ctrltags2">
+                                                <mat-chip *ngFor="let tag of tags2" [selectable]="selectable"
+                                                          [removable]="removable" (removed)="remove(tag, 2)">
+                                                    {{ tag }}
+                                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                                </mat-chip>
+                                                <input placeholder=""
+                                                       [matChipInputFor]="chipList_2"
+                                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                       [matChipInputAddOnBlur]="addOnBlur"
+                                                       (matChipInputTokenEnd)="add($event, 2)">
+                                            </mat-chip-list>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-field">
+                                        <div class="form-label">Location Tag</div>
+                                        <mat-form-field appearance="outline" class="chips-wrapper">
+                                            <mat-chip-list #locationtags aria-label="Tag selection" formControlName="locationtags">
+                                                <mat-chip *ngFor="let tag of lttags" [selectable]="selectable"
+                                                          [removable]="removable" (removed)="remove(tag, 3)">
+                                                    {{ tag }}
+                                                    <mat-icon [icIcon]="icCancel" matChipRemove *ngIf="removable"></mat-icon>
+                                                </mat-chip>
+                                                <input placeholder=""
+                                                       [matChipInputFor]="locationtags"
+                                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                       [matChipInputAddOnBlur]="addOnBlur"
+                                                       (matChipInputTokenEnd)="add($event, 3)">
+                                            </mat-chip-list>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button (click)="savePostInfo(stepper)">Save</button>
+                                    </div>
+                                </form>
+                            </ng-container>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="shareform">
+                        <ng-template matStepLabel>Share Post/Video Link<p>Kaitlyn Kristy will submit work for review soon.</p></ng-template>
+                        <ng-template matStepperIcon="edit"><span>3</span></ng-template>
+                        <div class="step-content">
+                            <h2>Share Post/Video Link</h2>
+                            <ng-container *ngIf="isAdvertiser">
+                                <p>Confirm your work URL.</p>
+                                <form [formGroup]="shareform" class="mt-6">
+                                    <div class="form-field link-field">
+                                        <div class="form-label"></div>
+                                        <mat-form-field appearance="outline">
+                                            <div class="link-icon" matPrefix><mat-icon [icIcon]="icLink"></mat-icon></div>
+                                            <input formControlName="postlink" matInput [(ngModel)]="offer.post_img" [readonly]="isAdvertiser" [disabled]="isAdvertiser">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button (click)="confirmShareLink(stepper)">Confirm</button>
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-container *ngIf="!isAdvertiser">
+                                <p>Submit your work URL.</p>
+                                <form [formGroup]="shareform" class="mt-6">
+                                    <div class="form-field link-field">
+                                        <div class="form-label"></div>
+                                        <mat-form-field appearance="outline">
+                                            <div class="link-icon" matPrefix><mat-icon [icIcon]="icLink"></mat-icon></div>
+                                            <input formControlName="postlink" matInput placeholder="Copy and paste your URL here">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button (click)="saveShareLink(stepper)">Save</button>
+                                    </div>
+                                </form>
+                            </ng-container>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="paymentform">
+                        <ng-template matStepLabel>Payment Released</ng-template>
+                        <ng-template matStepperIcon="edit"><span>4</span></ng-template>
+                        <div class="get-started text-center">
+                            <img src="../../../../assets/img/offer-bg.png" alt="">
+                            <h3 class="mt-10">Package tracking information hasn’t uploaded yet.</h3>
+                        </div>
+                        <form [formGroup]="paymentform" class="payment-form">
+                            <div class="form-field">
+                                <div class="form-label"></div>
+                                <mat-form-field appearance="outline">
+                                    <input formControlName="pcard" matInput value="card number">
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="ratingform">
+                        <ng-template matStepLabel>Rating & Reviews <p>Nike will rate and review soon.</p></ng-template>
+                        <ng-template matStepperIcon="edit"><span>5</span></ng-template>
+                        <div class="step-content">
+                            <h2>Advertiser’s Review</h2>
+                            <ng-container *ngIf="isAdvertiser">
+                                <p>Leave review.</p>
+                                <form [formGroup]="ratingform" class="rating-form mt-6">
+                                    <div class="form-field">
+                                        <p>How would you rate influencer’s work?</p>
+                                        <div class="rating-wrapper">
+                                            <div class="rating"><span [ngStyle]="{'width': calcRatingWidth() + '%'}"></span></div>
+                                            <h2>{{ offer.adv_review.rating }}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <p>Details review</p>
+                                        <ul class="rating-details">
+                                            <li><span class="rating-label">Quality</span>
+                                                <mat-radio-group [(ngModel)]="offer.adv_review.rating_values[0]" formControlName="qt_rating" (change)="calcRating()">
+                                                    <mat-radio-button *ngFor="let num of numbers" [value]="num"
+                                                                      [checked]="offer.adv_review.rating_values[0] === num">{{ num}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </li>
+                                            <li><span class="rating-label">Dealine</span>
+                                                <mat-radio-group [(ngModel)]="offer.adv_review.rating_values[1]" formControlName="dl_rating" (change)="calcRating()">
+                                                    <mat-radio-button *ngFor="let num of numbers" [value]="num"
+                                                                      [checked]="offer.adv_review.rating_values[1] === num">{{ num}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </li>
+                                            <li><span class="rating-label">Communication</span>
+                                                <mat-radio-group [(ngModel)]="offer.adv_review.rating_values[2]" formControlName="cm_rating" (change)="calcRating()">
+                                                    <mat-radio-button *ngFor="let num of numbers" [value]="num"
+                                                                      [checked]="offer.adv_review.rating_values[2] === num">{{ num}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </li>
+                                            <li><span class="rating-label">Cooperation</span>
+                                                <mat-radio-group [(ngModel)]="offer.adv_review.rating_values[3]" formControlName="co_rating" (change)="calcRating()">
+                                                    <mat-radio-button *ngFor="let num of numbers" [value]="num"
+                                                                      [checked]="offer.adv_review.rating_values[3] === num">{{ num}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-field">
+                                        <p>Share your experience with this influencer to the Infinovae community</p>
+                                        <mat-form-field appearance="outline">
+                                            <textarea formControlName="r_summary" [(ngModel)]="offer.adv_review.summary" matInput rows="5"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="actions mt-2 justify-end items-center" fxLayout="row" fxLayoutGap="8px">
+                                        <button mat-raised-button>Save</button>
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-container *ngIf="!isAdvertiser">
+                                <p>Check out advertiser’s review.</p>
+                                <div class="adv-review mt-10">
+                                    <div class="review-top">
+                                        <div class="avatar"></div>
+                                        <div fxLayout="column" fxLayoutAlign="start start">
+                                            <div class="review-title">{{ offer.adv_review.review_title }}</div>
+                                            <span class="review-platform" [ngClass]="offer.adv_review.platform">{{ offer.adv_review.platform }}</span>
+                                        </div>
+                                        <span class="review-date">{{ translateDate(offer.adv_review.review_date) }}</span>
+                                    </div>
+                                    <div class="review-content">
+                                        <h5>Advertiser’s feedback</h5>
+                                        <div fxLayout="row" class="items-center"><div class="rating"><span [ngStyle]="{'width': ((offer.offer_progress.rating?.avg_rating || 0) * 20) + '%'}"></span></div>
+                                            <span class="pl-2 w-8">{{ offer.offer_progress.rating?.avg_rating || 0 }}</span></div>
+                                        <p class="review-description">{{ offer.offer_progress.detailed_review || "Nothing" }}</p>
+                                        <h5>Detailed rating</h5>
+                                        <hr>
+                                        <ul class="rating-details">
+                                            <li><span class="rating-label">Flexibility</span><span class="dash-line"></span><span class="rating-value">{{ offer.offer_progress.rating?.cooperation || 0 }}</span></li>
+                                            <li><span class="rating-label">Quality</span><span class="dash-line"></span><span class="rating-value">{{ offer.offer_progress.rating?.quality || 0 }}</span></li>
+                                            <li><span class="rating-label">Communication</span><span class="dash-line"></span><span class="rating-value">{{ offer.offer_progress.rating?.communication || 0 }}</span></li>
+                                            <li><span class="rating-label">Deadline</span><span class="dash-line"></span><span class="rating-value">{{ offer.offer_progress.rating?.deadline || 0 }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+                <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                    <button *ngIf="stepper.selectedIndex" color="primary" mat-button type="button" (click)="prevStep(stepper)">Back</button>
+                </div>
+            </mat-tab>
+            <mat-tab label="View offer">
+                <div class="offer-info preview-form">
+                    <div class="details">
+                        <div class="info-row">
+                            <label>Campaign Name</label>
+                            <p>{{ offer.camp_name }}</p>
+                        </div>
+                        <div class="info-row">
+                            <label>Budget</label>
+                            <p>$ {{ offer.budget }} / per post</p>
+                        </div>
+                        <div class="info-row">
+                            <!-- <label>Platform</label>
+                            <ul class="socials mt-4">
+                                <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+                            </ul> -->
+                        </div>
+                        <div class="info-row">
+                            <!-- <label>Placement</label>
+                            <ul *ngIf="campaign.placement" class="placement">
+                                <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
+                            </ul> -->
+                        </div>
+                        <div class="info-row">
+                            <label>Content Creation</label>
+                            <p></p>
+                        </div>
+                        <div class="info-row">
+                            <!-- <label>Requirements</label>
+                            <pre>{{ campaign.requirement }}</pre> -->
+                        </div>
+                        <div class="info-row">
+                            <label>Offer Date</label>
+                            <pre>{{ offer.accept_date }}</pre>
+                        </div>
+                        <div class="info-row">
+                            <label>Brand Message</label>
+                            <p>Let’s set up time to talk everyday for progress report purposes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                    <button mat-button type="button" (click)="backList()">Back</button>
+                    <button mat-button type="button" [hidden]="offer.type === 'current'" (click)="negotiate()" class="secondary ml-auto">Negotiate</button>
+                    <button mat-button type="button" [hidden]="offer.type === 'current'" class="primary" (click)="acceptOffer()">Accept Offer</button>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<div class="h-full dashboard-wrapper" [class.influencer] = "userService.currentUser.type === 'influencer'" fxLayout="row">
+    <div class="mid-content">
+        <div class="dashboard-welcome">
+            <img src="../../../../assets/img/welcome.png" alt="">
+            <h2>Hi Hyebin, <strong>Welcome back!</strong></h2>
+            <p>You are  currently on the <strong>Free plan</strong> -Upgrade your plan and get more benefit. </p>
+            <button mat-raised-button class="upgrade"><span>Upgrade to Premium</span></button>
+        </div>
+        <div class="section">
+            <h3>Overview</h3>
+            <div class="overview">
+                <div class="card live-camp">
+                    <h5>Number of Live Campaigns</h5>
+                    <span class="value">{{ campaigns.length }}</span>
+                </div>
+                <div class="card pending-camp" [class.earned] = "userService.currentUser.type === 'influencer'">
+                    <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                        <h5>Total Amount Earned</h5>
+                        <span class="value">$2,315.10</span>
+                    </ng-container>
+                    <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                        <h5>Pending Campaigns</h5>
+                        <span class="value">{{ offers.length }}</span>
+                    </ng-container>
+                </div>
+                <div class="card unread-prop">
+                    <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                        <h5>Unread Offer</h5>
+                        <span class="value">{{ offers.length }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                        <h5>Unread Proposal</h5>
+                        <span class="value">{{ proposals.length }}</span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                <h3>Trending Campaigns</h3>
+                <p>Go to the <a [routerLink]="['/panel/inf_discover/list']" [queryParams]="{ filter: 'all'}">Discover</a> page to look for more influencers.</p>
+            </ng-container>
+            <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                <h3>Trending Influencers</h3>
+                <p>Go to the <a [routerLink]="['/panel/discover/list']" [queryParams]="{ filter: 'all'}">Discover</a> page to look for more influencers.</p>
+            </ng-container>
+            <div class="content trending">
+                <swiper [config]="config">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                            <div class="swiper-slide" *ngFor="let tf of campaigns">
+                                <div class="cover-img"><img [src]="tf.coverImg" alt=""></div>
+                                <h3>{{ tf.name }}</h3>
+                                <p>Nike</p>
+                                <ul class="socials">
+                                    <li *ngFor="let pf of tf.platform" [className]="pf"></li>
+                                </ul>
+                                <button mat-raised-button [routerLink]="['/panel/campaign/view/' + tf.id]"><span>View</span></button>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                            <div class="swiper-slide" *ngFor="let tf of trendInfs">
+                                <div class="avatar"><img [src]="tf.photo_img" alt=""></div>
+                                <h3>{{ tf.name }}</h3>
+                                <p>@{{ tf.name }}</p>
+                                <button mat-raised-button [routerLink]="['/panel/discover/view/' + tf.id]"><span>Profile</span></button>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </swiper>
+            </div>
+        </div>
+        <div class="section">
+            <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                <h3>Recommended Campaigns</h3>
+                <p>Go to the <a [routerLink]="['/panel/inf_discover/list']" [queryParams]="{ filter: 'all'}">Discover</a> page to look for more influencers.</p>
+            </ng-container>
+            <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                <h3>Recommended Influencers</h3>
+                <p>Go to the <a [routerLink]="['/panel/discover/list']" [queryParams]="{ filter: 'all'}">Discover</a> page to look for more influencers.</p>
+            </ng-container>
+            <div class="content recommend">
+                <swiper [config]="config">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                            <div class="swiper-slide" *ngFor="let tf of campaigns">
+                                <div class="cover-img"><img [src]="tf.coverImg" alt=""></div>
+                                <h3>{{ tf.name }}</h3>
+                                <p>Nike</p>
+                                <ul class="socials">
+                                    <li *ngFor="let pf of tf.platform" [className]="pf"></li>
+                                </ul>
+                                <button mat-raised-button [routerLink]="['/panel/campaign/view/' + tf.id]"><span>View</span></button>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                            <div class="swiper-slide" *ngFor="let tf of recomInfs">
+                                <a [routerLink]="['/panel/discover/view/' + tf.id]" class="permal-link"><div class="avatar"><img [src]="tf.photo_img" alt=""></div></a>
+                                <h3>{{ tf.name }}</h3>
+                                <p>@{{ tf.name }}</p>
+                                <button mat-raised-button [routerLink]="['/panel/discover/view/' + tf.id]"><span>Profile</span></button>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </swiper>
+            </div>
+        </div>
+    </div>
+    <div class="side-content">
+        <div class="block">
+            <h3>Recent Search</h3>
+            <div class="recent">
+                <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                    <div class="recent-item" *ngFor="let cp of recenCamps">
+                        <a [routerLink]="['/panel/campaign/view/' + cp.id]" class="permal-link">
+                            <div fxLayout="row" class="items-center">
+                                <div class="cover-img"><img [src]="cp.coverImg" alt=""></div>
+                                <div>
+                                    <h4>{{ cp.name }}</h4>
+                                    <p>Nike</p>
+                                    <ul class="socials">
+                                        <li *ngFor="let pf of cp.platform" [className]="pf"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                    <div class="recent-item" *ngFor="let pf of recenInfs">
+                        <a [routerLink]="['/panel/discover/view/' + pf.id]" class="permal-link">
+                            <div fxLayout="row" class="items-center">
+                                <div class="avatar"><img [src]="pf.photo_img" alt=""></div>
+                                <div>
+                                    <h4>{{ pf.name }}</h4>
+                                    <p>@{{ pf.name }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="block popular">
+            <h5>Popular this week</h5>
+            <div class="popular-content">
+                <swiper [config]="sconfig">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngIf="userService.currentUser.type === 'influencer'">
+                            <div class="swiper-slide" *ngFor="let pf of popularCamps">
+                                <img [src]="pf.coverImg" alt="">
+                                <a [routerLink]="['/panel/campaign/view/' + pf.id]" class="permal-link">
+                                    <div class="content">
+                                        <img src="../../../../assets/img/crown.png" alt="">
+                                        <h5>{{ pf.name }}</h5>
+                                        <p>Nike, Inc.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
+                            <div class="swiper-slide" *ngFor="let pf of popularInfs">
+                                <img [src]="pf.photo_img" alt="">
+                                <a [routerLink]="['/panel/discover/view/' + pf.id]" class="permal-link">
+                                    <div class="content">
+                                        <img src="../../../../assets/img/crown.png" alt="">
+                                        <h5>{{ pf.name }}</h5>
+                                        <div class="rating"><span [ngStyle]="{'width': calcRatingWidth(pf.id) + '%'}"></span></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </swiper>
+            </div>
+        </div>
+    </div>
+</div>

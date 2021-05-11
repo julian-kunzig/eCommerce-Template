@@ -1,0 +1,4 @@
+<button #originRef (click)="showPopover()" [class.active]="dropdownOpen" class="button" mat-icon-button type="button">
+  <span *ngIf="notifications && notifications.length > 0" class="noti-badge">{{notifications.length}}</span>
+  <i class="icon-inf-alert"></i>
+</button>

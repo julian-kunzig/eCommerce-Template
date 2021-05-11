@@ -1,0 +1,72 @@
+@import "./var.scss";
+
+.container {
+  padding-left: var(--padding-gutter);
+  padding-right: var(--padding-gutter);
+
+  @screen lg {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: theme('screens.lg');
+    width: 100%;
+  }
+}
+
+.card {
+  @apply rounded shadow-8 bg-card;
+}
+
+.avatar {
+  @apply h-10 w-10 object-cover rounded-full bg-hover;
+}
+
+.hidden-input {
+  @apply border-2 border-solid border-transparent py-1 px-3 rounded;
+
+  &:focus {
+    @apply border-primary outline-none;
+  }
+
+  &.empty {
+    @apply border-primary;
+  }
+}
+
+.list-item {
+  @apply rounded h-12 px-4 cursor-pointer;
+}
+
+.list-item:hover {
+  @apply bg-hover;
+}
+
+.textarea-clean {
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.bg-pattern {
+  background: linear-gradient(135deg, var(--background-base) 22px, var(--background-hover) 22px, var(--background-hover) 24px, transparent 24px, transparent 67px, var(--background-hover) 67px, var(--background-hover) 69px, transparent 69px),
+  linear-gradient(225deg, var(--background-base) 22px, var(--background-hover) 22px, var(--background-hover) 24px, transparent 24px, transparent 67px, var(--background-hover) 67px, var(--background-hover) 69px, transparent 69px) 0 64px;
+  background-color: var(--background-base);
+  background-size: 64px 128px;
+}
+
+// Transitions
+
+.trans-ease-out {
+  transition: $swift-ease-out;
+}
+
+.trans-shadow {
+  transition: box-shadow $mat-elevation-transition-duration $mat-elevation-transition-timing-function;
+}
+
+.vex-blogpost {
+  p {
+    @apply my-3;
+  }
+}

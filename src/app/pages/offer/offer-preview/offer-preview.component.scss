@@ -1,0 +1,12 @@
+.secondary:hover {
+  background: rgb(205,34,156);
+  background: linear-gradient(90deg, rgba(205,34,156,1) 0%, rgba(243,106,78,1) 100%);
+}
+.primary:hover {
+  background: rgb(76,182,228);
+  background: linear-gradient(90deg, rgba(76,182,228,1) 0%, rgba(131,58,180,1) 100%);
+}
+.negotiate-details textarea {
+  width: 100%;
+  padding: 15px;
+}

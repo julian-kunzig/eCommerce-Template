@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'inf-icons';
+  src: url('../font/inf-icons.eot?99694153');
+  src: url('../font/inf-icons.eot?99694153#iefix') format('embedded-opentype'),
+       url('../font/inf-icons.woff2?99694153') format('woff2'),
+       url('../font/inf-icons.woff?99694153') format('woff'),
+       url('../font/inf-icons.ttf?99694153') format('truetype'),
+       url('../font/inf-icons.svg?99694153#inf-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'inf-icons';
+    src: url('../font/inf-icons.svg?99694153#inf-icons') format('svg');
+  }
+}
+*/
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "inf-icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-key:before { content: '\e800'; } /* '' */
+.icon-inf-search:before { content: '\e801'; } /* '' */
+.icon-inf-mail:before { content: '\e802'; } /* '' */
+.icon-inf-alert:before { content: '\e803'; } /* '' */
+.icon-inf-angle-down:before { content: '\e804'; } /* '' */
+.icon-inf-settings:before { content: '\e805'; } /* '' */
+.icon-inf-banking:before { content: '\e806'; } /* '' */
+.icon-inf-help:before { content: '\e807'; } /* '' */
+.icon-inf-phone:before { content: '\e808'; } /* '' */
+.icon-inf-sign-out:before { content: '\e809'; } /* '' */
+.icon-inf-terms:before { content: '\e80a'; } /* '' */
+.icon-inf-arrow-right:before { content: '\e80b'; } /* '' */
+.icon-inf-group:before { content: '\e80c'; } /* '' */
+.icon-inf-campaign:before { content: '\e80d'; } /* '' */
+.icon-inf-history:before { content: '\e80e'; } /* '' */
+.icon-inf-home:before { content: '\e80f'; } /* '' */
+.icon-inf-delivery:before { content: '\e810'; } /* '' */
+.icon-inf-calendar:before { content: '\e811'; } /* '' */
+.icon-inf-ccard:before { content: '\e812'; } /* '' */
+.icon-inf-bank:before { content: '\e813'; } /* '' */
+.icon-inf-larrow-down:before { content: '\e814'; } /* '' */
+.icon-inf-delete:before { content: '\e815'; } /* '' */
+.icon-inf-chat:before { content: '\e816'; } /* '' */
+.icon-star-1:before { content: '\e825'; } /* '' */
+.icon-star-empty:before { content: '\e826'; } /* '' */

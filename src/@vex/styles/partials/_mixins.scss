@@ -1,0 +1,57 @@
+$mat-elevation-color: #523f68;
+$mat-elevation-opacity: 0.3;
+
+@function vex-elevation($zValue, $color: $mat-elevation-color, $opacity: $mat-elevation-opacity) {
+  @if type-of($zValue) != number or not unitless($zValue) {
+    @error '$zValue must be a unitless number';
+  }
+  @if $zValue < 0 or $zValue > 24 {
+    @error '$zValue must be between 0 and 24';
+  }
+
+  @return #{map-get(_get-umbra-map($color, $opacity), $zValue)},
+  #{map-get(_get-penumbra-map($color, $opacity), $zValue)},
+  #{map-get(_get-ambient-map($color, $opacity), $zValue)};
+}
+
+// main overwrite to make it all work
+@function mat-color($palette, $hue: default, $opacity: null) {
+  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
+    @return mat-color($palette, default, $hue);
+  }
+
+  $color: map-get($palette, $hue);
+
+  @if (type-of($color) != color) {
+    @if ($opacity == null) {
+      @return $color;
+    }
+
+    // Here is the change from the original function:
+    // If the $color resolved to something different from a color, we assume it is a CSS variable
+    // in the form of rgba(var(--rgba-css-var),a) and replace the 'a' value.
+    @return #{str-slice($color, 0, str-index($color, ',')) + $opacity + ')'};
+  }
+
+  @return rgba($color, if($opacity == null, opacity($color), $opacity));
+}
+
+// also needs to be overwritten, as otherwise we end up with opacity and alpha value
+@mixin mat-ripple-theme($theme) {
+  $foreground: map_get($theme, foreground);
+  $foreground-base: map_get($foreground, base);
+
+  .mat-ripple-element {
+    // if it's a color, rgba just works.
+    // If it's a variable, rgba works because all color variables should be 3 comma separated numbers
+    background-color: rgba($foreground-base, $mat-ripple-color-opacity);
+  }
+}
+
+// The material mixin passes an opacity to mat-color and also adds opacity to the element if the background-color is not of type 'color'.
+// This would cause the opacity to get applied twice, resulting in a ripple that is almost invisible.
+// Instead, we will trust that mat-color handles opacity correctly.
+@mixin _mat-button-ripple-background($palette, $hue, $opacity) {
+  $background-color: mat-color($palette, $hue, $opacity);
+  background-color: $background-color;
+}

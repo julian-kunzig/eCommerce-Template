@@ -1,0 +1,271 @@
+
+.body {
+  // background: url('../../../assets/img/signin/02.-Egg-Sour.png') no-repeat center center fixed;
+  // background-size: cover;
+  /* background-image: url('../../../assets/img/signin/02.-Egg-Sour.png'); */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100%;
+}
+.logo {
+  width: 10vw;
+  height: 2.8vw;
+  margin: 1vw 5vw;
+  /* background-image: url("../../../assets/img/logo.png"); */
+  background-size: 100% 100%;
+}
+.logo_bar {
+  height: 4vw;
+  background-color: white;
+}
+
+.body_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.body_subcontent {
+  display: block;
+  margin-top: -6vw;
+}
+.signin_title {
+  font-size: 2.7vw;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2vw;
+  display: flex;
+  justify-content: center;
+}
+.panel-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1vw;
+  padding: 2vw;
+  button {    
+    background: #F2F0F8;
+    color: #fff;    
+    width: 20vw;
+    height: 21vw;
+    border-radius: 1vw;
+    border: 0.1vw solid #C6C3C3;
+    line-height: 2vw;
+    & + button {
+      margin-left: 1vw;
+    }
+  }
+  button:hover {
+    filter: brightness(0.8);
+  }
+  font-family: sans-serif;
+}
+.body_panel {
+  border-radius: 1vw;
+  padding: 1vw;
+  width: 48vw;
+  background: white;
+}
+
+.brand_img {
+  background-color: #8D74EA;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8.5vw;
+  width: 8.5vw;
+  margin: 1vw auto;
+  margin-top: 2vw;
+  padding: 1vw;
+}
+.brand_people {
+  /* background-image: url("../../../assets/img/signin/people.png"); */
+  background-size: 100% 100%;
+  width: 6vw;
+  height: 4vw;
+}
+.audio_img {
+  background-color: #FD836D;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8.5vw;
+  width: 8.5vw;
+  margin: 1vw auto;
+  margin-top: 2vw;
+  padding: 1vw;
+}
+.influencer_audio {
+  /* background-image: url("../../../assets/img/signin/audio.png"); */
+  background-size: 100% 100%;
+  width: 6vw;
+  height: 4vw;
+}
+.title {
+  color: black;
+  font-size: 1.6vw;
+  font-weight: bold;
+  // margin-bottom: 3vw;
+  font-family: sans-serif;
+  margin: 1vw auto;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  color: #706f7a;
+  font-size: 1.1vw;
+  font-family: sans-serif;
+  // padding-bottom: 2vw;
+  // padding-top: 1vw;
+  line-height: 1.6vw;
+  height: 3vw;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 22vw;
+    height: 6.3vw;
+    margin-left: 8vw;    
+  }
+  .logo_bar {
+    height: 11vw;
+    display: flex;
+    align-items: center;
+  }
+  
+  .signin_title {
+    font-size: 6.7vw;
+    margin-top: -9vw;
+    margin-bottom: 9vw;
+  }
+  .body_subcontent {
+    width: 100%;
+  }
+  .body_panel {
+    width: 100%;
+  }
+  .panel-switcher {
+    
+    button {
+      width: 47vw;
+      height: 58vw;
+      & + button {
+        margin-left: 2vw;
+      }
+    }
+  }
+  .brand_img {
+    
+    height: 20.5vw;
+    width: 20.5vw;
+    margin: 1vw auto;
+    margin-top: 2vw;
+    padding: 1vw;
+  }
+  .brand_people {    
+    width: 15vw;
+    height: 11vw;
+  }
+  .audio_img {    
+    height: 20.5vw;
+    width: 20.5vw;
+    margin: 1vw auto;
+    // margin-top: 2vw;
+    padding: 1vw;
+  }
+  .influencer_audio {    
+    width: 15vw;
+    height: 11vw;
+  }
+  .title {    
+    font-size: 4vw;        
+    height: 15vw;    
+  }
+  .content {
+    color: #706f7a;
+    font-size: 2.8vw;
+    font-family: sans-serif;
+    // padding-bottom: 2vw;
+    // padding-top: 1vw;
+    line-height: 4vw;
+    height: 7vw;
+  }
+}
+@media screen and (max-width: 375px) {
+  .logo {
+    width: 28vw;
+    height: 8.3vw;
+    margin-left: 7vw;    
+  }
+  .logo_bar {
+    height: 18vw;
+    display: flex;
+    align-items: center;
+  }
+  
+  .signin_title {
+    font-size: 7vw;
+    margin-top: -9vw;
+    margin-bottom: 5vw;
+  }
+  .body_content {
+    padding: 0vw 10vw;
+  }
+  
+  .body_panel {
+    border-radius: 4vw;
+  }
+  .panel-switcher {
+    display: block;
+    padding: 5vw;
+    button {
+      width: 100%;
+      height: 58vw;
+      border-radius: 4vw;
+      & + button {
+        margin-top: 4vw;
+        margin-left: 0vw;
+      }
+    }
+  }
+  .brand_img {
+    
+    height: 20.5vw;
+    width: 20.5vw;
+    margin: 1vw auto;
+    margin-top: 2vw;
+    padding: 1vw;
+  }
+  .brand_people {    
+    width: 15vw;
+    height: 11vw;
+  }
+  .audio_img {    
+    height: 20.5vw;
+    width: 20.5vw;
+    margin: 1vw auto;
+    // margin-top: 2vw;
+    padding: 1vw;
+  }
+  .influencer_audio {    
+    width: 15vw;
+    height: 11vw;
+  }
+  .title {    
+    font-size: 5vw;        
+    height: 12vw;    
+  }
+  .content {
+    color: #706f7a;
+    font-size: 4.4vw;
+    font-family: sans-serif;
+    // padding-bottom: 2vw;
+    // padding-top: 1vw;
+    line-height: 6.5vw;
+    height: 14vw;
+  }
+}

@@ -1,0 +1,173 @@
+.favorite-toggle {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-size: contain !important;
+  background: url("../../../../../assets/img/favorite.png") center center no-repeat;
+
+  &.active {
+    background: url("../../../../../assets/img/favorite-active.png") center center no-repeat;
+  }
+}
+.profile-card {
+  padding: 4px;
+  border-radius: 0;
+  height: 100%;
+  color: #707070;
+  position: relative;
+  .hover-menu {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    bottom: -20px;
+    display: flex;
+    justify-content: center;
+    transition: all .2s ease-in;
+
+    button {
+      width: 50px;
+      height: 50px;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 0 3px 4px rgba(86,0,0,.16);
+      background-size: contain !important;
+      & + button {
+        margin-left: 10px;
+      }
+      &:hover {
+        box-shadow: 0 3px 4px rgba(86, 0, 0, 0.46);
+      }
+      &.go-chart {
+        background: url("../../../../../assets/img/chat.png") center center no-repeat;
+      }
+      &.save-mylist {
+        background: url("../../../../../assets/img/mylist.png") center center no-repeat;
+      }
+    }
+  }
+  &:hover .hover-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+  .photo-container {
+    height: 130px;
+    position: relative;
+
+    .profile-photo {
+      display: inline-block;
+      border-radius: 50%;
+      position: absolute;
+      width: 100px;
+      left: 50%;
+      bottom: -25px;
+      margin-left: -50px;
+      padding: 4px;
+      overflow: hidden;
+      background: #fff;
+
+      img {
+        border-radius: 50%;
+        width: 100%;
+      }
+    }
+  }
+  .title {
+    color: #3E3E3E;
+    font-size: 1.25em;
+    line-height: 1em;
+  }
+  .gender {
+    color: #3E3E3E;
+    font-size: 13px;
+
+    small {
+      color: #898989;
+      font-size: 9px;
+      text-transform: lowercase;
+    }
+  }
+  .details {
+    margin-top: 30px;
+    text-align: center;
+    padding: 0 5px;
+    .title + p {
+      color: #848484;
+      font-size: 12px;
+    }
+  }
+  .sayings {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+
+    li {
+      width: 16px;
+      height: 16px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      & + li {
+        margin-left: 5px;
+      }
+    }
+  }
+  .content-bottom {
+    border-top: .4px solid #A2A2A2;
+    padding: 10px 5px;
+    color: #666267;
+    justify-content: space-between;
+    font-weight: 500;
+    p {
+      font-size: 12px;
+    }
+    .hotness {
+      width: 30px;
+      color: #000;
+      font-size: 11px;
+      padding: 17px 8px 0;
+      background: url("../../../../../assets/img/hotness.png") center center no-repeat;
+      background-size: contain;
+    }
+  }
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+    li {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgb(76,182,228);
+      background: linear-gradient(40deg, rgba(76,182,228,1) 0%, rgba(105,99,220,1) 34%, rgba(131,58,180,1) 100%);
+      border-radius: 15px;
+      padding: 2px 8px;
+      margin-bottom: 3px;
+      color: #fff;
+
+      &.more-label {
+        background: transparent;
+        color: #6919C6;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      & + li {
+        margin-left: 3px;
+      }
+    }
+  }
+}

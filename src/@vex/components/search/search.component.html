@@ -1,0 +1,15 @@
+<div (keyup.escape)="close()" [class.show]="show$ | async" class="search">
+  <button (click)="close()"
+          class="ltr:right-12 rtl:left-12 top-12 absolute"
+          color="primary"
+          mat-icon-button
+          type="button">
+    <mat-icon [icIcon]="icClose"></mat-icon>
+  </button>
+
+  <input #searchInput (keyup.enter)="search()" [formControl]="searchCtrl" class="search-input" placeholder="Search..."/>
+  <div class="search-hint">Hit enter to search</div>
+</div>
+
+<div (click)="close()" *ngIf="show$ | async" class="search-overlay"></div>
+

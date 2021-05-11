@@ -1,0 +1,50 @@
+<div class="dropdown">
+  <div class="dropdown-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <div class="dropdown-heading">Notifications</div>
+      <div class="dropdown-subheading">You have {{ notifications.length }} new notifications.</div>
+    </div>
+
+    <button [matMenuTriggerFor]="settingsMenu" mat-icon-button type="button">
+      <mat-icon [icIcon]="icSettings" class="notifications-header-icon"></mat-icon>
+    </button>
+  </div>
+
+  <div class="dropdown-content">
+    <a *ngFor="let notification of notifications; trackBy: trackById"
+       [class.read]="notification.read"
+       [routerLink]="notification.deep_link"
+       class="notification"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       (click)="onClickAction(notification.notification_uuid)"
+       matRipple>
+      <ic-icon [icon]="icons[notification.notification_type].icon"
+               [ngClass]="icons[notification.notification_type].colorClass"
+               class="notification-icon"
+               fxFlex="none"
+               size="24px"></ic-icon>
+      <div fxFlex="auto">
+        <div class="notification-label" [class.unactioned]="!notification.actioned">{{ notification.formatted_text }}</div>
+        <div class="notification-description">{{ notification.created_at | relativeDateTime }}</div>
+      </div>
+      <mat-icon [icIcon]="icChevronRight" class="notification-chevron" fxFlex="none"></mat-icon>
+    </a>
+  </div>
+
+  <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="center center">
+    <button color="primary" mat-button type="button">MARK ALL AS READ</button>
+  </div>
+</div>
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icClearAll"></mat-icon>
+    <span>Mark all as read</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icNotificationsOff"></mat-icon>
+    <span>Disable Notifications</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,57 @@
+.user-social-nav li > button {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 9px;
+  background: #EAE9EF url("../../../../assets/img/social-add.png") calc(100% - 15px) center no-repeat;
+  background-size: 15px;
+}
+.user-social-nav li + li > button {
+  margin-top: 20px;
+}
+.user-social-nav li > button img {
+  max-width: 27px;
+  margin-right: 15px;
+}
+.linked_account {
+  padding: 30px;
+  text-align: center;
+  background: #fff;
+  margin-top: -5px;
+  border: 1px solid #707070;
+  border-radius: 0 0 9px 9px;
+
+  .avatar {
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+  }
+  .avatar:first-child img {
+    width: 100%;
+  }
+  h4 {
+    margin-top: 10px;
+  }
+
+  button {
+    color: #fff;
+    padding: 7px 15px;
+    background: #ACACAC;
+    border-radius: 27px;
+    margin-top: 15px;
+  }
+}
+.confirm_btn {
+  background-color: rgb(204, 204, 204);
+  border-radius: 0.2vw;
+  padding: 0.5vw 1.5vw;
+
+}
+.confirm_btn:hover {
+  background-color: rgb(231, 231, 231);;
+}
+.confirm_btn:active {
+  background-color: rgb(146, 145, 145);;
+}

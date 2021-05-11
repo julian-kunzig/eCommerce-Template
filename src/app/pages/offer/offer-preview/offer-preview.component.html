@@ -1,0 +1,65 @@
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">View Offer</span>
+        </h1>
+        <p class="description color-gray">You’ve made this amount of the result.</p>
+        <div class="offer-info preview-form mt-10">
+            <div class="details">
+                <div class="info-row">
+                    <label>Campaign Name</label>
+                    <p>{{ campaign.name }}</p>
+                </div>
+                <div class="info-row">
+                    <label>Budget</label>
+                    <p>$ {{ campaign.budget }} / per post</p>
+                </div>
+                <div class="info-row">
+                    <label>Platform</label>
+                    <ul class="socials mt-4">
+                        <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+                    </ul>
+                </div>
+                <div class="info-row">
+                    <label>Placement</label>
+                    <ul *ngIf="campaign.placement" class="placement">
+                        <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
+                    </ul>
+                </div>
+                <div class="info-row">
+                    <label>Content Creation</label>
+                    <p></p>
+                </div>
+                <div class="info-row">
+                    <label>Requirements</label>
+                    <pre>{{ campaign.requirement }}</pre>
+                </div>
+                <div class="info-row">
+                    <label>Offer Date</label>
+                    <pre>{{ offer.accept_date }}</pre>
+                </div>
+                <div class="info-row">
+                    <label>Brand Message</label>
+                    <p>Let’s set up time to talk everyday for progress report purposes</p>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="!dispNegotiate">
+            <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                <button mat-button type="button" (click)="backOfferView()">Back</button>
+                <button mat-button type="button" class="secondary ml-auto" (click)="reqNegotiate()">Negotiate</button>
+                <button mat-button type="button" class="primary">Accept Offer</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="dispNegotiate">
+            <div class="negotiate-details mt-10">
+                <h4 class="my-5">Negotiation Details</h4>
+                <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="negotiateTxt" cols="30" placeholder="Explain about what you what to negotiate." rows="10"></textarea>
+            </div>
+            <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                <button mat-button type="button" (click)="backOfferView()">Back</button>
+                <button mat-button type="button" class="primary" (click)="reqChange()">Request Change</button>
+            </div>
+        </ng-container>
+    </div>
+</div>
