@@ -372,8 +372,8 @@
                 </div>
                 <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
                     <button mat-button type="button" (click)="backList()">Back</button>
-                    <button mat-button type="button" [hidden]="offer.type === 'current'" (click)="negotiate()" class="secondary ml-auto">Decline Offer</button>
-                    <button mat-button type="button" [hidden]="offer.type === 'current'" class="primary" (click)="acceptOffer()">Accept Offer</button>
+                    <button mat-button type="button" [hidden]="type !== 'influencer' || offer.type === 'current'" (click)="negotiate()" class="secondary ml-auto">Decline Offer</button>
+                    <button mat-button type="button" [hidden]="type !== 'influencer' || offer.type === 'current'" class="primary" (click)="acceptOffer()">Accept Offer</button>
                 </div>
             </mat-tab>
         </mat-tab-group>

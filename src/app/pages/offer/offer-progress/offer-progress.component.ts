@@ -82,6 +82,7 @@ export class OfferProgressComponent implements OnInit, AfterViewChecked {
   icCancel = icCancel;
   icLink = icLink;
   numbers = [1, 2, 3, 4, 5];
+  type: string;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
@@ -300,6 +301,7 @@ export class OfferProgressComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.offer = this.campService.offers.find((c) => c.id == id);
+    this.type = localStorage.getItem('type');
 
     // this.campaign = this.campService.campList.find( c => c.id === this.offer.campId );
     // this.profile = this.campService.profiles.find(elem => elem.id === this.offer.profile_id);
@@ -404,6 +406,7 @@ export class OfferProgressComponent implements OnInit, AfterViewChecked {
           .pipe()
           .subscribe((cdata) => {
             console.log('accept offer', cdata);
+            this.router.navigate(['panel/offer/list'], { queryParams: { filter: 'pending' } });
           });
       }
     });

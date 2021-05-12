@@ -145,7 +145,6 @@ export class CampaignService {
                         }
                         resolve(true);
                     })
-                    resolve(true);
                 }
             });
         });
@@ -517,7 +516,6 @@ export class CampaignService {
                         }
                         resolve(true);
                     })
-                    resolve(true);
                 }
             });
         });

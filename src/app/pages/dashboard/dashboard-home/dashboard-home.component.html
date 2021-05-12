@@ -121,8 +121,7 @@
             <h3>Recent Search</h3>
             <div class="recent">
                 <ng-container *ngIf="userService.currentUser.type === 'influencer'">
-                    <!-- <div class="recent-item" *ngFor="let cp of recenCamps"> -->
-                    <div class="recent-item" *ngFor="let cp of campaigns">
+                    <div class="recent-item" *ngFor="let cp of recenCamps">
                         <a [routerLink]="['/panel/campaign/view/' + cp.id]" class="permal-link">
                             <div fxLayout="row" class="items-center">
                                 <div class="cover-img"><img [src]="cp.coverImg" alt=""></div>
@@ -138,8 +137,7 @@
                     </div>
                 </ng-container>
                 <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
-                    <!-- <div class="recent-item" *ngFor="let pf of recenInfs"> -->
-                    <div class="recent-item" *ngFor="let pf of trendInfs">
+                    <div class="recent-item" *ngFor="let pf of recenInfs">
                         <a [routerLink]="['/panel/discover/view/' + pf.id]" class="permal-link">
                             <div fxLayout="row" class="items-center">
                                 <div class="avatar"><img [src]="pf.photo_img" alt=""></div>
@@ -159,8 +157,7 @@
                 <swiper [config]="sconfig">
                     <div class="swiper-wrapper">
                         <ng-container *ngIf="userService.currentUser.type === 'influencer'">
-                            <!-- <div class="swiper-slide" *ngFor="let pf of popularCamps"> -->
-                            <div class="swiper-slide" *ngFor="let pf of campaigns">
+                            <div class="swiper-slide" *ngFor="let pf of popularCamps">
                                 <img [src]="pf.coverImg" alt="">
                                 <a [routerLink]="['/panel/campaign/view/' + pf.id]" class="permal-link">
                                     <div class="content">
@@ -172,8 +169,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="userService.currentUser.type === 'advertiser'">
-                            <!-- <div class="swiper-slide" *ngFor="let pf of popularInfs"> -->
-                            <div class="swiper-slide" *ngFor="let pf of trendInfs">
+                            <div class="swiper-slide" *ngFor="let pf of popularInfs">
                                 <img [src]="pf.photo_img" alt="">
                                 <a [routerLink]="['/panel/discover/view/' + pf.id]" class="permal-link">
                                     <div class="content">

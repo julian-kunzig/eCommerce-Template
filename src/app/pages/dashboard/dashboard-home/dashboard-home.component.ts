@@ -132,18 +132,20 @@ export class DashboardHomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
     const type = localStorage.getItem('type');
+    const recentIds = [2, 3, 4];
+    const popularIds = [5, 6, 8];
     if (type === 'advertiser') {
       this.campService.getAllInfluencerListForBrand().then(status => {
         this.trendInfs = this.campService.profiles;
         this.recomInfs = this.campService.profiles;
-        const recentIds = [2, 3, 4];
-        this.recenInfs = this.campService.profiles.filter(e => recentIds.includes(e.id));
-        const popularIds = [5, 6, 8];
-        this.popularInfs = this.campService.profiles.filter(e => popularIds.includes(e.id));
+        this.recenInfs = this.campService.profiles.filter((e, i) => recentIds.includes(i));
+        this.popularInfs = this.campService.profiles.filter((e, i) => popularIds.includes(i));
       });
     } else {
       this.campService.getAllCampaignListForInfluencer().then(status => {
         this.campaigns = this.campService.campList;
+        this.recenCamps = this.campaigns.filter((e, i) => recentIds.includes(i));
+        this.popularCamps = this.campaigns.filter((e, i) => popularIds.includes(i));
       });
     }
     
