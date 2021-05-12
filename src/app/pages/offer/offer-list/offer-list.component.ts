@@ -133,9 +133,8 @@ export class OfferListComponent implements OnInit {
     });
   }
 
-  viewDetail(campId) {    
-    console.log('viewDetail offer', campId);
-    const offer = this.campService.offers.find(elem => elem.campId == campId); // poor practice of repeating same unique && elem.type === 'pending'
+  viewDetail(id) {    
+    const offer = this.campService.offers.find(elem => elem.id == id); // poor practice of repeating same unique && elem.type === 'pending'
     console.log('viewDetail', offer);
     const type = localStorage.getItem('type');
     if (type === 'advertiser') {

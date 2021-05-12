@@ -34,6 +34,9 @@ export interface Offer {
     tags2?: string[];
     editable?: boolean;
     offer_progress?: any;
+    platform?: string[];
+    placement?: string[];
+    requirement: string;
 
     type?: string;
     camp_name?: string;
@@ -428,6 +431,9 @@ export class CampaignService {
                     rating_values: [5, 4, 5, 5],
                 },
                 offer_progress: null,
+                platform: ['instagram', 'facebook'],
+                placement: ['feed', 'story'],
+                requirement: 'test',
             };
             offer.id = cdata.results[i].offer_uuid;
             offer.chatId = cdata.results[i].received_by;

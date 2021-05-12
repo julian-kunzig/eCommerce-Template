@@ -341,24 +341,24 @@
                             <p>$ {{ offer.budget }} / per post</p>
                         </div>
                         <div class="info-row">
-                            <!-- <label>Platform</label>
-                            <ul class="socials mt-4">
-                                <li *ngFor="let pf of campaign.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
-                            </ul> -->
+                            <label>Platform</label>
+                            <ul *ngIf="offer.platform.length" class="socials mt-4">
+                                <li *ngFor="let pf of offer.platform" [className]="pf">{{ campService.getSocialLabel(pf) }}</li>
+                            </ul>
                         </div>
                         <div class="info-row">
-                            <!-- <label>Placement</label>
-                            <ul *ngIf="campaign.placement" class="placement">
-                                <li *ngFor="let pl of campaign.placement">{{ campService.getPlaceLabel(pl) }}</li>
-                            </ul> -->
+                            <label>Placement</label>
+                            <ul *ngIf="offer.placement.length" class="placement">
+                                <li *ngFor="let pl of offer.placement">{{ campService.getPlaceLabel(pl) }}</li>
+                            </ul>
                         </div>
                         <div class="info-row">
                             <label>Content Creation</label>
                             <p></p>
                         </div>
                         <div class="info-row">
-                            <!-- <label>Requirements</label>
-                            <pre>{{ campaign.requirement }}</pre> -->
+                            <label>Requirements</label>
+                            <pre>{{ offer.requirement }}</pre>
                         </div>
                         <div class="info-row">
                             <label>Offer Date</label>
@@ -372,7 +372,7 @@
                 </div>
                 <div class="actions mt-6 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
                     <button mat-button type="button" (click)="backList()">Back</button>
-                    <button mat-button type="button" [hidden]="offer.type === 'current'" (click)="negotiate()" class="secondary ml-auto">Negotiate</button>
+                    <button mat-button type="button" [hidden]="offer.type === 'current'" (click)="negotiate()" class="secondary ml-auto">Decline Offer</button>
                     <button mat-button type="button" [hidden]="offer.type === 'current'" class="primary" (click)="acceptOffer()">Accept Offer</button>
                 </div>
             </mat-tab>
