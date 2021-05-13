@@ -391,6 +391,27 @@ export class OfferProgressComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  declineOffer() {
+    const dialogRef = this.dialog.open(OfferProgressDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const id = this.route.snapshot.paramMap.get('id');
+        var formData: any = new FormData();
+        formData.append('accepted', false);
+        formData.append('received_by_me', true);
+
+        this.dataService
+          .checkOffer(id, formData)
+          .pipe()
+          .subscribe((cdata) => {
+            console.log('accept offer', cdata);
+            this.router.navigate(['panel/offer/list'], { queryParams: { filter: 'pending' } });
+          });
+      }
+    });
+  }
+
   acceptOffer() {
     const dialogRef = this.dialog.open(OfferProgressDialogComponent);
 
