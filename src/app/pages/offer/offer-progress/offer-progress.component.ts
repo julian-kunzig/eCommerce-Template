@@ -399,7 +399,7 @@ export class OfferProgressComponent implements OnInit, AfterViewChecked {
         const id = this.route.snapshot.paramMap.get('id');
         var formData: any = new FormData();
         formData.append('accepted', false);
-        formData.append('received_by_me', true);
+        formData.append('received_by_me', false);
 
         this.dataService
           .checkOffer(id, formData)
