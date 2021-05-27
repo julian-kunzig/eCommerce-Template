@@ -98,11 +98,11 @@ export class DiscoverGridComponent implements OnInit, AfterViewChecked {
           route: './',
           params: { filter: 'favorited'}
         },
-        {
-          label: 'My List',
-          route: './',
-          params: { filter: 'mylist'}
-        }
+        // {
+        //   label: 'My List',
+        //   route: './',
+        //   params: { filter: 'mylist'}
+        // }
       ];
       activeTab: string;
       icArrowDown = icArrowDown;
@@ -473,6 +473,9 @@ export class DiscoverGridComponent implements OnInit, AfterViewChecked {
       }
       openProfile(id?: Profile['id']){
           this.router.navigate(['panel/discover/view/' + id]);
+      }
+      openCheckout(id?: Profile['id']) {
+        this.router.navigate(['panel/discover/checkout/' + id]);
       }
       deleteFromList(id?: Profile['id']){
         const my_list_id = this.campService.influencerMyListId;

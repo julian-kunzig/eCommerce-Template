@@ -1,0 +1,36 @@
+<div mat-dialog-title class="checkout-card">
+  <div class="checkout-card-header">
+    <p>Add a credit or debit card</p>
+  </div>
+</div>
+<mat-dialog-content class="mat-typography">
+  <div class="flex flex-col checkout-card-content">
+    <div class="form-field">
+      <p>Card numer</p>
+      <input type="text" placeholder="000-000-000" />
+    </div>
+    <div class="form-field">
+      <p>Name on card</p>
+      <input type="text" />
+    </div>
+    <div class="form-field">
+      <p>Expiration date</p>
+      <input type="text" placeholder="MM" />
+      <input type="text" placeholder="YYYY" />
+    </div>
+    <div class="form-field">
+      <p>CVC number</p>
+      <input type="text" />
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="actions text-right checkout-card-actions">
+    <button mat-raised-button mat-dialog-close class="mr-3">
+      <span>Cancel</span>
+    </button>
+    <button mat-raised-button class="primary-action" (click)="addCard()">
+      <span>Add your card</span>
+    </button>
+  </div>
+</mat-dialog-actions>

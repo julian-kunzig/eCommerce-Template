@@ -196,7 +196,7 @@
                          gdGap="24px">
                             <vex-discover-card (openProfile)="openProfile($event)"
                                                (goChat)="goChat($event)"
-                                               (saveMylist)="saveMylist($event)"
+                                               (saveMylist)="openCheckout($event)"
                                                (saveFavorite)="saveFavorite($event)"
                                                *ngFor="let profile of profiles; trackBy: trackById"
                                                @fadeInUp [profile]="profile"></vex-discover-card>
@@ -222,7 +222,7 @@
                          gdGap="24px">
                             <vex-discover-card (openProfile)="openProfile($event)"
                                                (goChat)="goChat($event)"
-                                               (saveMylist)="saveMylist($event)"
+                                               (saveMylist)="openCheckout($event)"
                                                (saveFavorite)="saveFavorite($event)"
                                                *ngFor="let favorite of favorites; trackBy: trackById"
                                                @fadeInUp [profile]="favorite"></vex-discover-card>

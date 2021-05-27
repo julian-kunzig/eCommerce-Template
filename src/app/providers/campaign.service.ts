@@ -822,6 +822,13 @@ export class CampaignService {
         formData.append('tags', camp.tags);
         formData.append('caption', camp.caption); //todo
         // formData.append('age_range', JSON.stringify(camp.ages));
+        console.log(this.dataURIToBlob(camp.coverImg))
+        formData.append('cover_image', this.dataURIToBlob(camp.coverImg), 'image.png')
+        for (let i = 0; i < camp.gallery.length; i++) {
+            if (camp.gallery[i] !== '') {
+                formData.append(`files[${i}]`, this.dataURIToBlob(camp.gallery[i]), `gallery${i}.png`);
+            }
+        }
 
         console.log('new camp formdata', formData);
         // formData.append('followers_range', camp.followers);
@@ -848,6 +855,18 @@ export class CampaignService {
             });
 
         this.campList.sort((a, b) => b.id - a.id);
+    }
+
+    dataURIToBlob(dataURI: string) {
+        const splitDataURI = dataURI.split(',')
+        const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+        const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+        const ia = new Uint8Array(byteString.length)
+        for (let i = 0; i < byteString.length; i++)
+            ia[i] = byteString.charCodeAt(i)
+
+        return new Blob([ia], { type: mimeString })
     }
 
     makeCriteria(camp: Campaign) {

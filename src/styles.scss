@@ -325,29 +325,29 @@ form {
 
   &.steps-0 {
     .mat-horizontal-stepper-header-container:after {
-      width: 22%;
+      width: 25%;
     }
   }
   &.steps-1 {
     .mat-horizontal-stepper-header-container:after {
-      width: 42%;
+      width: 50%;
     }
   }
   &.steps-2 {
     .mat-horizontal-stepper-header-container:after {
-      width: 62%;
+      width: 75%;
     }
   }
-  &.steps-3 {
-    .mat-horizontal-stepper-header-container:after {
-      width: 82%;
-    }
-  }
-  &.steps-4, &.steps-5 {
+  &.steps-3, &.steps-4 {
     .mat-horizontal-stepper-header-container:after {
       width: 100%;
     }
   }
+  // &.steps-4, &.steps-5 {
+  //   .mat-horizontal-stepper-header-container:after {
+  //     width: 100%;
+  //   }
+  // }
 }
 .confirmation-wrapper {
   background: url("./assets/img/confirmation-bg.png") left center no-repeat;
@@ -2748,6 +2748,171 @@ input, textarea {
     background: url("./assets/img/icon-youtube.png") center center no-repeat;
   }
 }
+.checkout-campaign-list {
+  .mat-form-field-outline {
+    border: 1px solid gray;
+    border-radius: 10px;
+  }
+
+  label {
+    position: absolute;
+    margin-left: 50px;
+    font-size: 18px;
+  }
+
+  .mat-option {
+    height: auto !important;
+    border-bottom: 1px solid #dadada;
+    padding: 5px 30px;
+    
+    .mat-option-text {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #444444;
+  
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+      }
+
+      span {
+        margin: 0 5px;
+        background-color: #ffffff;
+        box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+        padding: 0 10px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .instagram {
+        border: 3px solid #ec04d9;
+        color: #ec04d9;
+      }
+
+      .facebook {
+        border: 3px solid #3604ee;
+        color: #3604ee;
+      }
+
+      .youtube {
+        border: 3px solid #e91e63;
+        color: #e91e63;
+      }
+    }
+  }
+}
+.checkout-payment {
+  .mat-expansion-panel-header {
+    border: 1px solid #CCCCCC;
+    border-radius: 14px;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: #404040;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 10px 25px 20px;
+  }
+}
+.checkout-card {
+  margin: -24px -24px 20px !important;
+  width: 780px;
+
+  .checkout-card-header {
+    padding: 27px 40px;
+    background-color: #e0e0e0;
+
+    p {
+      color: #000000;
+      font-size: 21px;
+    }
+  }
+}
+.checkout-card-content {
+  padding: 10px 30px;
+
+  .form-field {
+    display: flex;
+  }
+
+  p {
+    font-size: 18px;
+    margin-right: 50px;
+    width: 140px;
+    margin-top: 7px;
+    color: #000000;
+  }
+  
+  input {
+    border: 1px solid gray;
+    border-radius: 12px;
+    height: 39px;
+    min-width: 210px;
+    margin-right: 20px;
+    padding: 0 10px;
+  }
+}
+.cdk-overlay-pane {
+  width: auto !important;
+}
+.custom-radio {
+  position: relative;
+
+  input {
+    position: absolute;
+    outline: none;
+    border: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+
+    &:checked {
+      & + label:before {
+        background: #cd229c;
+        background: linear-gradient(63deg, #cd229c 0%, #f36a4e 100%);
+      }
+      & + label svg {
+        display: block !important;
+        width: 14px;
+        height: 16px;
+        position: absolute;
+        left: 3px;
+        top: 50%;
+        margin-top: -8px;
+        stroke-dasharray: 22.910259;
+        stroke-width: 2.1333333333px;
+      }
+    }
+  }
+
+  label {
+    padding-left: 40px;
+    font-size: 1.1em;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -10px;
+      width: 20px;
+      height: 20px;
+      background: #7F7B95;
+      border-radius: 50%;
+    }
+  }
+
+}
 @media (max-width: 1199px) {
   .mat-stepper-horizontal .mat-horizontal-stepper-header {
     .mat-step-label {
@@ -2874,6 +3039,38 @@ input, textarea {
   }
   table.myoffercamp-table tr.mat-row td:first-child {
     float: none !important;
+  }
+  .checkout-campaign-list {
+    .mat-option {
+      padding: 5px !important;
+      .mat-option-text {
+        flex-direction: column !important;
+        .socials {
+          flex-direction: column;
+          span {
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+  .checkout-card {
+    width: auto !important;
+  }
+  .checkout-card-content {
+    padding: 0px 30px;
+    .form-field {
+      flex-direction: column;
+    }
+    input {
+      margin-bottom: 5px;
+    }
+  }
+  .checkout-card-actions {
+    text-align: center !important;
+    button {
+      margin-bottom: 5px;
+    }
   }
 }
 @media (max-width: 767px) {

@@ -259,9 +259,9 @@ export class CampaignNewComponent implements OnInit {
       case 3:
         this.proceedInfluenForm();
         break;
-      case 5:
-        this.proceedBillingForm();
-        break;
+      // case 5:
+      //   this.proceedBillingForm();
+      //   break;
     }
   }
   proceedServiceForm() {
@@ -482,5 +482,12 @@ export class CampaignNewComponent implements OnInit {
   addQuest_product(quest) {
     this.requirement_product = '○ ' + quest;
     
+  }
+
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.briefingGroup.get('galleryImg_1').setValue(file);
+    }
   }
 }

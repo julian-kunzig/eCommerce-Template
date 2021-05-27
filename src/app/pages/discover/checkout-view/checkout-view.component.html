@@ -1,0 +1,318 @@
+<div class="h-full" fxLayout="column">
+  <div vexContainer>
+    <h1
+      class="display-1 mt-4 mb-1 page-title"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <span @fadeInRight class="block">Discover</span>
+    </h1>
+    <p class="description color-gray">
+      Find your influencers who are going to work with you
+    </p>
+  </div>
+  <div *ngIf="!review">
+    <div class="profile-view-wrapper mt-10">
+      <div class="profile-top">
+        <div class="profile-photo">
+          <img [src]="profile.photo_img" alt="" />
+        </div>
+        <div class="profile-info">
+          <div class="profile-actions">
+            <a class="report-link" [routerLink]="['/panel/dashboard/report']"
+              ><img src="../../../../assets/img/flag.png" alt="" /><span
+                >Report</span
+              ></a
+            >
+            <button
+              mat-raised-button
+              class="favorite-toggle"
+              [class.active]="profile.favorited"
+              (click)="saveFavorite()"
+            ></button>
+            <button
+              mat-raised-button
+              type="button"
+              class="go-chart"
+              (click)="goChat()"
+            ></button>
+            <button
+              mat-raised-button
+              type="button"
+              class="save-mylist"
+              (click)="saveMylist()"
+            ></button>
+          </div>
+          <h4 class="title mt-3">{{ profile.name }}</h4>
+          <p class="mb-2">@{{ profile.name }}</p>
+          <div fxLayout="row">
+            <ul class="socials">
+              <li *ngFor="let pf of profile.socials" [className]="pf"></li>
+            </ul>
+            <p class="text-capitalize gender">
+              &nbsp;|&nbsp; {{ profile.gender }} &nbsp;|&nbsp;
+              {{ profile.ages[0] }}-{{ profile.ages[1] }}
+            </p>
+          </div>
+          <div fxLayout="row" class="social-summary my-2">
+            <div>
+              <span class="value">{{ profile.followers }}</span
+              >Followers
+            </div>
+            <div>
+              <span class="value">{{ profile.posts }}</span
+              >Posts
+            </div>
+            <div>
+              <span class="value">{{ profile.acheivedCampaign }}</span
+              >Acheived campaign
+            </div>
+            <div>
+              <span class="value">${{ profile.price }}</span
+              >Per post
+            </div>
+          </div>
+          <p class="my-2 sayings">
+            {{ profile.sayings
+            }}<a
+              [href]="profile.video"
+              *ngIf="profile.video"
+              class="profile-video"
+              >{{ profile.video }}</a
+            >
+          </p>
+          <ul *ngIf="profile.categories" class="categories mt-5">
+            <ng-container *ngFor="let cat of profile.categories; index as id">
+              <li *ngIf="id < 3">{{ campService.getCatLabel(cat) }}</li>
+            </ng-container>
+            <li *ngIf="profile.categories.length > 3" class="more-label">
+              +{{ profile.categories.length - 3 }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="checkout-view-campaign mt-10">
+      <p class="title">Campaign Information</p>
+      <mat-divider></mat-divider>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <label>Choose a campaign</label>
+          <mat-select panelClass="checkout-campaign-list">
+            <mat-select-trigger>
+              <img src="../../../../assets/img/demo/post-1.png" alt="" />
+              <p>[Nike] Nike Air Max2</p>
+              <div class="flex socials">
+                <span class="instagram">Instagram</span>
+                <span class="facebook">Facebook</span>
+                <span class="youtube">Youtube</span>
+              </div>
+              <p>2020.09.02 - 2020.09.09</p>
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let campaign of campaigns"
+              [value]="campaign.value"
+            >
+              <img src="../../../../assets/img/demo/post-1.png" alt="" />
+              <p>[Nike] Nike Air Max2</p>
+              <div class="flex socials">
+                <span class="instagram">Instagram</span>
+                <span class="facebook">Facebook</span>
+                <span class="youtube">Youtube</span>
+              </div>
+              <p>2020.09.02 - 2020.09.09</p>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col checkout-information">
+        <div class="flex">
+          <p class="title">Price:</p>
+          <p class="price">$80.00</p>
+          <button
+            type="button"
+            class="gray-button"
+            mat-raised-button
+            (click)="edit()"
+          >
+            <span>Edit</span>
+          </button>
+        </div>
+        <p class="description">Nike pay this amount to Kaitlyn Kristy</p>
+      </div>
+    </div>
+    <div class="checkout-view-campaign mt-10 custom-radio">
+      <input type="radio" [checked]="agreed" (change)="changeAgreed($event)" />
+      <label>
+        <svg
+          version="1.1"
+          style="display: none"
+          focusable="false"
+          viewBox="0 0 24 24"
+          xml:space="preserve"
+        >
+          <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3"></path>
+        </svg>
+        Yes, I understand and agree to the Infinovae including User Agreement &
+        Privacy Policy
+      </label>
+    </div>
+    <div class="mt-10 text-right actions">
+      <button
+        type="button"
+        class="mr-3"
+        mat-raised-button
+        (click)="cancelCheckout()"
+      >
+        <span>Cancel</span>
+      </button>
+      <button
+        type="button"
+        class="primary-action"
+        mat-raised-button
+        (click)="hire()"
+      >
+        <span>Hire Now</span>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="review">
+    <div class="checkout-view-wrapper mt-10 flex">
+      <div class="flex flex-col justify-between checkout-review">
+        <div>
+          <p class="title">Review the information</p>
+          <div class="checkout-review-info">
+            <p class="title">Influencer's info</p>
+            <mat-divider></mat-divider>
+            <div class="flex flex-row content">
+              <img src="../../../../assets/img/demo/post-1.png" />
+              <div class="flex flex-col">
+                <p>Kaitlyn Kristy (@Kaitlyn_Kristy2)</p>
+                <p>Followers: 2.5k</p>
+                <p>Posts: 300</p>
+              </div>
+            </div>
+          </div>
+          <div class="checkout-review-info">
+            <p class="title">Campaign info</p>
+            <mat-divider></mat-divider>
+            <div class="flex flex-row content">
+              <img src="../../../../assets/img/demo/post-1.png" />
+              <div class="flex flex-col">
+                <p>[Nike] Nike Air Max2</p>
+                <p>2020.09.02 - 2020.09.09</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col checkout-review-des">
+          <p class="title">Total amount for deposit</p>
+          <p class="price">$80.00</p>
+          <p class="description">You pay for the work you authorize only.</p>
+        </div>
+      </div>
+      <div class="checkout-payment flex flex-col justify-between">
+        <div>
+          <p class="title">Payment</p>
+          <div class="flex justify-between mb-3">
+            <p>Your credit card and debit card</p>
+            <p>Expiration Date</p>
+          </div>
+          <div class="form-field">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Chase Debit Card ending in 0124
+                  </mat-panel-title>
+                  <mat-panel-title> 01/2024 </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="flex justify-around checkout-payment-details">
+                  <div class="checkout-payment-name">
+                    <p class="title text-center">Name on Card</p>
+                    <p>Test Test</p>
+                  </div>
+                  <div class="checkout-payment-address">
+                    <p class="title text-center">Billing Address</p>
+                    <p class="mb-2">323 Highland Lake Circle Decatur, GA</p>
+                    <p>23413 United States</p>
+                    <div class="actions text-right mt-6">
+                      <button
+                        mat-raised-button
+                        class="mr-3"
+                        (click)="removeCard()"
+                      >
+                        Remove
+                      </button>
+                      <button
+                        mat-raised-button
+                        class="primary-action"
+                        (click)="editCard()"
+                      >
+                        <span>Edit</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          <div class="form-field">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Chase Debit Card ending in 0124
+                  </mat-panel-title>
+                  <mat-panel-title> 01/2024 </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div
+                  class="flex flex-row justify-around checkout-payment-details"
+                >
+                  <div class="checkout-payment-name">
+                    <p class="title text-center">Name on Card</p>
+                    <p>Test Test</p>
+                  </div>
+                  <div class="checkout-payment-address">
+                    <p class="title text-center">Billing Address</p>
+                    <p class="mb-2">323 Highland Lake Circle Decatur, GA</p>
+                    <p>23413 United States</p>
+                    <div class="actions text-right mt-6">
+                      <button
+                        mat-raised-button
+                        class="mr-3"
+                        (click)="removeCard()"
+                      >
+                        Remove
+                      </button>
+                      <button
+                        mat-raised-button
+                        class="primary-action"
+                        (click)="editCard()"
+                      >
+                        <span>Edit</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          <div class="actions text-left mb-4">
+            <button mat-raised-button (click)="openCard()">
+              <span>Add a new card</span>
+            </button>
+          </div>
+        </div>
+        <div class="actions text-right">
+          <button mat-raised-button class="mr-3" (click)="cancelDeposit()">
+            <span>Cancel</span>
+          </button>
+          <button mat-raised-button class="primary-action" (click)="deposit()">
+            <span>Make a Deposit</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
