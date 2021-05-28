@@ -64,7 +64,7 @@ export class DataService {
   private RETRIEVE_INFLUENCER_TO_FAVORITE_LIST = this.BASE + '/influencer-favorite-list/'; // GET
   private REMOVE_INFLUENCER_FROM_INFLUENCER_FAVORITE_LIST = this.BASE + '/influencer-favorite-list/'; // PATCH /uuid
 
-  private  ADD_INFLUENCER_TO_MYLIST = this.BASE + '/influencer-my-list/'; // PATCH /uuid
+  private ADD_INFLUENCER_TO_MYLIST = this.BASE + '/influencer-my-list/'; // PATCH /uuid
   private RETRIEVE_MYLIST_OF_INFLUENCERS = this.BASE + '/influencer-my-list/'; // GET
   private REMOVE_INFLUENCER_FROM_MYLIST = this.BASE + '/influencer-my-list/'; // PATCH /uuid
 
