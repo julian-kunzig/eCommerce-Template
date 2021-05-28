@@ -18,14 +18,14 @@ export class DataService {
   private FACEBOOK_CREATE_USER_SOCIAL_ACCOUNT = this.BASE + '/accounts/facebook/';
   /* user account endpoints */
   private INFLUENCER_CREATE_ENDPOINT = this. BASE + '/accounts/influencers/'; // POST  
-  private ADVERTISER_CREATE_ENDPOINT = this. BASE + '/accounts/advertisers/'; // POST
+  private ADVERTISER_CREATE_ENDPOINT = this. BASE + '/accounts/brands/'; // POST
   private INFLUENCER_ME_ENDPOINT = this. BASE + '/accounts/influencers/?owned_by_me=True'; // GET
-  private ADVERTISER_ME_ENDPOINT = this. BASE + '/accounts/advertisers/?owned_by_me=True'; // GET
+  private ADVERTISER_ME_ENDPOINT = this. BASE + '/accounts/brands/?owned_by_me=True'; // GET
   private INFLUENCER_LIST_ENDPOINT = this. BASE + '/accounts/influencers/'; //  GET
-  private ADVERTISER_LIST_ENDPOINT = this. BASE + '/accounts/advertisers/'; // GET
+  private ADVERTISER_LIST_ENDPOINT = this. BASE + '/accounts/brands/'; // GET
   /* retrieve only (just append user_uuid at the end of endpoint) * eg: /accounts/influencers/UVF94-SDN48-SDFS/ */
   private INFLUENCER_RETRIEVE_ENDPOINT = this. BASE + '/accounts/influencers/'; // PATCH
-  private ADVERTISER_RETRIEVE_ENDPOINT = this. BASE + '/accounts/advertisers/'; // PATCH
+  private ADVERTISER_RETRIEVE_ENDPOINT = this. BASE + '/accounts/brands/'; // PATCH
 
   // private INSTAGRAM_USER_SOCIAL_ACCOUNT_ACCESS_TOKEN = this. BASE + '/accounts/social/instagram'; // POST
   private FACEBOOK_USER_SOCIAL_ACCOUNT_ACCESS_TOKEN = this. BASE + '/accounts/social/facebook/'; // POST
