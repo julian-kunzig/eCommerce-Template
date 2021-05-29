@@ -133,7 +133,9 @@ export class DashboardHomeComponent implements OnInit, AfterViewInit {
   ngOnInit(){
     const type = localStorage.getItem('type');
     const recentIds = [2, 3, 4];
-    const popularIds = [5, 6, 8];
+    // const popularIds = [5, 6, 8];
+    // Test
+    const popularIds = [2, 3, 4];
     if (type === 'advertiser') {
       this.campService.getAllInfluencerListForBrand().then(status => {
         this.trendInfs = this.campService.profiles;

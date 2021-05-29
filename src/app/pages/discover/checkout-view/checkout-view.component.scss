@@ -1,4 +1,4 @@
-.profile-view-wrapper {
+.checkout-view-campaign {
   padding: 3em;
   background: #fff;
   .report-link {
@@ -25,8 +25,7 @@
     }
     .profile-info {
       flex: 1;
-      padding-left: 25px;
-      position: relative;
+      padding: 10px 0px 0px 25px;
 
       .profile-actions {
         position: absolute;
@@ -150,13 +149,14 @@
   .categories {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
     li {
       font-size: 1em;
       font-weight: 700;
       background: #4cb6e4;
-      background: linear-gradient(40deg, #4cb6e4 0%, #6963dc 34%, #833ab4 100%);
+      // background: linear-gradient(40deg, #4cb6e4 0%, #6963dc 34%, #833ab4 100%);
+      background: linear-gradient(60deg, #4cb6e4 0%, #6963dc 59%, #833ab4 100%);
       border-radius: 15px;
       padding: 4px 15px;
       margin-bottom: 5px;
@@ -429,7 +429,7 @@
     .checkout-review-info {
       .title {
         font-size: 18px;
-        color: #AAAAAA;
+        color: #aaaaaa;
         margin-bottom: 0px;
       }
 
@@ -445,8 +445,13 @@
 
         p {
           font-size: 17px;
-          color: #3E3E3E;
+          color: #3e3e3e;
           margin-bottom: 5px;
+
+          span {
+            font-size: 14px;
+            margin-left: 10px;
+          }
         }
       }
     }
@@ -461,13 +466,13 @@
       .price {
         font-size: 25px;
         font-weight: 600;
-        color: #6963DC;
+        color: #6963dc;
         margin-bottom: 20px;
       }
 
       .description {
         font-size: 17px;
-        color: #AAAAAA;
+        color: #aaaaaa;
       }
     }
   }
@@ -475,10 +480,11 @@
     width: 60%;
     padding: 3rem;
     border-radius: 9px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgb(0 0 0 / 10%) -4px 9px 25px -6px;
     p {
       font-size: 17px;
-      color: #3E3E3E;
+      color: #3e3e3e;
     }
 
     .title {
@@ -487,7 +493,8 @@
       margin-bottom: 50px;
     }
 
-    .checkout-payment-name, .checkout-payment-address {
+    .checkout-payment-name,
+    .checkout-payment-address {
       .title {
         font-size: 18px;
         color: #191919;
@@ -498,8 +505,9 @@
 }
 
 .checkout-view-campaign {
-  padding: 2.5rem 5rem;
+  padding: 30px 60px;
   background: #fff;
+  border-radius: 15px;
 
   .title {
     padding: 0px 0 20px;
@@ -558,11 +566,6 @@
       font-size: 18px;
     }
 
-    .mat-form-field-outline {
-      border: 1px solid gray;
-      border-radius: 10px;
-    }
-
     .mat-option-text {
       display: flex;
 
@@ -580,6 +583,7 @@
       color: #3e3e3e;
       padding: 0;
       font-weight: 700;
+      margin-top: 4px;
     }
     .price {
       font-size: 16px;
@@ -598,6 +602,13 @@
 
 mat-divider {
   background: #cccccc;
+  margin: 0px -60px;
+}
+
+.checkout-view-wrapper {
+  mat-divider {
+    margin: 0px;
+  }
 }
 
 .gray-button {

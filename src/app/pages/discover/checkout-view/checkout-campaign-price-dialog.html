@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Edit the price</h1>
+<mat-dialog-content class="mat-typography">
+  <div class="flex flex-col checkout-card-content">
+    <div class="form-field">
+      <p>Price</p>
+      <input type="text" [(ngModel)]="price" />
+      <!-- <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput [(ngModel)]="price" />
+      </mat-form-field> -->
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="actions text-right checkout-card-actions">
+    <button mat-raised-button mat-dialog-close class="mr-3">
+      <span>Cancel</span>
+    </button>
+    <button mat-raised-button class="primary-action" (click)="confirm()">
+      <span>Confirm</span>
+    </button>
+  </div>
+</mat-dialog-actions>

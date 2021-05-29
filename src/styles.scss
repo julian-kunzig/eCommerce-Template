@@ -2748,12 +2748,33 @@ input, textarea {
     background: url("./assets/img/icon-youtube.png") center center no-repeat;
   }
 }
-.checkout-campaign-list {
+.checkout-view-campaign {
   .mat-form-field-outline {
-    border: 1px solid gray;
-    border-radius: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 12px;
   }
 
+  .mat-select-arrow {
+    width: 14px !important;
+    height: 14px !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-top: 0 !important;
+    background: url("./assets/img/select-arrow.png") center center no-repeat !important;
+    background-size: contain !important;
+    margin: 0 !important;
+  }
+
+  .mat-form-field-infix {
+    // padding: 0px !important;
+  }
+}
+
+.invalid-text {
+  color: #ff0000;
+}
+
+.checkout-campaign-list {
   label {
     position: absolute;
     margin-left: 50px;

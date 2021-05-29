@@ -12,37 +12,12 @@
     </p>
   </div>
   <div *ngIf="!review">
-    <div class="profile-view-wrapper mt-10">
+    <div class="checkout-view-campaign mt-10">
       <div class="profile-top">
         <div class="profile-photo">
           <img [src]="profile.photo_img" alt="" />
         </div>
         <div class="profile-info">
-          <div class="profile-actions">
-            <a class="report-link" [routerLink]="['/panel/dashboard/report']"
-              ><img src="../../../../assets/img/flag.png" alt="" /><span
-                >Report</span
-              ></a
-            >
-            <button
-              mat-raised-button
-              class="favorite-toggle"
-              [class.active]="profile.favorited"
-              (click)="saveFavorite()"
-            ></button>
-            <button
-              mat-raised-button
-              type="button"
-              class="go-chart"
-              (click)="goChat()"
-            ></button>
-            <button
-              mat-raised-button
-              type="button"
-              class="save-mylist"
-              (click)="saveMylist()"
-            ></button>
-          </div>
           <h4 class="title mt-3">{{ profile.name }}</h4>
           <p class="mb-2">@{{ profile.name }}</p>
           <div fxLayout="row">
@@ -97,8 +72,8 @@
       <mat-divider></mat-divider>
       <div class="form-field">
         <mat-form-field appearance="outline">
-          <label>Choose a campaign</label>
-          <mat-select panelClass="checkout-campaign-list">
+          <label *ngIf="isCampaignLabel">Choose a campaign</label>
+          <mat-select panelClass="checkout-campaign-list" (selectionChange)="selectionChange($event)">
             <mat-select-trigger>
               <img src="../../../../assets/img/demo/post-1.png" alt="" />
               <p>[Nike] Nike Air Max2</p>
@@ -128,7 +103,7 @@
       <div class="flex flex-col checkout-information">
         <div class="flex">
           <p class="title">Price:</p>
-          <p class="price">$80.00</p>
+          <p class="price">{{price}}</p>
           <button
             type="button"
             class="gray-button"
@@ -156,6 +131,7 @@
         Yes, I understand and agree to the Infinovae including User Agreement &
         Privacy Policy
       </label>
+      <p class="mt-1 invalid-text" *ngIf="!isInvalidAgreed">This is required field.</p>
     </div>
     <div class="mt-10 text-right actions">
       <button
@@ -187,7 +163,7 @@
             <div class="flex flex-row content">
               <img src="../../../../assets/img/demo/post-1.png" />
               <div class="flex flex-col">
-                <p>Kaitlyn Kristy (@Kaitlyn_Kristy2)</p>
+                <p>Kaitlyn Kristy <span>(@Kaitlyn_Kristy2)</span></p>
                 <p>Followers: 2.5k</p>
                 <p>Posts: 300</p>
               </div>

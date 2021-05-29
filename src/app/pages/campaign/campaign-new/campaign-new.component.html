@@ -76,10 +76,12 @@
                     currencyMask
                     formControlName="budget"
                     class="budget-field"
-                    [options]="{ min: 50 }"
                     required
                   />
                   <label>/ per post</label>
+                </div>
+                <div *ngIf="isInvalidMiniBudget" class="form-label">
+                  <p class="required">Minimum budget is $50.00</p>
                 </div>
                 <button
                   mat-raised-button

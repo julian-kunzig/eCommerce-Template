@@ -47,6 +47,9 @@ export class CheckoutViewComponent implements OnInit {
   agreed: Boolean = false;
   review: Boolean = false;
   panelOpenState: Boolean = false;
+  isCampaignLabel: Boolean = true;
+  price: string = '$00.00';
+  isInvalidAgreed: Boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -185,9 +188,22 @@ export class CheckoutViewComponent implements OnInit {
     return dp.transform(new Date(date), 'dd, MMM, yyyy');
   }
 
-  edit() {}
+  edit() {
+    const dialogRef = this.dialog.open(CheckoutCampaignPriceDialog, {
+      data: { price: this.price }
+    });
 
-  changeAgreed(e) {}
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.price) {
+        this.price = result.price;
+      }
+    });
+  }
+
+  changeAgreed(e) {
+    this.agreed = !this.agreed;
+    this.isInvalidAgreed = true;
+  }
 
   cancelCheckout() {
     this.router.navigate(['panel/discover/list'], {
@@ -196,7 +212,12 @@ export class CheckoutViewComponent implements OnInit {
   }
 
   hire() {
-    this.review = true;
+    console.log(this.agreed)
+    if (this.agreed) {
+      this.review = true;      
+    } else {
+      this.isInvalidAgreed = false;
+    }
   }
 
   addCard() {}
@@ -221,6 +242,17 @@ export class CheckoutViewComponent implements OnInit {
   cancelDeposit() {
     this.review = false;
   }
+
+  selectionChange(e) {
+    console.log(e);
+    if (typeof e !== 'undefined' && e !== null) {
+      this.isCampaignLabel = false;
+      this.price = '$80.00';
+    } else {
+      this.isCampaignLabel = true;
+      this.price = '$00.00';
+    }
+  }
 }
 
 export interface DialogData {
@@ -244,4 +276,30 @@ export class CheckoutCardDialog {
   }
 
   addCard(): void {}
+}
+
+export interface PriceData {
+  price: string;
+}
+
+@Component({
+  selector: 'checkout-campaign-price-dialog',
+  templateUrl: 'checkout-campaign-price-dialog.html',
+})
+export class CheckoutCampaignPriceDialog {
+  price: string = '00.00';
+  constructor(
+    public dialogRef: MatDialogRef<CheckoutCampaignPriceDialog>,
+
+    @Inject(MAT_DIALOG_DATA) public data: PriceData
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  confirm(): void {
+    this.data.price = `$${this.price}`;
+    this.dialogRef.close(this.data);
+  }
 }

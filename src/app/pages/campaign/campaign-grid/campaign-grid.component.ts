@@ -69,15 +69,24 @@ export class CampaignGridComponent implements OnInit, AfterViewChecked {
 
         switch (this.activeTab) {
           case 'storage': {
-            this.campaigns = show === 'all' ? this.campaigns.filter(c => !c.favorite) :
-                this.campService.filter(show);
-
-            return this.campaigns;
+            // this.campaigns = show === 'all' ? this.campaigns.filter(c => !c.favorite) :
+            //     this.campService.filter(show);
+            this.campService.getAllCampaignListForInfluencer().then(status => {
+              this.campaigns = this.campService.campList;
+              console.log('######### : ', this.campaigns);
+              this.cdr.detectChanges();
+              return this.campaigns;
+            });
           }
 
           case 'archive': {
-            this.favorites = this.campaigns.filter(c => c.favorite);
-            return this.favorites;
+            // this.favorites = this.campaigns.filter(c => c.favorite);
+            // return this.favorites;
+            this.campService.getFavoriteCampaignListForInfluencer().then(status => {
+              this.favorites = this.campService.campFavoriteList;
+              this.cdr.detectChanges();
+              return this.favorites;
+            });
           }
 
           default: {

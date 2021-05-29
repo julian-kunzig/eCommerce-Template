@@ -88,6 +88,7 @@ export class CampaignNewComponent implements OnInit {
   bankAcc: BankAcc;
   paymentOpt: string;
   currentStep: string;
+  isInvalidMiniBudget: Boolean = false;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -238,8 +239,13 @@ export class CampaignNewComponent implements OnInit {
       const bf = document.querySelectorAll('.budget-field')[0];
       if (this.prodserviceGroup.value.budget == null && !bf.classList.contains('mat-field-invalid')) {
         bf.classList.add('mat-field-invalid');
-      }else{
+        this.isInvalidMiniBudget = false;
+      } else if (this.prodserviceGroup.value.budget < 50 && !bf.classList.contains('mat-field-invalid')) {
+        bf.classList.add('mat-field-invalid');
+        this.isInvalidMiniBudget = true;
+      } else if (this.prodserviceGroup.value.budget != null && this.prodserviceGroup.value.budget >= 50) {
         bf.classList.remove('mat-field-invalid');
+        this.isInvalidMiniBudget = false;
       }
       const cf = document.querySelectorAll('.upload-img-field .upload-btn-wrapper')[0];
       if (this.prodserviceGroup.value.coverImg == null && !cf.classList.contains('mat-field-invalid')) {
